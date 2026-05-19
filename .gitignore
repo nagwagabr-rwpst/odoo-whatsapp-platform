@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+
+# Virtual env
+.venv/
+venv/
+env/
+
+# Odoo
+*.log
+*.sqlite3
+filestore/
+sessions/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Build
+dist/
+build/
+
+# Temp
+tmp/
+temp/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+
+# PostgreSQL dumps
+*.sql
+*.dump
+
+# Odoo assets cache
+web/assets/*

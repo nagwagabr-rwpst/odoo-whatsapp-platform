@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_whatsapp_config_user,whatsapp.config.user,model_whatsapp_config,group_whatsapp_user,1,0,0,0
+access_whatsapp_config_manager,whatsapp.config.manager,model_whatsapp_config,group_whatsapp_manager,1,1,1,1
+access_whatsapp_message_log_user,whatsapp.message.log.user,model_whatsapp_message_log,group_whatsapp_user,1,0,1,0
+access_whatsapp_message_log_manager,whatsapp.message.log.manager,model_whatsapp_message_log,group_whatsapp_manager,1,1,1,1
+access_whatsapp_send_wizard_user,whatsapp.send.wizard.user,model_whatsapp_send_wizard,group_whatsapp_user,1,1,1,1
+access_whatsapp_bulk_campaign_user,whatsapp.bulk.campaign.user,model_whatsapp_bulk_campaign,group_whatsapp_user,1,1,1,0
+access_whatsapp_bulk_campaign_manager,whatsapp.bulk.campaign.manager,model_whatsapp_bulk_campaign,group_whatsapp_manager,1,1,1,1
+access_whatsapp_bulk_send_wizard_user,whatsapp.bulk.send.wizard.user,model_whatsapp_bulk_send_wizard,group_whatsapp_user,1,1,1,1
+access_whatsapp_product_selection_wizard_user,whatsapp.product.selection.wizard.user,model_whatsapp_product_selection_wizard,group_whatsapp_user,1,1,1,1
+access_whatsapp_product_selection_line_user,whatsapp.product.selection.line.user,model_whatsapp_product_selection_line,group_whatsapp_user,1,1,1,1
+access_whatsapp_delivery_dashboard_user,whatsapp.delivery.dashboard.user,model_whatsapp_delivery_dashboard,group_whatsapp_user,1,1,1,1
