@@ -9,12 +9,12 @@
 | Odoo 19 Community | Module version must be `19.0.x` |
 | PostgreSQL | Standard Odoo database |
 | Python | Matches Odoo 19 requirements for your distribution |
-| `whatsapp_simple` on addons path | e.g. `C:\Odoo19.0c` alongside `server/odoo/addons` |
+| RelayRuntime `apps/odoo` on addons path | See [apps/odoo/README.md](../../apps/odoo/README.md) |
 
 **Repository example** (`server/odoo.conf`):
 
 ```ini
-addons_path = c:\odoo19.0c\server\odoo\addons,C:\Odoo19.0c
+addons_path = c:\odoo19.0c\server\odoo\addons,C:\Odoo19.0c\relayruntime\apps\odoo
 workers = 0
 http_port = 8029
 limit_time_real = 120
@@ -24,7 +24,7 @@ limit_time_real = 120
 
 ## Install module
 
-1. Place `whatsapp_simple` folder on `addons_path`.
+1. Add `apps/odoo` from this repository to `addons_path`.
 2. Restart Odoo.
 3. Apps → Update Apps List.
 4. Install **WhatsApp Simple**.
@@ -60,7 +60,7 @@ Logs also go to the main Odoo server log via Python logging.
 ## Upgrade after pull
 
 ```bash
-python odoo-bin -c odoo.conf -d YOUR_DB -u whatsapp_simple --stop-after-init
+python odoo-bin -c odoo.conf -d YOUR_DB -u relayruntime --stop-after-init
 ```
 
 Or upgrade from Apps UI when developer mode is enabled.

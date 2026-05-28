@@ -11,7 +11,8 @@ import re
 import sys
 from pathlib import Path
 
-MODULE_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[1]
+MODULE_ROOT = REPO_ROOT / 'apps' / 'odoo' / 'relayruntime'
 SKIP_COMPILE_DIRS = {'.git', '__pycache__', '.venv', 'venv'}
 SECRET_PATTERNS = [
     re.compile(r'api[_-]?key\s*=\s*["\'][^"\']{8,}["\']', re.I),
@@ -51,7 +52,7 @@ def validate_manifest(manifest: dict) -> list[str]:
 
 def validate_changelog_version(manifest: dict) -> list[str]:
     errors = []
-    changelog = (MODULE_ROOT / 'CHANGELOG.md').read_text(encoding='utf-8')
+    changelog = (REPO_ROOT / 'CHANGELOG.md').read_text(encoding='utf-8')
     version = manifest['version']
     if '[%s]' % version not in changelog:
         errors.append('CHANGELOG.md has no section for version %s' % version)
@@ -66,13 +67,13 @@ def compile_python() -> list[str]:
         try:
             compile(path.read_text(encoding='utf-8'), str(path), 'exec')
         except SyntaxError as exc:
-            errors.append('syntax error %s: %s' % (path.relative_to(MODULE_ROOT), exc))
+            errors.append('syntax error %s: %s' % (path.relative_to(REPO_ROOT), exc))
     return errors
 
 
 def scan_secrets() -> list[str]:
     warnings = []
-    for path in MODULE_ROOT.rglob('*'):
+    for path in REPO_ROOT.rglob('*'):
         if not path.is_file() or path.suffix in ('.png', '.gif', '.jpg'):
             continue
         if '.git' in path.parts:
@@ -83,14 +84,15 @@ def scan_secrets() -> list[str]:
             continue
         for pattern in SECRET_PATTERNS:
             if pattern.search(content):
-                warnings.append('possible secret in %s' % path.relative_to(MODULE_ROOT))
+                warnings.append('possible secret in %s' % path.relative_to(REPO_ROOT))
     return warnings
 
 
 def main() -> int:
     errors: list[str] = []
-    print('Validating whatsapp_simple at', MODULE_ROOT)
+    print('Validating RelayRuntime Odoo module at', MODULE_ROOT)
     manifest = load_manifest()
+    print('  name:', manifest.get('name'))
     print('  version:', manifest.get('version'))
     errors.extend(validate_manifest(manifest))
     errors.extend(validate_changelog_version(manifest))

@@ -27,7 +27,7 @@ Verify **implemented** behavior of WhatsApp Simple without assuming future queue
 Run automated tests:
 
 ```bash
-python odoo-bin -c odoo.conf -d TEST_DB --test-tags=whatsapp_simple --stop-after-init
+python odoo-bin -c odoo.conf -d TEST_DB --test-tags=relayruntime --stop-after-init
 ```
 
 ## Test environment
@@ -58,7 +58,7 @@ python odoo-bin -c odoo.conf -d TEST_DB --test-tags=whatsapp_simple --stop-after
 
 ## Planned / future
 
-- CI job on Odoo 19 with `whatsapp_simple` tag
+- CI job on Odoo 19 with `relayruntime` tag
 - Transactional tests for `begin_campaign_execution` / reconcile
 - Property tests for fingerprint stability
 

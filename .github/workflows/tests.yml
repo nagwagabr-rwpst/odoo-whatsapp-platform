@@ -36,7 +36,7 @@ jobs:
 
       - name: Flake8 (syntax and critical errors only)
         run: |
-          flake8 . \
+          flake8 apps/odoo/relayruntime \
             --count \
             --select=E9,F63,F7,F82 \
             --exclude=.git,__pycache__,.venv,venv \
@@ -46,10 +46,10 @@ jobs:
       - name: Flake8 (style warnings, non-blocking)
         continue-on-error: true
         run: |
-          flake8 . \
+          flake8 apps/odoo/relayruntime \
             --count \
             --max-line-length=120 \
-            --exclude=.git,__pycache__,.venv,venv,scripts/ci_validate.py \
+            --exclude=.git,__pycache__,.venv,venv \
             --extend-ignore=E501,W503 \
             --statistics
 

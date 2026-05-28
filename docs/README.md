@@ -1,100 +1,126 @@
-# WhatsApp Simple — Documentation
+# RelayRuntime — Documentation
 
-Technical documentation for the **WhatsApp Simple** Odoo 19 Community module (`whatsapp_simple`, version **19.0.5.5.0**).
+Technical documentation for **RelayRuntime** — a replay-safe operational messaging execution runtime initially delivered as Odoo module `relayruntime` under `apps/odoo/relayruntime/` (version **19.0.6.0.0**).
 
-This documentation describes **what is implemented today**, including known gaps. It does not present planned designs as completed features.
+This documentation describes **what is implemented today**, including known gaps. Planned designs are labeled explicitly and are not presented as completed features.
 
 ## Documentation map
 
 | Section | Purpose |
 |---------|---------|
-| [Architecture](architecture/SYSTEM_OVERVIEW.md) | System design, data model, transactions, execution runtime, limitations |
-| [Runtime](runtime/EXECUTION_FLOW.md) | Step-by-step execution, retry/replay, leases, outbound intents |
-| [Deployment](deployment/LOCAL_SETUP.md) | Install, configure, production constraints |
+| [Architecture](architecture/runtime-boundaries.md) | Boundaries, lifecycle, vision, extraction, data model, transactions |
+| [Recovery](recovery/replay-recovery.md) | Replay philosophy, retry lineage, stale reconciliation |
+| [Runtime](runtime/EXECUTION_FLOW.md) | Step-by-step execution, leases, outbound intents |
+| [Deployment](deployment/embedded-runtime.md) | Embedded topology, evolution, install, production |
+| [Operations](operations/operational-guidelines.md) | Guidelines, observability, failures, runbook |
 | [Testing](testing/TESTING_STRATEGY.md) | Verification strategy and failure simulations |
-| [Operations](operations/RUNBOOK.md) | Recovery procedures for stuck runs |
 | [Releases](releases/VERSIONING.md) | Versioning and release process |
-| [Development](development/CODEBASE_STRUCTURE.md) | Contributor guide and safety rules |
+| [Development](development/CODEBASE_STRUCTURE.md) | Code layout and runtime safety rules |
 
 ## Quick links
 
-### Architecture
+### Architecture (foundation)
 
-- [System Overview](architecture/SYSTEM_OVERVIEW.md)
-- [Data Model](architecture/DATA_MODEL.md)
-- [Transaction Model](architecture/TRANSACTION_MODEL.md)
-- [Execution Runtime](architecture/EXECUTION_RUNTIME.md)
-- [Known Limitations](architecture/KNOWN_LIMITATIONS.md)
-- [Provider Adapters](PROVIDER_ARCHITECTURE.md) *(legacy doc; adapter detail still valid)*
+- [Runtime boundaries](architecture/runtime-boundaries.md)
+- [Execution lifecycle](architecture/execution-lifecycle.md)
+- [Runtime vision](architecture/runtime-vision.md)
+- [Future extraction strategy](architecture/future-extraction-strategy.md)
+- [System overview](architecture/SYSTEM_OVERVIEW.md)
+- [Data model](architecture/DATA_MODEL.md)
+- [Transaction model](architecture/TRANSACTION_MODEL.md)
+- [Execution runtime](architecture/EXECUTION_RUNTIME.md)
+- [Known limitations](architecture/KNOWN_LIMITATIONS.md)
+- [Provider adapters](PROVIDER_ARCHITECTURE.md)
 
-### Runtime
+### Recovery
 
-- [Execution Flow](runtime/EXECUTION_FLOW.md)
-- [Retry and Replay](runtime/RETRY_AND_REPLAY.md)
-- [Heartbeat and Leases](runtime/HEARTBEAT_AND_LEASES.md)
-- [Outbound Intents](runtime/OUTBOUND_INTENTS.md)
+- [Replay and recovery](recovery/replay-recovery.md)
+- [Retry lineage](recovery/retry-lineage.md)
+- [Stale execution reconciliation](recovery/stale-execution-reconciliation.md)
+
+### Runtime (implementation detail)
+
+- [Execution flow](runtime/EXECUTION_FLOW.md)
+- [Retry and replay](runtime/RETRY_AND_REPLAY.md)
+- [Heartbeat and leases](runtime/HEARTBEAT_AND_LEASES.md)
+- [Outbound intents](runtime/OUTBOUND_INTENTS.md)
 
 ### Deployment
 
-- [Local Setup](deployment/LOCAL_SETUP.md)
-- [Odoo.sh Deployment](deployment/ODOO_SH_DEPLOYMENT.md)
-- [Environment Variables](deployment/ENVIRONMENT_VARIABLES.md)
-- [Production Checklist](deployment/PRODUCTION_CHECKLIST.md)
-
-### Testing
-
-- [Testing Strategy](testing/TESTING_STRATEGY.md)
-- [Runtime Failure Tests](testing/RUNTIME_FAILURE_TESTS.md)
-- [Concurrency Tests](testing/CONCURRENCY_TESTS.md)
-- [Large Campaign Tests](testing/LARGE_CAMPAIGN_TESTS.md)
+- [Embedded runtime (current)](deployment/embedded-runtime.md)
+- [Deployment evolution](deployment/deployment-evolution.md)
+- [Future runtime service](deployment/future-runtime-service.md)
+- [Local setup](deployment/LOCAL_SETUP.md)
+- [Odoo.sh deployment](deployment/ODOO_SH_DEPLOYMENT.md)
+- [Environment variables](deployment/ENVIRONMENT_VARIABLES.md)
+- [Production checklist](deployment/PRODUCTION_CHECKLIST.md)
 
 ### Operations
 
+- [Operational guidelines](operations/operational-guidelines.md)
+- [Observability](operations/observability.md)
+- [Failure scenarios](operations/failure-scenarios.md)
 - [Runbook](operations/RUNBOOK.md)
 - [Troubleshooting](operations/TROUBLESHOOTING.md)
-- [Monitoring Guide](operations/MONITORING_GUIDE.md)
+- [Monitoring guide](operations/MONITORING_GUIDE.md)
 
-### Development
+### Testing
 
-- [Contributing](development/CONTRIBUTING.md)
-- [Codebase Structure](development/CODEBASE_STRUCTURE.md)
-- [ORM Guidelines](development/ORM_GUIDELINES.md)
-- [Runtime Safety Rules](development/RUNTIME_SAFETY_RULES.md)
+- [Testing strategy](testing/TESTING_STRATEGY.md)
+- [Runtime failure tests](testing/RUNTIME_FAILURE_TESTS.md)
+- [Concurrency tests](testing/CONCURRENCY_TESTS.md)
+- [Large campaign tests](testing/LARGE_CAMPAIGN_TESTS.md)
+
+### Development & releases
+
+- [Contributing (repo root)](../CONTRIBUTING.md)
+- [Contributing (docs)](development/CONTRIBUTING.md)
+- [Codebase structure](development/CODEBASE_STRUCTURE.md)
+- [ORM guidelines](development/ORM_GUIDELINES.md)
+- [Runtime safety rules](development/RUNTIME_SAFETY_RULES.md)
+- [Versioning](releases/VERSIONING.md)
+- [Release process](releases/RELEASE_PROCESS.md)
+
+## Root documentation
+
+| File | Role |
+|------|------|
+| [README.md](../README.md) | Project overview, install, roadmap |
+| [MIGRATION.md](../MIGRATION.md) | `whatsapp_simple` → `relayruntime` |
+| [CONTRIBUTING.md](../CONTRIBUTING.md) | Runtime engineering contribution |
+| [SECURITY.md](../SECURITY.md) | Security and operational integrity |
+| [SUPPORT.md](../SUPPORT.md) | Issue reporting and operational support |
+| [BRD_WhatsApp_Integration.md](../BRD_WhatsApp_Integration.md) | Product + runtime architecture specification |
+| [CHANGELOG.md](../CHANGELOG.md) | Version history |
 
 ## Implementation status legend
-
-Throughout this documentation:
 
 | Label | Meaning |
 |-------|---------|
 | **Implemented** | Present in code and used at runtime |
 | **Partially implemented** | Present but incomplete, best-effort, or with known gaps |
-| **Planned / future** | Described for direction only; not in production code paths |
+| **Planned / future** | Direction only; not in production code paths |
 
 ## Module at a glance
 
 ```mermaid
 flowchart TB
-    subgraph UI["Odoo UI"]
+    subgraph UI["Odoo orchestration"]
         WZ[Bulk Send Wizard]
-        SW[Single Send Wizard]
         MON[Campaign Monitor]
     end
-    subgraph Models["Persistent models"]
-        CFG[whatsapp.config]
+    subgraph Models["Persistent state"]
         CAMP[whatsapp.bulk.campaign]
         EXEC[whatsapp.bulk.execution]
         LOG[whatsapp.message.log]
     end
-    subgraph Services["Services"]
+    subgraph Runtime["Embedded execution"]
         BULK[WhatsAppBulkSender]
-        SAFE[WhatsAppSafetyValidator]
         FACADE[WhatsAppService]
     end
     subgraph Providers["Providers"]
-        GREEN[Green API - Implemented]
-        MOCK[Mock - Implemented]
-        STUB[Stubs - Not implemented]
+        GREEN[Green API]
+        MOCK[Mock]
     end
     WZ --> CAMP
     WZ --> BULK
@@ -103,15 +129,10 @@ flowchart TB
     BULK --> FACADE
     FACADE --> GREEN
     FACADE --> MOCK
-    FACADE --> STUB
     CAMP -. projection .-> EXEC
 ```
 
-## Related files outside `/docs`
+## Legacy
 
-| File | Role |
-|------|------|
-| [`../BRD_WhatsApp_Integration.md`](../BRD_WhatsApp_Integration.md) | **Product + runtime architecture specification** (authoritative BRD) |
-| [`../README.md`](../README.md) | Module install and user-facing overview |
-| [`../CHANGELOG.md`](../CHANGELOG.md) | Version history |
-| [`ARCHITECTURE.md`](ARCHITECTURE.md) | Legacy overview *(superseded by `architecture/`; kept for links)* |
+- [ARCHITECTURE.md](ARCHITECTURE.md) — superseded by `architecture/`; retained for old links
+- [future-runtime-extraction.md](deployment/future-runtime-extraction.md) — redirects to [future-extraction-strategy.md](architecture/future-extraction-strategy.md)

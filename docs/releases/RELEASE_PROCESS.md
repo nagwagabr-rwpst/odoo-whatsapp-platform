@@ -10,15 +10,15 @@ Releases are **module-level** (Odoo addon), not separate from the Odoo server di
 
 - [ ] Bump `version` in `__manifest__.py`
 - [ ] Add [`CHANGELOG.md`](../../CHANGELOG.md) entry
-- [ ] Run tests: `--test-tags=whatsapp_simple`
-- [ ] Upgrade test database: `-u whatsapp_simple`
+- [ ] Run tests: `--test-tags=relayruntime`
+- [ ] Upgrade test database: `-u relayruntime`
 - [ ] Verify migration hooks if schema changed (`hooks.py`)
 - [ ] Update `/docs` if runtime behavior changed
 - [ ] Scan for accidental `cr.commit()` in bulk paths ([Runtime Safety Rules](../development/RUNTIME_SAFETY_RULES.md))
 
 ## Branching (repository practice)
 
-This module may live in its own git repo (see `.git` under `whatsapp_simple`) or monorepo root — follow your team's convention.
+This module may live in its own git repo (see `.git` under `relayruntime`) or monorepo root — follow your team's convention.
 
 Suggested tags:
 
@@ -29,7 +29,7 @@ release/v19.0.5.5.0-stable
 ## Staging deployment
 
 1. Deploy to staging Odoo / Odoo.sh staging branch.
-2. `-u whatsapp_simple`
+2. `-u relayruntime`
 3. Execute [Runtime Failure Tests](../testing/RUNTIME_FAILURE_TESTS.md) subset.
 4. Sign-off from operations on [Production Checklist](../deployment/PRODUCTION_CHECKLIST.md).
 

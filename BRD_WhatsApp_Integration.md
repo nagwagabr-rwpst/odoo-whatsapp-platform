@@ -1,8 +1,9 @@
 # Product + Runtime Architecture Specification
 
-**Module:** `whatsapp_simple` (Odoo 19 Community)  
+**Product:** RelayRuntime  
+**Odoo module:** `relayruntime` (`apps/odoo/relayruntime/`) — formerly `whatsapp_simple`  
 **Document type:** Business Requirements + Runtime Architecture (authoritative)  
-**Module version (reference):** `19.0.5.5.0`  
+**Module version (reference):** `19.0.6.0.0`  
 **Status:** Living specification — reflects **implemented** codebase unless explicitly marked *Future*
 
 ---

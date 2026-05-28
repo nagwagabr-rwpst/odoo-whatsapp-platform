@@ -84,7 +84,7 @@ Operational policy: cap recipients per campaign; avoid multi-megabyte attachment
 ## Post-deploy upgrade
 
 ```bash
-odoo-bin -u whatsapp_simple -d PROD_DB
+odoo-bin -u relayruntime -d PROD_DB
 ```
 
 Verify `whatsapp.bulk.execution` table exists after 19.0.5.5.0+ upgrade.

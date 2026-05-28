@@ -1,64 +1,129 @@
 # Support
 
-## Standard / Core (this repository)
+RelayRuntime Standard/Core support covers **documented runtime behavior** on Odoo 19 Community. It does not include guaranteed delivery SLAs, managed operations, or custom ERP development unless separately contracted.
 
-**WhatsApp Simple** open-source module support covers:
+---
+
+## What is supported
 
 | In scope | Out of scope |
 |----------|--------------|
-| Defects in shipped module code (see [CHANGELOG](CHANGELOG.md)) | Custom Odoo development not in this repo |
-| Documentation in `/docs` | Third-party provider outages or account issues |
-| Installation and upgrade on supported Odoo 19 Community | Hosted Odoo administration unless contracted separately |
-| Guidance on Mock Provider testing | Guaranteed message delivery or exactly-once semantics |
-| Integrity behavior as documented in [Known Limitations](docs/architecture/KNOWN_LIMITATIONS.md) | Unlimited bulk scale without timeout planning |
+| Defects in shipped `relayruntime` code per [CHANGELOG](CHANGELOG.md) | Third-party provider outages |
+| Documentation in `/docs` | Exactly-once / zero-duplicate messaging guarantees |
+| Install/upgrade with [MIGRATION](MIGRATION.md) guidance | Unlimited bulk scale without timeout planning |
+| Integrity behavior per [Known Limitations](docs/architecture/KNOWN_LIMITATIONS.md) | Distributed HA runtime (not implemented) |
+| Mock Provider reproduction guidance | Custom forks that bypass lease/idempotency |
 
-### How to get help
+---
+
+## How to report issues
 
 1. Read [docs/README.md](docs/README.md) and [Troubleshooting](docs/operations/TROUBLESHOOTING.md).
-2. Search [GitHub Issues](https://github.com/YOUR_ORG/whatsapp_simple/issues) (update URL before release).
-3. Open an issue using the appropriate template (bug, deployment, runtime, duplicate send).
-4. For security issues, see [SECURITY.md](SECURITY.md) — **no public issues**.
+2. Search existing GitHub issues.
+3. Open an issue using the correct template:
 
-### Unsupported customizations
+| Template | Use when |
+|----------|----------|
+| Bug Report | Incorrect behavior vs documentation |
+| Runtime Corruption | Stuck campaigns, stale execution, counter drift |
+| Duplicate Send | Same recipient received multiple messages |
+| Deployment Issue | Install, upgrade, timeout, workers |
 
-The following are **not** covered under Standard/Core support unless you maintain them:
+4. Security: [SECURITY.md](SECURITY.md) only—no public issues.
 
-- Forked changes to `WhatsAppBulkSender`, execution model, or idempotency keys
-- Custom providers not merged upstream
-- Direct `cr.commit()` in bulk paths
-- Bypassing lease or reconciliation logic
-- Heavy XML/JS overrides without upgrade path
+---
 
-### Deployment responsibility
+## Operational bug reports
 
-| You operate | You are responsible for |
-|-------------|-------------------------|
-| Odoo server / Odoo.sh / Docker | Workers, timeouts, HTTPS, backups |
-| PostgreSQL | Capacity, backups, restore drills |
-| WhatsApp provider account | Billing, rate limits, compliance, opt-in |
-| Campaign content | Consent, spam regulations, message legality |
+For runtime incidents, include **execution identity**:
 
-The module provides **runtime coordination** (execution attempts, leases, idempotency within a campaign). It does not replace operational monitoring or provider SLAs.
+| Field | Where to find |
+|-------|----------------|
+| Campaign ID | Campaign form |
+| Execution attempt ID | Executions tab |
+| `execution_uuid` | Execution record |
+| Module version | Apps → RelayRuntime |
+| Provider type | WhatsApp Settings |
+| Approximate UTC time | Incident window |
 
-## Enterprise / runtime consulting (future direction)
+State whether concurrent users or retries were involved.
 
-**Not included** in the open-source module today:
+---
 
-- Background job queue and worker pool for bulk sending
-- Multi-node distributed execution locks
-- Event-sourced delivery ledger
-- 24/7 managed operations
-- Custom SLA on duplicate-send rates
+## Reproduction expectations
 
-Organizations needing these capabilities should plan a **separate engagement** or fork with explicit operational ownership. Feature requests may be tagged **Enterprise runtime** in GitHub — see [Feature Request template](.github/ISSUE_TEMPLATE/feature_request.md).
+| Requirement | Detail |
+|-------------|--------|
+| Environment | Odoo version, module version, `workers`, `limit_time_real` |
+| Provider | Prefer **Mock Provider** for public reports |
+| Steps | Minimal path to reproduce |
+| Expected vs actual | Reference doc section if possible |
+| Logs | Sanitized Odoo log excerpt—**no tokens** |
 
-## Version and upgrade policy
+Intermittent duplicate sends require provider message IDs and log IDs if available.
 
-- Track [VERSIONING](docs/releases/VERSIONING.md).
-- Production should run a tagged release, not an unlabeled `develop` commit.
-- Before upgrading, read `CHANGELOG.md` and run `-u whatsapp_simple` on staging.
+---
 
-## Community
+## Logs and telemetry requirements
 
-- Contributions: [CONTRIBUTING](docs/development/CONTRIBUTING.md)
-- Pull requests: follow [Runtime Safety Rules](docs/development/RUNTIME_SAFETY_RULES.md)
+| Source | Contents |
+|--------|----------|
+| Odoo server log | `campaign_logger`, `api_logger` lines for incident window |
+| Message logs | `whatsapp.message.log` for affected campaign |
+| Execution row | `state`, `heartbeat_at`, `lease_expires_at` |
+| Optional file log | `whatsapp.log` if enabled in settings |
+
+**Not available today:** centralized metrics, trace IDs, or automated incident bundles.
+
+---
+
+## Recovery-state debugging
+
+When reporting stuck or reconciled executions, capture:
+
+```
+Campaign state:
+Execution state:
+heartbeat_at:
+lease_expires_at:
+last_activity_at (campaign):
+```
+
+Indicate whether `_reconcile_stale_executions` ran (e.g. new bulk send started).
+
+See [stale execution reconciliation](docs/recovery/stale-execution-reconciliation.md).
+
+---
+
+## Unsupported customizations
+
+Support does not cover forks that:
+
+- Reintroduce mid-loop `cr.commit()`
+- Bypass `begin_campaign_execution` or lease checks
+- Change idempotency key format without migration
+- Disable reconciliation hooks
+
+---
+
+## Deployment responsibility
+
+| You operate | You own |
+|-------------|---------|
+| Odoo / Odoo.sh / containers | Uptime, workers, timeouts |
+| PostgreSQL | Backups, capacity |
+| WhatsApp provider account | Compliance, billing, rate limits |
+| Message content | Consent and applicable law |
+
+---
+
+## Enterprise runtime (future)
+
+Background workers, distributed leases, event-sourced delivery ledger, and managed SLAs are **not** included in this repository today. Track [runtime vision](docs/architecture/runtime-vision.md) for direction.
+
+---
+
+## Community contribution
+
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [VERSIONING](docs/releases/VERSIONING.md)

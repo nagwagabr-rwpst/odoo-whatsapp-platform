@@ -6,13 +6,13 @@ Guidance for hosting **WhatsApp Simple** on [Odoo.sh](https://www.odoo.sh/). Thi
 
 ## Add module to project
 
-1. Push `whatsapp_simple` to your GitHub repository branch tracked by Odoo.sh.
+1. Push `relayruntime` to your GitHub repository branch tracked by Odoo.sh.
 2. Ensure the module path is at the **repository root** or configured addons root Odoo.sh expects.
 3. Wait for build; install/upgrade on staging first.
 
 ```bash
 # Typical staging upgrade (Odoo.sh shell or local against remote DB)
-odoo-bin -u whatsapp_simple -d <staging-db>
+odoo-bin -u relayruntime -d <staging-db>
 ```
 
 ## Branch workflow
@@ -34,7 +34,7 @@ odoo-bin -u whatsapp_simple -d <staging-db>
 
 ## Staging validation checklist
 
-- [ ] Install/upgrade `whatsapp_simple` without traceback
+- [ ] Install/upgrade `relayruntime` without traceback
 - [ ] Mock provider bulk send (10–50 recipients)
 - [ ] Retry failed recipients
 - [ ] Confirm execution rows and leases in campaign form

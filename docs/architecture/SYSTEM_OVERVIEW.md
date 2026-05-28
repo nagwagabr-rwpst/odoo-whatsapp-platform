@@ -20,7 +20,7 @@ flowchart LR
     subgraph Odoo["Odoo 19 Server"]
         HTTP[HTTP / JSON-RPC]
         ORM[ORM + PostgreSQL]
-        MOD[whatsapp_simple]
+        MOD[relayruntime]
     end
     HTTP --> MOD
     MOD --> ORM

@@ -6,10 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [19.0.6.0.0] - 2026-05-27
+
+### Changed — RelayRuntime repository restructure
+
+- **Monorepo layout:** Odoo addon moved to `apps/odoo/relayruntime/`
+- **Module technical name:** `whatsapp_simple` → `relayruntime` (see [MIGRATION.md](MIGRATION.md))
+- **Product identity:** RelayRuntime (manifest display name and positioning)
+- **Python imports:** `odoo.addons.relayruntime`
+- **XML external IDs:** `relayruntime.*` prefix for module-owned records
+
 ### Added
 
-- GitHub issue templates, CI workflow, SECURITY.md, SUPPORT.md
-- Odoo App Store `static/description/` scaffolding and repository hygiene
+- `runtime/` packages (execution, retry, replay, observability, workers) — placeholders only
+- Architecture docs: runtime-boundaries, execution-lifecycle, replay-recovery, observability, future-runtime-extraction
+- Root README repositioned for runtime platform
+- `apps/odoo/README.md` addons_path guidance
+
+### Unchanged
+
+- `whatsapp.*` model technical names and runtime behavior
+- Provider adapters, security model, data file paths within addon
 
 ## [19.0.5.5.0] - 2026-05-27
 

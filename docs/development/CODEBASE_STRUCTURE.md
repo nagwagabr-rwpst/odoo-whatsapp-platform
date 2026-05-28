@@ -5,7 +5,7 @@
 ## Module layout
 
 ```
-whatsapp_simple/
+relayruntime/
 ├── __init__.py
 ├── __manifest__.py
 ├── constants.py              # Provider labels, execution timing constants

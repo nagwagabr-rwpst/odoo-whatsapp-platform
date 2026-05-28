@@ -12,14 +12,14 @@ Deployment configuration uses standard **Odoo server options** (config file or O
 
 | Option | Typical impact on this module |
 |--------|------------------------------|
-| `addons_path` | Must include directory containing `whatsapp_simple` |
+| `addons_path` | Must include directory containing `relayruntime` |
 | `workers` | `0` = threaded; `>0` = prefork — affects concurrency |
 | `limit_time_real` | Max seconds per HTTP request (bulk send) |
 | `limit_time_cpu` | CPU time limit per request |
 | `limit_memory_soft` / `limit_memory_hard` | Large campaigns + attachments |
 | `db_*` | PostgreSQL connection |
 | `proxy_mode` | If behind reverse proxy for HTTPS |
-| `log_level` / `log_handler` | Visibility of `whatsapp_simple` loggers |
+| `log_level` / `log_handler` | Visibility of `relayruntime` loggers |
 
 **Example from repository** `server/odoo.conf`:
 

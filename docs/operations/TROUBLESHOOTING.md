@@ -83,7 +83,7 @@ No automated dedupe at provider layer.
 
 | Symptom | Fix |
 |---------|-----|
-| Missing `whatsapp_bulk_execution` table | Upgrade module `-u whatsapp_simple` |
+| Missing `whatsapp_bulk_execution` table | Upgrade module `-u relayruntime` |
 | Unique violation idempotency | Expected race recovery — if persists, duplicate key data |
 
 ## Logs to collect for support

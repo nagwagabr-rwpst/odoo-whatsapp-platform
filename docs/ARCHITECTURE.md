@@ -73,9 +73,9 @@ No background queue, websocket, or multiprocessing — by design for Community s
 
 | Logger | Purpose |
 |--------|---------|
-| `odoo.addons.whatsapp_simple.campaign` | Campaign/recipient/cooldown lifecycle |
-| `odoo.addons.whatsapp_simple.api` | HTTP requests/responses (sanitized payloads) |
-| `odoo.addons.whatsapp_simple.attachment` | File uploads |
+| `odoo.addons.relayruntime.campaign` | Campaign/recipient/cooldown lifecycle |
+| `odoo.addons.relayruntime.api` | HTTP requests/responses (sanitized payloads) |
+| `odoo.addons.relayruntime.attachment` | File uploads |
 
 All loggers **propagate** to Odoo’s default log (`odoo.log`).
 
