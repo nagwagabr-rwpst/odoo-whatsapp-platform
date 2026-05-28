@@ -24,3 +24,80 @@ RelayRuntime is designed as a platform-oriented execution runtime delivered init
 
 The current architecture embeds runtime coordination inside Odoo while preparing clear boundaries for future worker extraction, runtime isolation, and operational scaling.
 
+## Why RelayRuntime Exists
+
+Operational messaging workflows become significantly more complex once execution failures, retries, partial delivery states, and long-running batch operations are introduced.
+
+Traditional messaging integrations often optimize for happy-path delivery while leaving operational recovery, execution consistency, and replay safety undefined.
+
+RelayRuntime was designed to address operational runtime concerns such as:
+
+- Duplicate execution corruption during retries
+- Unsafe replay behavior after interrupted batches
+- Stale execution states after worker or process failure
+- Attachment coordination inconsistencies
+- Missing operational visibility during long-running campaigns
+- Recovery ambiguity after partial execution completion
+## Failure-First Runtime Thinking
+
+RelayRuntime is designed around the assumption that operational failures are inevitable in long-running messaging workflows.
+
+Execution interruptions, provider instability, partial batch completion, stale runtime states, network failures, and retry ambiguity are treated as normal operational conditions rather than exceptional edge cases.
+
+Instead of optimizing exclusively for successful delivery flows, the runtime prioritizes:
+
+- Recovery-aware execution behavior
+- Replay-safe orchestration
+- Execution lineage tracking
+- Lease-aware coordination
+- Failure diagnostics and operational visibility
+- Runtime consistency during partial execution states
+
+This philosophy influences the runtime lifecycle, retry behavior, reconciliation logic, and future worker extraction strategy.
+
+## Replay-Safe Recovery
+
+RelayRuntime treats recovery as a controlled runtime operation rather than a blind retry mechanism.
+
+When execution interruptions occur, the runtime attempts to preserve execution consistency by tracking execution lineage, retry relationships, lease ownership, and partial completion states.
+
+Replay-aware recovery behavior is designed to reduce risks such as:
+
+- Duplicate execution during interrupted retries
+- Inconsistent batch completion states
+- Reprocessing ambiguity after partial execution
+- Recovery conflicts caused by stale runtime ownership
+- Attachment replay inconsistencies
+
+The runtime currently provides replay-aware orchestration within an embedded Odoo execution model while preparing architectural boundaries for future worker isolation and external runtime coordination.
+
+RelayRuntime does not claim exactly-once distributed execution guarantees.
+
+Instead, the project focuses on operationally safe recovery behavior, replay-aware execution coordination, and execution-state observability within the constraints of the current architecture.
+
+## Execution Lifecycle
+
+RelayRuntime organizes operational messaging flows around explicit execution lifecycle stages rather than isolated send actions.
+
+A typical runtime flow follows the sequence below:
+
+```text
+Campaign
+    ↓
+Batch Preparation
+    ↓
+Lease Acquisition
+    ↓
+Execution Start
+    ↓
+Delivery Processing
+    ↓
+Retry Evaluation
+    ↓
+Replay / Recovery
+    ↓
+Execution Completion
+
+
+
+The project focuses on execution correctness, replay-safe recovery, operational observability, and resilient orchestration rather than simple message delivery automation.
