@@ -2,6 +2,32 @@
 
 All notable changes to the `whatsapp_simple` module are documented in this file.
 
+The format is based on [Keep a Changelog](https://keepachangelog.com/).
+
+## [Unreleased]
+
+### Added
+
+- GitHub issue templates, CI workflow, SECURITY.md, SUPPORT.md
+- Odoo App Store `static/description/` scaffolding and repository hygiene
+
+## [19.0.5.5.0] - 2026-05-27
+
+### Added — Execution-attempt stabilization
+
+- **`whatsapp.bulk.execution`** model: immutable `execution_uuid`, lease, heartbeat, terminal states, retry lineage (`parent_execution_id`, `attempt_kind`)
+- Campaign row lock (`FOR UPDATE`) and active-lease gate before bulk runs
+- Heartbeat during recipient loop (every 5 recipients / 45s minimum interval)
+- Stale execution reconciliation (`reconciled`) with campaign projection fallback
+- Message log fields: `execution_id`, `outbound_intent_at`; `commit_outbound_intent()` flush before provider I/O
+- Campaign **Executions** tab in form view
+- Canonical documentation under `docs/` (architecture, runtime, deployment, testing, operations, releases, development)
+
+### Changed
+
+- `WhatsAppBulkSender` drives lifecycle via execution attempt; campaign is projection
+- Bulk wizard reconciles stale executions before send
+
 ## [19.0.5.0.0] - 2026-05-19
 
 ### Added — Mock Provider (internal testing)

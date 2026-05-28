@@ -6,6 +6,8 @@ access_whatsapp_message_log_manager,whatsapp.message.log.manager,model_whatsapp_
 access_whatsapp_send_wizard_user,whatsapp.send.wizard.user,model_whatsapp_send_wizard,group_whatsapp_user,1,1,1,1
 access_whatsapp_bulk_campaign_user,whatsapp.bulk.campaign.user,model_whatsapp_bulk_campaign,group_whatsapp_user,1,1,1,0
 access_whatsapp_bulk_campaign_manager,whatsapp.bulk.campaign.manager,model_whatsapp_bulk_campaign,group_whatsapp_manager,1,1,1,1
+access_whatsapp_bulk_execution_user,whatsapp.bulk.execution.user,model_whatsapp_bulk_execution,group_whatsapp_user,1,0,1,0
+access_whatsapp_bulk_execution_manager,whatsapp.bulk.execution.manager,model_whatsapp_bulk_execution,group_whatsapp_manager,1,1,1,1
 access_whatsapp_bulk_send_wizard_user,whatsapp.bulk.send.wizard.user,model_whatsapp_bulk_send_wizard,group_whatsapp_user,1,1,1,1
 access_whatsapp_product_selection_wizard_user,whatsapp.product.selection.wizard.user,model_whatsapp_product_selection_wizard,group_whatsapp_user,1,1,1,1
 access_whatsapp_product_selection_line_user,whatsapp.product.selection.line.user,model_whatsapp_product_selection_line,group_whatsapp_user,1,1,1,1

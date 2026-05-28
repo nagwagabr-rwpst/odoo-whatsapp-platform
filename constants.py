@@ -22,3 +22,10 @@ PROVIDER_STATUS_SELECTION = [
     ('degraded', 'Degraded'),
     ('disconnected', 'Disconnected'),
 ]
+
+# Execution-attempt lease and heartbeat (minimal runtime coordination).
+EXECUTION_LEASE_MINUTES = 15
+EXECUTION_STALE_MINUTES = 30
+EXECUTION_HEARTBEAT_EVERY_N_RECIPIENTS = 5
+EXECUTION_HEARTBEAT_MIN_INTERVAL_SECONDS = 45
+EXECUTION_CAMPAIGN_PROGRESS_EVERY_N_RECIPIENTS = 1

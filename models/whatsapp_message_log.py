@@ -4,6 +4,8 @@ import json
 import logging
 import time
 
+from psycopg2 import IntegrityError
+
 from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
@@ -64,6 +66,19 @@ class WhatsAppMessageLog(models.Model):
         index=True,
         ondelete='set null',
     )
+    execution_id = fields.Many2one(
+        'whatsapp.bulk.execution',
+        string='Execution Attempt',
+        index=True,
+        ondelete='set null',
+        readonly=True,
+    )
+    outbound_intent_at = fields.Datetime(
+        string='Outbound Intent At',
+        readonly=True,
+        index=True,
+        help='When delivery was committed in DB before calling the provider.',
+    )
     attachment_info = fields.Char(string='Attachments')
     attachment_count = fields.Integer(string='Attachment Count', default=0)
     failure_reason = fields.Text(string='Failure Reason')
@@ -75,6 +90,7 @@ class WhatsAppMessageLog(models.Model):
     failed_at = fields.Datetime(string='Failed At', index=True)
     retryable = fields.Boolean(string='Retryable', default=True)
     api_message_id = fields.Char(string='API Message ID', index=True)
+    idempotency_key = fields.Char(string='Idempotency Key', index=True, copy=False)
     processing_duration = fields.Float(string='Processing Duration (s)', digits=(16, 3))
     sent_by = fields.Many2one(
         'res.users',
@@ -105,6 +121,14 @@ class WhatsAppMessageLog(models.Model):
         string='Products',
         readonly=True,
     )
+
+    _sql_constraints = [
+        (
+            'whatsapp_message_log_idempotency_key_unique',
+            'unique(idempotency_key)',
+            'Duplicate message log idempotency key.',
+        ),
+    ]
 
     @api.depends('message')
     def _compute_message_preview(self):
@@ -201,6 +225,8 @@ class WhatsAppMessageLog(models.Model):
             'related_record_id': kwargs.get('related_record_id') or 0,
             'partner_id': kwargs.get('partner_id'),
             'campaign_id': kwargs.get('campaign_id'),
+            'execution_id': kwargs.get('execution_id'),
+            'outbound_intent_at': kwargs.get('outbound_intent_at'),
             'attachment_info': kwargs.get('attachment_info'),
             'attachment_count': kwargs.get('attachment_count', 0),
             'failure_reason': failure_reason,
@@ -212,10 +238,23 @@ class WhatsAppMessageLog(models.Model):
             'failed_at': failed_at,
             'retryable': kwargs.get('retryable', delivery_state_val in ('failed', 'skipped')),
             'api_message_id': api_message_id,
+            'idempotency_key': kwargs.get('idempotency_key'),
             'processing_duration': duration,
             'product_ids': kwargs.get('product_ids'),
         }
-        log = self.create(vals)
+        idem_key = vals.get('idempotency_key')
+        if idem_key:
+            existing = self.search([('idempotency_key', '=', idem_key)], limit=1)
+            if existing:
+                return existing
+        try:
+            log = self.create(vals)
+        except IntegrityError:
+            if not idem_key:
+                raise
+            log = self.search([('idempotency_key', '=', idem_key)], limit=1)
+            if not log:
+                raise
         _logger.debug(
             'Message log %s: state=%s partner=%s campaign=%s duration=%.3fs',
             log.id,
@@ -225,6 +264,17 @@ class WhatsAppMessageLog(models.Model):
             duration or 0,
         )
         return log
+
+    def commit_outbound_intent(self):
+        """Persist queued/sending intent and flush before irreversible provider I/O."""
+        self.ensure_one()
+        now = fields.Datetime.now()
+        vals = {'outbound_intent_at': now}
+        if self.delivery_state == 'queued':
+            vals['delivery_state'] = 'sending'
+        self.write(vals)
+        self.flush_recordset(['delivery_state', 'outbound_intent_at', 'execution_id', 'idempotency_key'])
+        return True
 
     def action_open_product_selection(self):
         self.ensure_one()

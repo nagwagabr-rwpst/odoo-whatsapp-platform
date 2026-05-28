@@ -1,0 +1,113 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">WhatsApp Simple</h2>
+        <h3 class="oe_slogan">Runtime-aware WhatsApp campaign execution for Odoo 19</h3>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2>Overview</h2>
+            <p>
+                <strong>WhatsApp Simple</strong> is an Odoo 19 Community module for outbound WhatsApp
+                campaigns with <strong>execution attempts</strong>, lease-based concurrency control,
+                recipient idempotency, and operational documentation — not merely a one-shot sender.
+            </p>
+            <p>
+                Bulk sends run synchronously in the user request. Each run creates a durable
+                <code>whatsapp.bulk.execution</code> record with heartbeat and lease metadata.
+                Campaigns remain the business-facing aggregate; executions are the runtime authority.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6">
+            <h2>Architecture positioning</h2>
+            <ul>
+                <li>Provider adapter layer (Green API + Mock for production use today)</li>
+                <li>Execution-attempt model with immutable UUID per run</li>
+                <li>Campaign-scoped idempotency and retry fingerprint deduplication</li>
+                <li>Outbound intent flush before provider HTTP (same-transaction)</li>
+                <li>Stale execution reconciliation</li>
+            </ul>
+        </div>
+        <div class="oe_span6">
+            <h2>Operational capabilities</h2>
+            <ul>
+                <li>Bulk send from Contacts with attachments and product catalogs</li>
+                <li>Campaign monitor (kanban, periodic refresh)</li>
+                <li>Retry failed/skipped recipients (child campaigns)</li>
+                <li>Delivery logs, dashboard, sale order workflow</li>
+                <li>Mock Provider for QA without real messages</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2>Limitations (read before production)</h2>
+            <p class="text-muted">
+                This module does <strong>not</strong> guarantee exactly-once delivery to WhatsApp.
+                Provider APIs are external to PostgreSQL; HTTP rollbacks and retry campaigns can
+                produce duplicate messages. Large bulks run in a single long transaction and may
+                hit server timeouts.
+            </p>
+            <ul>
+                <li>No built-in background queue or cron bulk worker</li>
+                <li>No inbound webhook HTTP controllers (skeleton only)</li>
+                <li>Most alternate providers are UI placeholders — Green API and Mock are send-capable</li>
+                <li>Multi-worker deployments should follow production checklist in documentation</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2>Screenshots</h2>
+            <p class="text-muted">Add PNG files under <code>static/description/screenshots/</code> and uncomment blocks below before App Store submission.</p>
+            <!--
+            <div class="oe_demo oe_screenshot">
+                <img src="screenshots/01_settings.png" alt="WhatsApp Settings"/>
+            </div>
+            <div class="oe_demo oe_screenshot">
+                <img src="screenshots/02_bulk_wizard.png" alt="Bulk Send Wizard"/>
+            </div>
+            <div class="oe_demo oe_screenshot">
+                <img src="screenshots/03_campaign_monitor.png" alt="Campaign Monitor"/>
+            </div>
+            -->
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2>Deployment notes</h2>
+            <ul>
+                <li>Odoo <strong>19.0</strong> Community (module version <strong>19.0.5.5.0</strong>)</li>
+                <li>Dependencies: <code>base</code>, <code>sale</code>, <code>mail</code>, <code>product</code></li>
+                <li>Configure <strong>WhatsApp → Settings</strong> (Mock for testing, Green API for live)</li>
+                <li>Review <code>limit_time_real</code> and worker count for campaign size</li>
+                <li>Full documentation shipped in <code>docs/</code> inside the module</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2>License</h2>
+            <p>LGPL-3. See LICENSE file in the repository.</p>
+        </div>
+    </div>
+</section>

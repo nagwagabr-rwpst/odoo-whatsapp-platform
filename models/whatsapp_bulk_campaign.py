@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import hashlib
+import uuid
+from datetime import timedelta
+
+from psycopg2 import IntegrityError
+
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
@@ -159,6 +165,21 @@ class WhatsAppBulkCampaign(models.Model):
     current_recipient_number = fields.Char(string='Current Number', readonly=True)
     current_product_id = fields.Many2one('product.template', string='Current Product', readonly=True)
     last_activity_at = fields.Datetime(string='Last Activity', readonly=True, index=True)
+    execution_token = fields.Char(string='Execution Token', readonly=True, index=True)
+    execution_lock_expires_at = fields.Datetime(string='Execution Lock Expires', readonly=True, index=True)
+    active_execution_id = fields.Many2one(
+        'whatsapp.bulk.execution',
+        string='Active Execution',
+        readonly=True,
+        copy=False,
+    )
+    execution_ids = fields.One2many(
+        'whatsapp.bulk.execution',
+        'campaign_id',
+        string='Execution Attempts',
+        readonly=True,
+    )
+    execution_count = fields.Integer(compute='_compute_execution_count')
 
     parent_campaign_id = fields.Many2one(
         'whatsapp.bulk.campaign',
@@ -166,6 +187,7 @@ class WhatsAppBulkCampaign(models.Model):
         readonly=True,
         ondelete='set null',
     )
+    retry_fingerprint = fields.Char(string='Retry Fingerprint', readonly=True, index=True, copy=False)
     retry_campaign_ids = fields.One2many(
         'whatsapp.bulk.campaign',
         'parent_campaign_id',
@@ -200,6 +222,14 @@ class WhatsAppBulkCampaign(models.Model):
         readonly=True,
     )
     sale_order_count = fields.Integer(compute='_compute_sale_order_count')
+
+    _sql_constraints = [
+        (
+            'whatsapp_retry_fingerprint_unique',
+            'unique(parent_campaign_id, retry_fingerprint)',
+            'A retry campaign for the same parent and recipient set already exists.',
+        ),
+    ]
 
     @api.depends('attachment_ids')
     def _compute_attachment_count(self):
@@ -255,6 +285,103 @@ class WhatsAppBulkCampaign(models.Model):
         for campaign in self:
             campaign.retry_count = len(campaign.retry_campaign_ids)
 
+    @api.depends('execution_ids')
+    def _compute_execution_count(self):
+        for campaign in self:
+            campaign.execution_count = len(campaign.execution_ids)
+
+    def _lock_for_execution(self):
+        """Row lock campaign to serialize concurrent execution starts."""
+        self.ensure_one()
+        self.env.cr.execute(
+            'SELECT id FROM whatsapp_bulk_campaign WHERE id = %s FOR UPDATE',
+            (self.id,),
+        )
+
+    def _project_running_from_execution(self, execution, total):
+        now = fields.Datetime.now()
+        self.write({
+            'state': 'running',
+            'active_execution_id': execution.id,
+            'started_at': now,
+            'execution_started_at': now,
+            'total_count': total,
+            'processed_count': 0,
+            'remaining_count': total,
+            'progress_percent': 0.0,
+            'current_step': _('Starting campaign'),
+            'last_activity_at': now,
+            'execution_token': execution.execution_uuid,
+            'execution_lock_expires_at': execution.lease_expires_at,
+        })
+
+    def _touch_execution_liveness(self, execution, recipient_index=0):
+        """Minimal campaign mirror on heartbeat (no full progress recompute)."""
+        self.ensure_one()
+        self.write({
+            'active_execution_id': execution.id,
+            'last_activity_at': execution.heartbeat_at or fields.Datetime.now(),
+            'execution_lock_expires_at': execution.lease_expires_at,
+            'execution_token': execution.execution_uuid,
+        })
+
+    def _project_progress_from_execution(
+        self,
+        execution,
+        partner=None,
+        phone=None,
+        product=None,
+        step=None,
+        throttle=False,
+    ):
+        if throttle:
+            return
+        self.ensure_one()
+        now = fields.Datetime.now()
+        self.write({
+            'active_execution_id': execution.id,
+            'progress_percent': execution.progress_percent,
+            'processed_count': execution.processed_count,
+            'remaining_count': execution.remaining_count,
+            'sent_count': execution.sent_count,
+            'failed_count': execution.failed_count,
+            'skipped_count': execution.skipped_count,
+            'current_recipient_id': partner.id if partner else False,
+            'current_partner_id': partner.id if partner else False,
+            'current_recipient_number': phone or '',
+            'current_product_id': product.id if product else False,
+            'current_step': step or '',
+            'last_activity_at': now,
+            'execution_lock_expires_at': execution.lease_expires_at,
+        })
+
+    def _project_finished_from_execution(self, execution, stats, stopped=False, failed=False):
+        self._mark_finished(stats, stopped=stopped, failed=failed)
+        self.write({
+            'active_execution_id': False,
+            'execution_token': False,
+            'execution_lock_expires_at': False,
+        })
+
+    def _project_reconciled_from_execution(self, execution):
+        self.ensure_one()
+        if self.active_execution_id.id == execution.id:
+            self.write({
+                'state': 'failed',
+                'finished_at': fields.Datetime.now(),
+                'execution_finished_at': fields.Datetime.now(),
+                'active_execution_id': False,
+                'execution_token': False,
+                'execution_lock_expires_at': False,
+                'current_step': _('Recovered after interrupted execution'),
+                'progress_percent': execution.progress_percent,
+                'processed_count': execution.processed_count,
+                'remaining_count': execution.remaining_count,
+                'sent_count': execution.sent_count,
+                'failed_count': execution.failed_count,
+                'skipped_count': execution.skipped_count,
+            })
+
     def action_open_logs(self):
         self.ensure_one()
         return {
@@ -292,8 +419,12 @@ class WhatsAppBulkCampaign(models.Model):
     def action_retry_failed_recipients(self):
         """Create a linked retry campaign and resend failed/skipped recipients only."""
         self.ensure_one()
+        self.env['whatsapp.bulk.execution']._reconcile_stale_executions()
+        self._reconcile_stale_running_campaigns()
         if self.state == 'running':
-            raise UserError(_('Cannot retry while the campaign is still running.'))
+            active = self.active_execution_id
+            if active and active.lease_expires_at and active.lease_expires_at > fields.Datetime.now():
+                raise UserError(_('Cannot retry while the campaign is still running.'))
 
         failed_logs = self.log_ids.filtered(
             lambda log: log.delivery_state in ('failed', 'skipped') and log.partner_id
@@ -303,7 +434,22 @@ class WhatsAppBulkCampaign(models.Model):
             raise UserError(_('No failed or skipped recipients to retry for this campaign.'))
 
         config = self.env['whatsapp.config'].get_active_config(self.company_id)
-        retry_campaign = self.create({
+        retry_fingerprint = self._build_retry_fingerprint(partners)
+        existing_retry = self.search([
+            ('parent_campaign_id', '=', self.id),
+            ('retry_fingerprint', '=', retry_fingerprint),
+        ], limit=1)
+        if existing_retry:
+            return {
+                'type': 'ir.actions.act_window',
+                'name': _('Retry Campaign'),
+                'res_model': 'whatsapp.bulk.campaign',
+                'res_id': existing_retry.id,
+                'view_mode': 'form',
+                'target': 'current',
+            }
+
+        vals = {
             'name': _('Retry: %s') % self.name,
             'message': self.message,
             'attachment_info': self.attachment_info,
@@ -315,8 +461,19 @@ class WhatsAppBulkCampaign(models.Model):
             'user_id': self.env.uid,
             'company_id': self.company_id.id,
             'parent_campaign_id': self.id,
+            'retry_fingerprint': retry_fingerprint,
             'state': 'draft',
-        })
+        }
+        try:
+            with self.env.cr.savepoint():
+                retry_campaign = self.create(vals)
+        except IntegrityError:
+            retry_campaign = self.search([
+                ('parent_campaign_id', '=', self.id),
+                ('retry_fingerprint', '=', retry_fingerprint),
+            ], limit=1)
+            if not retry_campaign:
+                raise
 
         from odoo.addons.whatsapp_simple.services.whatsapp_bulk_service import WhatsAppBulkSender
 
@@ -387,31 +544,26 @@ class WhatsAppBulkCampaign(models.Model):
             product.display_name if product else '-',
         )
         if commit:
-            self.env.cr.commit()
+            # Do not fragment transactions inside progress updates.
+            self.flush()
 
     def _mark_running(self, total):
-        now = fields.Datetime.now()
-        self.write({
-            'state': 'running',
-            'started_at': now,
-            'execution_started_at': now,
-            'total_count': total,
-            'processed_count': 0,
-            'remaining_count': total,
-            'progress_percent': 0.0,
-            'current_step': _('Starting campaign'),
-            'last_activity_at': now,
-        })
+        """Deprecated entry point; bulk sender uses execution.begin_campaign_execution."""
+        return self.env['whatsapp.bulk.execution'].begin_campaign_execution(self, total)
 
     def _mark_finished(self, stats, stopped=False, failed=False):
         now = fields.Datetime.now()
         sent = stats.get('sent', 0)
         failed_count = stats.get('failed', 0)
         skipped = stats.get('skipped', 0)
+        total = stats.get('total', self.total_count)
+        processed = min(sent + failed_count + skipped, total)
+        remaining = max(total - processed, 0)
+        progress = (processed / total * 100.0) if total else 0.0
 
         if failed:
             state = 'failed'
-        elif stopped:
+        elif stopped or remaining > 0:
             state = 'stopped'
         elif failed_count:
             state = 'completed_with_errors'
@@ -419,7 +571,7 @@ class WhatsAppBulkCampaign(models.Model):
             state = 'completed'
 
         self.write({
-            'total_count': stats.get('total', self.total_count),
+            'total_count': total,
             'sent_count': sent,
             'failed_count': failed_count,
             'skipped_count': skipped,
@@ -427,9 +579,9 @@ class WhatsAppBulkCampaign(models.Model):
             'total_attachments_sent': stats.get('total_attachments_sent', 0),
             'finished_at': now,
             'execution_finished_at': now,
-            'progress_percent': 100.0,
-            'processed_count': stats.get('total', self.total_count),
-            'remaining_count': 0,
+            'progress_percent': progress,
+            'processed_count': processed,
+            'remaining_count': remaining,
             'state': state,
             'current_recipient_id': False,
             'current_partner_id': False,
@@ -437,6 +589,7 @@ class WhatsAppBulkCampaign(models.Model):
             'current_product_id': False,
             'current_step': _('Finished'),
             'last_activity_at': now,
+            'execution_lock_expires_at': False,
         })
         campaign_logger.info(
             'Campaign %s finished: state=%s sent=%s failed=%s skipped=%s',
@@ -458,3 +611,53 @@ class WhatsAppBulkCampaign(models.Model):
             phone=phone,
             step=_('Sending to recipient'),
         )
+
+    def _build_retry_fingerprint(self, partners):
+        payload = '|'.join([
+            str(self.id),
+            self.message or '',
+            ','.join(str(pid) for pid in sorted(self.attachment_ids.ids)),
+            ','.join(str(pid) for pid in sorted(self.product_ids.ids)),
+            ','.join(str(pid) for pid in sorted(partners.ids)),
+        ])
+        return hashlib.sha1(payload.encode('utf-8')).hexdigest()
+
+    @api.model
+    def _reconcile_stale_running_campaigns(self, stale_minutes=30):
+        """Fallback for campaigns stuck running without a live execution lease."""
+        Execution = self.env['whatsapp.bulk.execution']
+        Execution._reconcile_stale_executions(stale_minutes=stale_minutes)
+        cutoff = fields.Datetime.now() - timedelta(minutes=stale_minutes)
+        stale = self.search([
+            ('state', '=', 'running'),
+            ('last_activity_at', '<=', cutoff),
+        ])
+        if not stale:
+            return
+        for campaign in stale:
+            live = Execution.search([
+                ('campaign_id', '=', campaign.id),
+                ('state', '=', 'running'),
+                ('lease_expires_at', '>', fields.Datetime.now()),
+            ], limit=1)
+            if live:
+                continue
+            sent = campaign.sent_count
+            failed = campaign.failed_count
+            skipped = campaign.skipped_count
+            total = campaign.total_count or (sent + failed + skipped)
+            processed = min(sent + failed + skipped, total)
+            remaining = max(total - processed, 0)
+            progress = (processed / total * 100.0) if total else 0.0
+            campaign.write({
+                'state': 'failed',
+                'finished_at': fields.Datetime.now(),
+                'execution_finished_at': fields.Datetime.now(),
+                'active_execution_id': False,
+                'current_step': _('Recovered after interrupted execution'),
+                'progress_percent': progress,
+                'processed_count': processed,
+                'remaining_count': remaining,
+                'execution_lock_expires_at': False,
+                'execution_token': False,
+            })

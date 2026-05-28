@@ -160,6 +160,24 @@
                         <field name="attachment_ids" widget="many2many_binary" readonly="1" nolabel="1"/>
                     </group>
                     <notebook>
+                        <page string="Executions" name="executions">
+                            <field name="execution_ids" nolabel="1">
+                                <list create="false" edit="false">
+                                    <field name="name"/>
+                                    <field name="execution_uuid"/>
+                                    <field name="attempt_kind"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="executor_uid"/>
+                                    <field name="started_at"/>
+                                    <field name="finished_at"/>
+                                    <field name="heartbeat_at"/>
+                                    <field name="sent_count"/>
+                                    <field name="failed_count"/>
+                                    <field name="skipped_count"/>
+                                    <field name="parent_execution_id" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
                         <page string="Message Logs" name="logs">
                             <field name="log_ids" nolabel="1">
                                 <list create="false" edit="false">
@@ -167,6 +185,8 @@
                                     <field name="partner_id"/>
                                     <field name="recipient_number"/>
                                     <field name="delivery_state" widget="badge"/>
+                                    <field name="execution_id" optional="hide"/>
+                                    <field name="outbound_intent_at" optional="hide"/>
                                     <field name="attachment_count"/>
                                     <field name="attachment_info"/>
                                     <field name="failure_reason"/>

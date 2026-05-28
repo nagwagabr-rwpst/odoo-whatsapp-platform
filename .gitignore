@@ -1,53 +1,95 @@
 # Python
 __pycache__/
+**/__pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 *.so
 *.egg-info/
+.eggs/
+dist/
+build/
+*.egg
 
-# Virtual env
+# Virtual environments
 .venv/
 venv/
 env/
 
-# Odoo
+# Testing / coverage
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Odoo runtime
 *.log
+logs/
 *.sqlite3
 filestore/
 sessions/
+web/assets/*
+web/static/lib/
+.sass-cache/
 
-# VSCode
+# Local Odoo configuration (may contain db passwords)
+odoo.conf
+*.local.conf
+
+# IDE / editors
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
 
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Node
+# Node (if tooling added later)
 node_modules/
 
-# Build
-dist/
-build/
-
-# Temp
+# Temp / scratch
 tmp/
 temp/
+*.tmp
+*.bak
 
-# Coverage
-.coverage
-htmlcov/
-
-# Secrets
+# Secrets — never commit
 .env
 .env.*
 *.pem
 *.key
+*.p12
+credentials.json
+secrets.json
 
-# PostgreSQL dumps
+# Database dumps
 *.sql
 *.dump
+*.backup
 
-# Odoo assets cache
-web/assets/*
+# PostgreSQL / pgAdmin exports
+*.pgdump
+
+# Coverage reports
+coverage.xml
+
+# Cursor / AI IDE
+.cursor/
+
+# App Store binaries (keep sources/README; add PNG/GIF when ready)
+# Uncomment to ignore until marketing assets are finalized:
+# static/description/icon.png
+# static/description/banner.png
+# static/description/demo.gif
+# static/description/screenshots/*.png
+
+# Compiled Odoo assets (local dev)
+*.assets.json

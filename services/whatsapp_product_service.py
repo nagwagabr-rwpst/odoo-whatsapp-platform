@@ -52,13 +52,23 @@ class WhatsAppProductService:
         if not product.image_1920:
             return self.env['ir.attachment']
         name = '%s.jpg' % (product.default_code or product.name or 'product')
+        model_name = res_model or 'product.template'
+        model_id = res_id or product.id
+        existing = self.Attachment.search([
+            ('name', '=', name[:128]),
+            ('res_model', '=', model_name),
+            ('res_id', '=', model_id),
+            ('mimetype', '=', 'image/jpeg'),
+        ], limit=1)
+        if existing and existing.datas == product.image_1920:
+            return existing
         attachment = self.Attachment.create({
             'name': name[:128],
             'type': 'binary',
             'datas': product.image_1920,
             'mimetype': 'image/jpeg',
-            'res_model': res_model or 'product.template',
-            'res_id': res_id or product.id,
+            'res_model': model_name,
+            'res_id': model_id,
         })
         _logger.debug('Created attachment %s for product %s', attachment.id, product.name)
         return attachment
@@ -99,9 +109,15 @@ class WhatsAppProductService:
         steps = []
 
         if use_product_images:
+            bind_model = kwargs.get('res_model') or 'product.template'
+            bind_res_id = kwargs.get('res_id')
             products_with_images = self.get_products_with_images(products)
             for index, product in enumerate(products_with_images, start=1):
-                att = self.product_to_attachment(product)
+                att = self.product_to_attachment(
+                    product,
+                    res_model=bind_model,
+                    res_id=bind_res_id or product.id,
+                )
                 if att:
                     attachments |= att
                     steps.append({

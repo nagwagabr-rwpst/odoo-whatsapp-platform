@@ -16,6 +16,7 @@ from odoo.addons.whatsapp_simple.services.logger import (
 )
 from odoo.addons.whatsapp_simple.services.whatsapp_product_service import WhatsAppProductService
 from odoo.addons.whatsapp_simple.services.whatsapp_safety_utils import WhatsAppSafetyValidator
+from odoo.addons.whatsapp_simple.constants import EXECUTION_HEARTBEAT_EVERY_N_RECIPIENTS
 from odoo.addons.whatsapp_simple.services.whatsapp_service import WhatsAppService
 
 
@@ -26,6 +27,7 @@ class WhatsAppBulkSender:
         self.env = env
         self.config = config
         self.campaign = campaign
+        self.execution = None
         self.wizard = wizard
         configure_whatsapp_logging(env)
         self.service = WhatsAppService(env, config)
@@ -96,6 +98,8 @@ class WhatsAppBulkSender:
                 products,
                 use_product_images,
                 include_product_description=include_product_description,
+                res_model='whatsapp.bulk.campaign',
+                res_id=self.campaign.id,
             )
             self._catalog_message = plan['message']
             self._product_steps = plan['product_image_steps']
@@ -116,12 +120,13 @@ class WhatsAppBulkSender:
         planned = sum(1 for row in partner_data if row['phone'])
         self.safety.check_daily_limit(planned_sends=planned)
 
-        self.campaign._mark_running(self.stats['total'])
+        self.execution = self.campaign._mark_running(self.stats['total'])
         self._commit_progress()
 
         campaign_logger.info(
-            'Campaign %s START: recipients=%s planned=%s free_attachments=%s product_images=%s products=%s',
+            'Campaign %s execution %s START: recipients=%s planned=%s free_attachments=%s product_images=%s products=%s',
             self.campaign.id,
+            self.execution.id,
             self.stats['total'],
             planned,
             len(free_attachments),
@@ -152,13 +157,13 @@ class WhatsAppBulkSender:
                     self._stopped = True
                     raise
 
-                self.campaign._update_execution_progress(
-                    index,
-                    self.stats['total'],
+                self._heartbeat_if_due(index)
+                self.execution.update_progress(
+                    self.stats,
+                    recipient_index=index,
                     partner=partner,
                     phone=row['phone'],
                     step=_('Preparing recipient'),
-                    commit=False,
                 )
                 self._update_wizard_progress(index, self.stats['total'], partner=partner)
                 self._commit_progress()
@@ -175,9 +180,17 @@ class WhatsAppBulkSender:
                 )
 
         except ValidationError:
-            self.campaign._mark_finished(self.stats, stopped=self._stopped)
+            if self.execution:
+                self.execution.finish(self.stats, stopped=self._stopped)
+            else:
+                self.campaign._mark_finished(self.stats, stopped=self._stopped)
             self._commit_progress()
-            raise
+            campaign_logger.warning(
+                'Campaign %s stopped after validation boundary with stats=%s',
+                self.campaign.id,
+                self.stats,
+            )
+            return dict(self.stats)
         except Exception as exc:
             self._fatal_error = True
             campaign_logger.exception(
@@ -185,14 +198,17 @@ class WhatsAppBulkSender:
                 self.campaign.id,
                 exc,
             )
-            self.campaign._mark_finished(self.stats, failed=True)
+            if self.execution:
+                self.execution.finish(self.stats, failed=True)
+            else:
+                self.campaign._mark_finished(self.stats, failed=True)
             self._commit_progress()
-            raise
+            return dict(self.stats)
         else:
-            self.campaign._mark_finished(
-                self.stats,
-                stopped=self._stopped,
-            )
+            if self.execution:
+                self.execution.finish(self.stats, stopped=self._stopped)
+            else:
+                self.campaign._mark_finished(self.stats, stopped=self._stopped)
             self._commit_progress()
 
         campaign_logger.info(
@@ -241,9 +257,23 @@ class WhatsAppBulkSender:
     ):
         start_time = time.monotonic()
         total = self.stats['total']
+        idempotency_key = self._recipient_idempotency_key(partner)
         planned_attachment_count = (
             len(free_attachments) + len(self._product_steps)
         )
+
+        existing = self.log_model.search([('idempotency_key', '=', idempotency_key)], limit=1)
+        if existing:
+            self.stats['skipped'] += 1
+            campaign_logger.warning(
+                'Campaign %s: duplicate execution prevented for partner %s (log=%s state=%s)',
+                self.campaign.id,
+                partner.id,
+                existing.id,
+                existing.delivery_state,
+            )
+            self._sync_execution_stats(processed_index, partner=partner, phone=normalized)
+            return
 
         if not normalized:
             self.stats['skipped'] += 1
@@ -261,12 +291,15 @@ class WhatsAppBulkSender:
                 related_record_id=partner.id,
                 partner_id=partner.id,
                 campaign_id=self.campaign.id,
+                execution_id=self.execution.id if self.execution else False,
                 attachment_info=attachment_label,
                 failure_reason=_('No valid phone number on this contact.'),
                 retryable=True,
                 product_ids=[(6, 0, products.ids)] if products else False,
+                idempotency_key=idempotency_key,
                 _start_time=start_time,
             )
+            self._sync_execution_stats(processed_index)
             return
 
         campaign_logger.info(
@@ -278,9 +311,9 @@ class WhatsAppBulkSender:
             total,
         )
 
-        self.campaign._update_execution_progress(
-            processed_index,
-            total,
+        self.execution.update_progress(
+            self.stats,
+            recipient_index=processed_index,
             partner=partner,
             phone=normalized,
             step=_('Sending message'),
@@ -290,15 +323,18 @@ class WhatsAppBulkSender:
             recipient=partner.display_name,
             recipient_number=normalized,
             message=message or _('(attachments only)'),
-            delivery_state='sending',
+            delivery_state='queued',
             related_model='res.partner',
             related_record_id=partner.id,
             partner_id=partner.id,
             campaign_id=self.campaign.id,
+            execution_id=self.execution.id if self.execution else False,
             attachment_info=attachment_label,
             attachment_count=planned_attachment_count,
             product_ids=[(6, 0, products.ids)] if products else False,
+            idempotency_key=idempotency_key,
         )
+        log.commit_outbound_intent()
 
         recipient_errors = []
         attachments_sent = 0
@@ -328,6 +364,7 @@ class WhatsAppBulkSender:
                 'delivery_state': 'failed',
                 **self._failure_log_vals(str(exc), exc=exc, duration=duration),
             })
+            self._sync_execution_stats(processed_index, partner=partner, phone=normalized)
             return
 
         duration = time.monotonic() - start_time
@@ -381,6 +418,30 @@ class WhatsAppBulkSender:
                 'processing_duration': duration,
                 'attachment_count': attachments_sent,
             })
+        self._sync_execution_stats(processed_index, partner=partner, phone=normalized)
+
+    def _recipient_idempotency_key(self, partner):
+        """Campaign-scoped dedupe; execution UUID scopes replay lineage on logs."""
+        return 'campaign:%s:partner:%s' % (self.campaign.id, partner.id)
+
+    def _heartbeat_if_due(self, recipient_index):
+        if not self.execution:
+            return
+        force = recipient_index == 0
+        every_n = EXECUTION_HEARTBEAT_EVERY_N_RECIPIENTS
+        if force or (recipient_index and recipient_index % every_n == 0):
+            self.execution.heartbeat_if_due(recipient_index, force=force)
+
+    def _sync_execution_stats(self, recipient_index, partner=None, phone=None):
+        if not self.execution:
+            return
+        self.execution.update_progress(
+            self.stats,
+            recipient_index=recipient_index,
+            partner=partner,
+            phone=phone,
+        )
+        self._heartbeat_if_due(recipient_index)
 
     def _deliver_to_partner(
         self,
@@ -432,13 +493,15 @@ class WhatsAppBulkSender:
                 partner.id,
                 attachment.name,
             )
-            self.campaign._update_execution_progress(
-                processed_index,
-                total,
-                partner=partner,
-                phone=normalized,
-                step=_('Sending attachment %s/%s') % (att_index + 1, total_free),
-            )
+            if self.execution:
+                self.execution.update_progress(
+                    self.stats,
+                    recipient_index=processed_index,
+                    partner=partner,
+                    phone=normalized,
+                    step=_('Sending attachment %s/%s') % (att_index + 1, total_free),
+                    throttle=True,
+                )
             result = self._send_attachment(normalized, caption, attachment)
             if result['success']:
                 attachments_sent += 1
@@ -453,14 +516,16 @@ class WhatsAppBulkSender:
             for step_index, step in enumerate(self._product_steps):
                 product = step['product']
                 attachment = step['attachment']
-                self.campaign._update_execution_progress(
-                    processed_index,
-                    total,
-                    partner=partner,
-                    phone=normalized,
-                    product=product,
-                    step=_('Sending product image %s/%s') % (step_index + 1, total_product),
-                )
+                if self.execution:
+                    self.execution.update_progress(
+                        self.stats,
+                        recipient_index=processed_index,
+                        partner=partner,
+                        phone=normalized,
+                        product=product,
+                        step=_('Sending product image %s/%s') % (step_index + 1, total_product),
+                        throttle=True,
+                    )
                 self._update_wizard_progress(
                     processed_index,
                     total,
@@ -578,8 +643,8 @@ class WhatsAppBulkSender:
         })
 
     def _commit_progress(self):
-        if self.wizard or self.campaign:
-            self.env.cr.commit()
+        # Intentionally avoid mid-execution commits to reduce partial durable states.
+        return
 
     @staticmethod
     def _attachment_label(free_attachments, products, use_product_images=False):

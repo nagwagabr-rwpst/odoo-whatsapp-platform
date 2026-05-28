@@ -1,3 +1,10 @@
+# WhatsApp Simple — Architecture (legacy)
+
+> **Superseded:** Use the canonical documentation index at [`docs/README.md`](README.md) and [`docs/architecture/SYSTEM_OVERVIEW.md`](architecture/SYSTEM_OVERVIEW.md).  
+> This file is retained for backward compatibility. Some sections below are **outdated** (e.g. mid-loop `cr.commit()` — removed in 19.0.5.4+).
+
+---
+
 # WhatsApp Simple — Architecture
 
 Odoo 19 Community module for WhatsApp outbound messaging via a provider-agnostic service layer (Green API adapter today).

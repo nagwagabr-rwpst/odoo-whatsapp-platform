@@ -1,5 +1,11 @@
 # Provider Architecture
 
+> **Note:** Adapter design in this document remains accurate. For execution attempts, transactions, and runtime flow, see [`docs/architecture/`](architecture/SYSTEM_OVERVIEW.md) and [`docs/runtime/`](runtime/EXECUTION_FLOW.md).
+
+---
+
+# Provider Architecture
+
 `whatsapp_simple` uses a **provider adapter** pattern so campaigns, bulk sending, logs, and monitoring stay provider-independent.
 
 ## Directory layout

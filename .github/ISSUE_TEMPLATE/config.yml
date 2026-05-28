@@ -1,0 +1,9 @@
+blank_issues: false
+
+contact_links:
+  - name: Documentation
+    url: https://github.com/YOUR_ORG/whatsapp_simple/blob/main/docs/README.md
+  - name: Security policy
+    url: https://github.com/YOUR_ORG/whatsapp_simple/blob/main/SECURITY.md
+  - name: Support scope
+    url: https://github.com/YOUR_ORG/whatsapp_simple/blob/main/SUPPORT.md

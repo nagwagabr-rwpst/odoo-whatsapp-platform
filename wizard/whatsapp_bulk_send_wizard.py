@@ -146,6 +146,8 @@ class WhatsAppBulkSendWizard(models.TransientModel):
         from odoo.addons.whatsapp_simple.services.whatsapp_product_service import WhatsAppProductService
         from odoo.addons.whatsapp_simple.services.whatsapp_safety_utils import WhatsAppSafetyValidator
         self.ensure_one()
+        self.env['whatsapp.bulk.execution']._reconcile_stale_executions()
+        self.env['whatsapp.bulk.campaign']._reconcile_stale_running_campaigns()
         config = self.env['whatsapp.config'].get_active_config()
         self._validate_before_send(config)
 
@@ -173,7 +175,6 @@ class WhatsAppBulkSendWizard(models.TransientModel):
         })
 
         self.write({'processing_state': 'running', 'progress_percent': 0.0})
-        self.env.cr.commit()
 
         sender = WhatsAppBulkSender(self.env, config, campaign, wizard=self)
         try:

@@ -4,24 +4,25 @@
 
     'name': 'WhatsApp Simple',
 
-    'version': '19.0.5.4.2',
+    'version': '19.0.5.5.0',
 
     'category': 'Marketing',
 
-    'summary': 'Provider-agnostic WhatsApp sales workflow for Odoo 19 Community',
+    'summary': 'Runtime-aware WhatsApp bulk campaigns with execution attempts for Odoo 19',
 
     'description': """
+WhatsApp Simple — campaign execution for Odoo 19 Community
+==========================================================
 
-WhatsApp integration with interchangeable provider adapters (Green API, Meta Cloud,
+Outbound WhatsApp bulk and single sends with execution-attempt tracking,
+lease/heartbeat runtime coordination, retry lineage, delivery logs, and
+provider adapters (Green API and Mock Provider are send-capable).
 
-Evolution, UltraMsg, Twilio, Gupshup, custom). Bulk sending, delivery tracking,
-
-campaign monitor, and product workflows are provider-independent.
-
+See the module README.md and docs/ for architecture, limitations, and operations.
     """,
 
-    'author': 'Custom',
-
+    'author': 'WhatsApp Simple Contributors',
+    'website': 'https://github.com/YOUR_ORG/whatsapp_simple',
     'license': 'LGPL-3',
 
     'depends': [
