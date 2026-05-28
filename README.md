@@ -1,247 +1,241 @@
-# WhatsApp Simple
+# RelayRuntime
 
-**Runtime-aware WhatsApp campaign execution platform for Odoo 19 Community**
+**A replay-safe operational messaging execution runtime, initially delivered as an Odoo application.**
 
-[![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](LICENSE)
-[![Odoo](https://img.shields.io/badge/Odoo-19.0-714B67.svg)](https://www.odoo.com/)
-[![Module version](https://img.shields.io/badge/module-19.0.5.5.0-green.svg)](CHANGELOG.md)
-
-Outbound WhatsApp campaigns with **execution attempts**, **lease-based concurrency**, **retry lineage**, and **documented integrity boundaries** — built as an Odoo module, not a thin API wrapper.
+RelayRuntime coordinates outbound messaging campaigns with execution lineage, lease-aware concurrency, and recovery-oriented persistence. It exists to make operational messaging **correct under failure**, not merely to invoke a provider API from ERP forms.
 
 | | |
 |---|---|
+| **Odoo module** | `relayruntime` (`apps/odoo/relayruntime/`) |
+| **Platform** | Odoo 19 Community |
+| **Delivery model today** | Embedded synchronous runtime (HTTP worker) |
 | **License** | LGPL-3.0 |
-| **Odoo** | 19.0 Community |
-| **Status** | Production-oriented Standard/Core; see [limitations](#known-limitations) |
-| **Docs** | [`docs/README.md`](docs/README.md) |
+
+[Documentation](docs/README.md) · [Migration](MIGRATION.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
 
 ---
 
-## Overview
+## Why RelayRuntime exists
 
-WhatsApp Simple orchestrates bulk and single sends from Odoo while separating:
+Operational messaging breaks in predictable ways when treated as a simple “send button”:
 
-- **Runtime authority** — `whatsapp.bulk.execution` (lease, heartbeat, per-run UUID)
-- **Business aggregate** — `whatsapp.bulk.campaign` (configuration, UI, retry tree)
-- **Recipient truth** — `whatsapp.message.log` (delivery state, idempotency)
+| Failure class | Symptom |
+|---------------|---------|
+| **Duplicate execution** | Same recipient contacted twice after retries, rollbacks, or concurrent runs |
+| **Unsafe retries** | Child campaigns or replays without lineage or deduplication scope |
+| **Replay inconsistency** | Database state does not reflect what the provider already accepted |
+| **Attachment coordination** | Multi-segment sends fail mid-flight; partial success is hard to reason about |
+| **Weak operational visibility** | Stuck `running` campaigns, unclear execution ownership, no durable attempt identity |
 
-Providers are pluggable; **Green API** and **Mock Provider** are send-capable today. Other adapters are registered stubs.
-
-> **Not a guarantee of exactly-once delivery.** Provider APIs are external; see [SECURITY.md](SECURITY.md) and [Known Limitations](docs/architecture/KNOWN_LIMITATIONS.md).
+RelayRuntime introduces an **execution-attempt authority** (`whatsapp.bulk.execution`), campaign-scoped idempotency, retry fingerprinting, lease/heartbeat liveness, and documented recovery paths—within the limits of synchronous Odoo execution and external provider APIs.
 
 ---
 
-## Architecture
+## Core runtime principles
+
+| Principle | Meaning in this repository |
+|-----------|----------------------------|
+| **Replay-safe execution** | Reconcile stale attempts; persist outbound intent before provider I/O; bounded idempotency keys |
+| **Lease-aware coordination** | One live execution lease per campaign attempt; heartbeat extends ownership |
+| **Execution lineage** | Immutable `execution_uuid`; retry attempts link via `parent_execution_id` |
+| **Operational observability** | Execution tab, message logs, structured loggers, campaign monitor (partial—no metrics platform) |
+| **Runtime-safe recovery** | Stale reconciliation on entry; operator runbook; no silent “success” on partial failure |
+
+These principles do **not** imply exactly-once delivery to end recipients. See [Security](SECURITY.md).
+
+---
+
+## Architecture overview
 
 ```mermaid
 flowchart TB
-    subgraph UI["Odoo UI"]
-        WZ[Bulk Send Wizard]
-        MON[Campaign Monitor]
+    subgraph Embedded["Today: embedded in Odoo HTTP worker"]
+        ODOO[apps/odoo/relayruntime]
+        ODOO --> EXE[whatsapp.bulk.execution]
+        ODOO --> CAMP[whatsapp.bulk.campaign]
+        ODOO --> LOG[whatsapp.message.log]
+        EXE -. projection .-> CAMP
     end
-    subgraph Runtime["Runtime authority"]
-        EXE[whatsapp.bulk.execution]
+    subgraph Future["Future: extracted runtime/ packages"]
+        RT[runtime/execution]
+        WK[runtime/workers]
+        OB[runtime/observability]
     end
-    subgraph Aggregate["Projection / aggregate"]
-        CAMP[whatsapp.bulk.campaign]
-    end
-    subgraph Truth["Per-recipient truth"]
-        LOG[whatsapp.message.log]
-    end
-    subgraph Providers["Providers — implemented"]
-        GREEN[Green API]
-        MOCK[Mock Provider]
-    end
-    WZ --> BULK[WhatsAppBulkSender]
-    BULK --> EXE
-    BULK --> LOG
-    BULK --> CAMP
-    EXE -. heartbeat / lease .-> CAMP
-    BULK --> API[WhatsAppService]
-    API --> GREEN
-    API --> MOCK
+    ODOO -. planned extraction .-> RT
+    RT -. planned .-> WK
 ```
 
-| Principle | Implementation |
-|-----------|----------------|
-| Synchronous bulk | One HTTP request per wizard run (no module queue) |
-| No mid-loop commits | Single transaction per bulk attempt |
-| Idempotency | `campaign:{id}:partner:{id}` unique on logs |
-| Retry dedup | SHA-1 fingerprint per parent + payload |
-| Stale recovery | Reconcile executions with aged heartbeat |
+| Layer | Path | Responsibility |
+|-------|------|----------------|
+| **Odoo orchestration** | `apps/odoo/relayruntime/` | ERP models, UI, wizards, ACL, provider config, send entrypoints |
+| **Runtime logic (transitional)** | Same addon (`models/`, `services/`) | Execution lifecycle, lease, bulk orchestration—**moving to `runtime/`** |
+| **Extraction placeholders** | `runtime/*` | Package boundaries only; no standalone service yet |
 
-Deep dive: [System Overview](docs/architecture/SYSTEM_OVERVIEW.md)
+Detail: [docs/architecture/runtime-boundaries.md](docs/architecture/runtime-boundaries.md) · [docs/architecture/runtime-vision.md](docs/architecture/runtime-vision.md)
 
 ---
 
-## Execution-attempt model
+## Execution lifecycle
 
-Each bulk run creates one **`whatsapp.bulk.execution`** row:
+Conceptual lifecycle (terms used across docs):
 
-| Field / concept | Role |
-|-----------------|------|
-| `execution_uuid` | Immutable identity for the run |
-| `lease_token` / `lease_expires_at` | Blocks concurrent live runs on same campaign |
-| `heartbeat_at` | Liveness for stale reconciliation |
-| `parent_execution_id` | Retry lineage to parent campaign’s latest execution |
-| `attempt_kind` | `initial` or `retry` |
-
-Campaign counters at finish are projected from in-memory stats (not log-derived — see docs).
-
----
-
-## Lease and heartbeat runtime
-
-| Constant | Value |
-|----------|-------|
-| Lease extension | 15 minutes |
-| Stale threshold | 30 minutes without heartbeat |
-| Heartbeat | Every 5 recipients or ≥45s |
-
-Before start: `FOR UPDATE` on campaign + reject if another valid lease exists.
-
-Details: [Heartbeat and Leases](docs/runtime/HEARTBEAT_AND_LEASES.md)
-
----
-
-## Retry and reconciliation
-
-- **Retry Failed Recipients** → child campaign + new execution (`attempt_kind=retry`)
-- **Fingerprint dedup** → same parent + same payload opens existing retry campaign
-- **Reconciliation** → stale `running` executions → `reconciled`; campaign may project `failed`
-
-Details: [Retry and Replay](docs/runtime/RETRY_AND_REPLAY.md) · [Runbook](docs/operations/RUNBOOK.md)
-
----
-
-## Feature matrix
-
-| Capability | Status |
-|------------|--------|
-| Bulk / single send wizards | Implemented |
-| Execution attempts + lease + heartbeat | Implemented |
-| Campaign-scoped idempotency | Implemented |
-| Retry fingerprint deduplication | Implemented |
-| Outbound intent flush before provider | Partial (ORM flush, same txn) |
-| Campaign monitor (5s kanban reload) | Implemented |
-| Green API provider | Implemented |
-| Mock provider (test mode) | Implemented |
-| Meta / Evolution / UltraMsg / Twilio / Gupshup / Custom | Stub only |
-| Inbound webhook HTTP | Planned (skeleton only) |
-| Background queue / cron worker | Planned |
-| Event-sourced counters | Planned |
-| Exactly-once delivery | **Not provided** |
-
----
-
-## Known limitations
-
-| Topic | Summary |
-|-------|---------|
-| Long HTTP transaction | Large campaigns risk timeout and lock duration |
-| Provider vs database | Send cannot be rolled back with Odoo txn |
-| Retry campaigns | New campaign id → may resend same partner |
-| Multi-worker | Lease + row lock partial; not full distributed HA |
-| Daily limit | Counts legacy `status='sent'` on logs |
-
-Full list: [docs/architecture/KNOWN_LIMITATIONS.md](docs/architecture/KNOWN_LIMITATIONS.md)
-
----
-
-## Quick start
-
-```bash
-# 1. Add module to addons_path
-# 2. Install on Odoo 19
-odoo-bin -c odoo.conf -d YOUR_DB -i whatsapp_simple
-
-# 3. Upgrade after pull
-odoo-bin -c odoo.conf -d YOUR_DB -u whatsapp_simple
+```mermaid
+flowchart LR
+    C[Campaign defined]
+    B[Batch prepared]
+    L[Lease acquired]
+    E[Execution run]
+    R[Retry optional]
+    P[Replay / reconcile]
+    REC[Recovery]
+    D[Terminal state]
+    C --> B --> L --> E
+    E --> D
+    E --> R
+    R --> E
+    E --> P --> REC
+    P --> E
 ```
 
-1. Assign **WhatsApp User** or **WhatsApp Manager**.
-2. **WhatsApp → Settings** → **Mock Provider** (QA) or **Green API** (live).
-3. **Contacts** → select → **WhatsApp Bulk Send**.
+| Stage | Status today |
+|-------|----------------|
+| Campaign creation | **Implemented** (`whatsapp.bulk.campaign`) |
+| Queue / async batching | **Not implemented** — sequential loop in HTTP request |
+| Lease acquisition | **Implemented** (`begin_campaign_execution`) |
+| Execution | **Implemented** (`WhatsAppBulkSender`) |
+| Retry | **Implemented** (child campaign + fingerprint) |
+| Replay / reconcile | **Partial** (stale heartbeat; no auto-resume) |
+| Recovery | **Operational** (runbook + manual retry) |
+| Completion | **Implemented** (`execution.finish`) |
 
-[Local Setup](docs/deployment/LOCAL_SETUP.md) · [Production Checklist](docs/deployment/PRODUCTION_CHECKLIST.md)
-
----
-
-## Documentation
-
-| Section | Entry |
-|---------|-------|
-| Product + runtime spec (BRD) | [BRD_WhatsApp_Integration.md](BRD_WhatsApp_Integration.md) |
-| Master index | [docs/README.md](docs/README.md) |
-| Architecture | [docs/architecture/SYSTEM_OVERVIEW.md](docs/architecture/SYSTEM_OVERVIEW.md) |
-| Runtime | [docs/runtime/EXECUTION_FLOW.md](docs/runtime/EXECUTION_FLOW.md) |
-| Operations | [docs/operations/RUNBOOK.md](docs/operations/RUNBOOK.md) |
-| Development | [docs/development/RUNTIME_SAFETY_RULES.md](docs/development/RUNTIME_SAFETY_RULES.md) |
-| Providers | [docs/PROVIDER_ARCHITECTURE.md](docs/PROVIDER_ARCHITECTURE.md) |
+Detail: [docs/architecture/execution-lifecycle.md](docs/architecture/execution-lifecycle.md)
 
 ---
 
-## Deployment summary
+## Failure recovery philosophy
 
-| Environment | Notes |
-|-------------|-------|
-| Local / on-prem | See `limit_time_real`, prefer `workers > 0` in production |
-| Odoo.sh | [docs/deployment/ODOO_SH_DEPLOYMENT.md](docs/deployment/ODOO_SH_DEPLOYMENT.md) |
-| Docker | Standard Odoo image + mount module; same timeout caveats |
+RelayRuntime optimizes for **operational correctness** over optimistic UX:
 
-Configuration lives in **`whatsapp.config`** (database), not environment variables — see [ENVIRONMENT_VARIABLES.md](docs/deployment/ENVIRONMENT_VARIABLES.md).
+- **Idempotent thinking** at campaign/recipient boundaries—not global exactly-once.
+- **Durable attempt identity** so operators can distinguish runs.
+- **Explicit terminal states** (`completed`, `stopped`, `failed`, `reconciled`) instead of forced 100% progress.
+- **Honest partial failure** when daily limits or provider errors stop a batch.
 
----
+Recovery is **operator-assisted** today: reconcile stale executions, inspect logs, retry failed recipients. Automated replay engines and queue workers are **future** work.
 
-## Operational boundaries
-
-| You manage | Module provides |
-|------------|-----------------|
-| Odoo uptime, workers, timeouts | Sequential sender + safety delays |
-| Provider account & compliance | Adapter + logging |
-| Campaign sizing | Idempotency + lease + reconcile hooks |
-| Backup / restore | Standard Odoo models |
-
-Support scope: [SUPPORT.md](SUPPORT.md) · Security: [SECURITY.md](SECURITY.md)
+Detail: [docs/recovery/replay-recovery.md](docs/recovery/replay-recovery.md)
 
 ---
 
-## Support matrix
+## Repository structure
 
-| Channel | Use for |
-|---------|---------|
-| [GitHub Issues](.github/ISSUE_TEMPLATE/) | Bugs, deployment, runtime, duplicate sends |
-| [Documentation](docs/README.md) | How it works, limitations, procedures |
-| [SECURITY.md](SECURITY.md) | Vulnerability reports (private) |
-| Enterprise runtime (queue, HA, SLA) | **Not included** in OSS — see [SUPPORT.md](SUPPORT.md) |
+```
+relayruntime/                    # repository root
+├── apps/odoo/relayruntime/      # Odoo application (installable module)
+├── runtime/                     # extraction boundaries (placeholders)
+│   ├── execution/
+│   ├── retry/
+│   ├── replay/
+│   ├── observability/
+│   └── workers/
+├── docs/                        # engineering reference
+├── scripts/                     # CI validation
+├── tests/                       # pointer; Odoo tests in addon
+├── infrastructure/              # future IaC placeholder
+├── demos/                       # future scenarios
+├── .github/                     # issue templates, CI
+├── README.md
+├── MIGRATION.md
+├── CONTRIBUTING.md
+├── SECURITY.md
+└── SUPPORT.md
+```
 
 ---
 
-## Release and versioning
+## Current runtime scope
 
-- **Scheme:** `19.0.x.y.z` (Odoo 19 module series)
-- **Current:** `19.0.5.5.0` — see [CHANGELOG.md](CHANGELOG.md)
-- **Process:** [docs/releases/RELEASE_PROCESS.md](docs/releases/RELEASE_PROCESS.md)
+| Attribute | Today |
+|-----------|--------|
+| Deployment | **Embedded** in Odoo process |
+| Concurrency | Lease + row lock; **not** distributed HA |
+| Transaction | Single HTTP transaction per bulk run |
+| Workers / queue | **Not implemented** |
+| Provider scope | Green API + Mock send-capable; other adapters stub |
+| Exactly-once | **Not provided** |
+
+Detail: [docs/deployment/embedded-runtime.md](docs/deployment/embedded-runtime.md)
+
+---
+
+## Roadmap
+
+| Phase | Description | Status |
+|-------|-------------|--------|
+| **Embedded runtime** | Odoo addon owns execution authority | **Current** |
+| **Isolated workers** | Background consumers for bulk segments | Future |
+| **Queue separation** | Decouple HTTP request from execution duration | Future |
+| **Runtime services** | Extracted libraries or sidecar processes | Future |
+| **Cloud runtime** | Managed execution plane (undefined product) | Future |
+
+Detail: [docs/architecture/runtime-vision.md](docs/architecture/runtime-vision.md) · [docs/deployment/deployment-evolution.md](docs/deployment/deployment-evolution.md)
+
+---
+
+## Installation
+
+### 1. Addons path
+
+Point Odoo at **`apps/odoo`** inside this repository—not the repository root.
+
+```ini
+addons_path = /path/to/odoo/addons,/path/to/relayruntime/apps/odoo
+```
+
+See [apps/odoo/README.md](apps/odoo/README.md).
+
+### 2. Install module
 
 ```bash
-# CI validation (local)
+odoo-bin -c odoo.conf -d YOUR_DB -i relayruntime
+```
+
+### 3. Upgrade
+
+```bash
+odoo-bin -c odoo.conf -d YOUR_DB -u relayruntime
+```
+
+### 4. Validate
+
+- Assign WhatsApp User / Manager groups.
+- Configure **WhatsApp → Settings**; use **Mock Provider** on non-production databases.
+- Run a small bulk campaign; confirm **Executions** tab on campaign form.
+
+Upgrading from `whatsapp_simple`? Read [MIGRATION.md](MIGRATION.md) before production.
+
+---
+
+## Odoo compatibility
+
+| Requirement | Version |
+|-------------|---------|
+| Odoo | 19.0 Community |
+| Module series | `19.0.x.y.z` (see `__manifest__.py`) |
+| Dependencies | `base`, `sale`, `mail`, `product` |
+
+---
+
+## Contribution
+
+Contributors are expected to understand **runtime boundaries** and **recovery semantics**. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/development/RUNTIME_SAFETY_RULES.md](docs/development/RUNTIME_SAFETY_RULES.md) before changing execution paths.
+
+```bash
 python scripts/ci_validate.py
 ```
 
 ---
 
-## Contributing
+## License
 
-[docs/development/CONTRIBUTING.md](docs/development/CONTRIBUTING.md) · [Pull request template](.github/PULL_REQUEST_TEMPLATE.md)
-
----
-
-## Odoo App Store
-
-Store listing assets: [`static/description/`](static/description/) — see [ASSETS_README.md](static/description/ASSETS_README.md) before submission.
-
----
-
-## Legacy documentation
-
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — superseded by `docs/architecture/`
+LGPL-3.0 — see [LICENSE](LICENSE).
