@@ -38,6 +38,9 @@ RelayRuntime was designed to address operational runtime concerns such as:
 - Attachment coordination inconsistencies
 - Missing operational visibility during long-running campaigns
 - Recovery ambiguity after partial execution completion
+The project focuses on execution correctness, replay-safe recovery, operational observability, and resilient orchestration rather than simple message delivery automation.
+
+---
 ## Failure-First Runtime Thinking
 
 RelayRuntime is designed around the assumption that operational failures are inevitable in long-running messaging workflows.
@@ -97,7 +100,28 @@ Retry Evaluation
 Replay / Recovery
     ↓
 Execution Completion
+```
 
+---
+## Operational Observability
 
+RelayRuntime emphasizes operational visibility throughout the execution lifecycle in order to reduce ambiguity during long-running or partially interrupted messaging operations.
 
-The project focuses on execution correctness, replay-safe recovery, operational observability, and resilient orchestration rather than simple message delivery automation.
+The runtime tracks execution-oriented operational signals such as:
+
+* Execution state transitions
+* Retry and replay lineage
+* Lease ownership and recovery conditions
+* Partial batch completion visibility
+* Delivery processing diagnostics
+* Runtime reconciliation behavior
+
+Operational observability is intended to support:
+
+* Failure investigation
+* Recovery analysis
+* Replay diagnostics
+* Runtime inspection
+* Future worker/runtime coordination
+
+The current architecture provides embedded observability inside the Odoo execution model while preparing boundaries for future runtime isolation and external telemetry evolution.
