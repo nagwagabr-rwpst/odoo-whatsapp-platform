@@ -74,7 +74,7 @@ class WhatsAppBulkCampaign(models.Model):
     include_product_description = fields.Boolean(string='Included Descriptions', readonly=True)
 
     total_count = fields.Integer(string='Total Recipients', readonly=True)
-    total_recipients = fields.Integer(string='Recipients', related='total_count', store=True)
+    total_recipients = fields.Integer(string='Total Recipients', related='total_count', store=True)
     sent_count = fields.Integer(string='Sent', readonly=True)
     total_success = fields.Integer(string='Success', related='sent_count', store=True)
     failed_count = fields.Integer(string='Failed', readonly=True)
