@@ -122,13 +122,10 @@ class WhatsAppMessageLog(models.Model):
         readonly=True,
     )
 
-    _sql_constraints = [
-        (
-            'whatsapp_message_log_idempotency_key_unique',
-            'unique(idempotency_key)',
-            'Duplicate message log idempotency key.',
-        ),
-    ]
+    _whatsapp_message_log_idempotency_key_unique = models.Constraint(
+        'unique(idempotency_key)',
+        'Duplicate message log idempotency key.',
+    )
 
     @api.depends('message')
     def _compute_message_preview(self):
