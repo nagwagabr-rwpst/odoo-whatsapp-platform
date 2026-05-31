@@ -259,7 +259,7 @@ class WhatsAppBulkCampaign(models.Model):
 
     _whatsapp_retry_fingerprint_unique = models.Constraint(
         'unique(parent_campaign_id, retry_fingerprint)',
-        _('A retry campaign for the same parent and recipient set already exists.'),
+        'A retry campaign for the same parent and recipient set already exists.',
     )
 
     @api.depends(

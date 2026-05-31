@@ -28,7 +28,7 @@ class WhatsAppBulkSendWizard(models.TransientModel):
         'attachment_id',
         string='Attachments',
         bypass_search_access=True,
-        help=_(
+        help=(
             'Select multiple files. Each file is sent in order with a short delay. '
             'Product catalog images stay on the Products tab and are never mixed with these uploads.'
         ),
