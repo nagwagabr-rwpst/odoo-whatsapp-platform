@@ -125,13 +125,10 @@ class WhatsAppBulkExecution(models.Model):
     )
     log_count = fields.Integer(compute='_compute_log_count')
 
-    _sql_constraints = [
-        (
-            'whatsapp_bulk_execution_uuid_unique',
-            'unique(execution_uuid)',
-            'Execution UUID must be unique.',
-        ),
-    ]
+    _whatsapp_bulk_execution_uuid_unique = models.Constraint(
+        'unique(execution_uuid)',
+        'Execution UUID must be unique.',
+    )
 
     @api.depends('log_ids')
     def _compute_log_count(self):
