@@ -223,13 +223,10 @@ class WhatsAppBulkCampaign(models.Model):
     )
     sale_order_count = fields.Integer(compute='_compute_sale_order_count')
 
-    _sql_constraints = [
-        (
-            'whatsapp_retry_fingerprint_unique',
-            'unique(parent_campaign_id, retry_fingerprint)',
-            'A retry campaign for the same parent and recipient set already exists.',
-        ),
-    ]
+    _whatsapp_retry_fingerprint_unique = models.Constraint(
+        'unique(parent_campaign_id, retry_fingerprint)',
+        'A retry campaign for the same parent and recipient set already exists.',
+    )
 
     @api.depends('attachment_ids')
     def _compute_attachment_count(self):
