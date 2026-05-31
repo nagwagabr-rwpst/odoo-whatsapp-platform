@@ -28,7 +28,10 @@ class WhatsAppBulkSendWizard(models.TransientModel):
         'attachment_id',
         string='Attachments',
         bypass_search_access=True,
-        help='Optional files to send to every recipient (separate from product catalog images).',
+        help=_(
+            'Select multiple files. Each file is sent in order with a short delay. '
+            'Product catalog images stay on the Products tab and are never mixed with these uploads.'
+        ),
     )
     multi_attachment_count = fields.Integer(
         string='Attachment Count',
@@ -64,7 +67,7 @@ class WhatsAppBulkSendWizard(models.TransientModel):
     total_attachments_sent = fields.Integer(string='Attachments Sent', readonly=True)
 
     progress_percent = fields.Float(string='Progress %', readonly=True, digits=(16, 2))
-    current_recipient_name = fields.Char(string='Current Contact', readonly=True)
+    current_recipient_name = fields.Char(string='Current Recipient', readonly=True)
     current_product_name = fields.Char(string='Current Product', readonly=True)
     processing_state = fields.Selection(
         selection=[
@@ -245,7 +248,7 @@ class WhatsAppBulkSendWizard(models.TransientModel):
             if self.use_product_images:
                 parts.append(_('Product images: %s') % product_names)
             else:
-                parts.append(_('Products (catalog): %s') % product_names)
+                parts.append(_('Product Catalog: %s') % product_names)
         return ' | '.join(parts)
 
     def action_view_logs(self):

@@ -75,7 +75,7 @@ class ProviderRegistry:
     def validate_provider_type(cls, provider_type: str):
         if provider_type not in PROVIDER_REGISTRY:
             raise ProviderValidationError(
-                'Invalid provider type: %s' % provider_type
+                _('Invalid provider type: %(type)s') % {'type': provider_type}
             )
 
     @classmethod

@@ -5,7 +5,7 @@
         <field name="name">whatsapp.message.log.list</field>
         <field name="model">whatsapp.message.log</field>
         <field name="arch" type="xml">
-            <list string="WhatsApp Delivery Logs" create="false">
+            <list string="Message Logs" create="false">
                 <field name="sent_at"/>
                 <field name="partner_id"/>
                 <field name="recipient_number"/>
@@ -30,7 +30,7 @@
         <field name="name">whatsapp.message.log.form</field>
         <field name="model">whatsapp.message.log</field>
         <field name="arch" type="xml">
-            <form string="WhatsApp Delivery Log" create="false" edit="false">
+            <form string="Message Log" create="false" edit="false">
                 <header>
                     <button name="action_open_product_selection"
                         type="object"
@@ -86,7 +86,7 @@
         <field name="name">whatsapp.message.log.search</field>
         <field name="model">whatsapp.message.log</field>
         <field name="arch" type="xml">
-            <search string="WhatsApp Delivery Logs">
+            <search string="Message Logs">
                 <field name="recipient_number"/>
                 <field name="partner_id"/>
                 <field name="message"/>

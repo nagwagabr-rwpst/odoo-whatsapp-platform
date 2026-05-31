@@ -22,6 +22,14 @@
                 <field name="current_product_id"/>
                 <field name="current_step"/>
                 <field name="user_id"/>
+                <field name="monitor_elapsed_suffix"/>
+                <field name="monitor_progress_summary"/>
+                <field name="monitor_success_rate_text"/>
+                <field name="kanban_label_sent"/>
+                <field name="kanban_label_failed"/>
+                <field name="kanban_label_skipped"/>
+                <field name="kanban_label_current_recipient"/>
+                <field name="kanban_label_current_product"/>
                 <templates>
                     <t t-name="card">
                         <div class="oe_kanban_global_click p-2">
@@ -36,24 +44,24 @@
                             <div class="text-muted small mb-2">
                                 <field name="user_id"/>
                                 <t t-if="record.running_duration_seconds.raw_value">
-                                    · <field name="running_duration_seconds" widget="float_time"/> elapsed
+                                    · <field name="running_duration_seconds" widget="float_time"/>
+                                    <field name="monitor_elapsed_suffix" class="oe_inline"/>
                                 </t>
                             </div>
                             <field name="progress_percentage" widget="progressbar" options="{'max_value': 100}"/>
                             <div class="small text-muted mt-1">
-                                <field name="processed_count"/> / <field name="total_recipients"/>
-                                processed · <field name="remaining_count"/> remaining
+                                <field name="monitor_progress_summary"/>
                             </div>
                             <div class="mt-2" t-if="record.state.raw_value == 'running'">
                                 <div class="small">
-                                    <i class="fa fa-user me-1" title="Current recipient"/>
+                                    <i class="fa fa-user me-1" t-att-title="record.kanban_label_current_recipient.raw_value"/>
                                     <field name="current_recipient_id"/>
                                     <span t-if="record.current_recipient_number.raw_value" class="text-muted">
                                         (<field name="current_recipient_number"/>)
                                     </span>
                                 </div>
                                 <div class="small" t-if="record.current_product_id.raw_value">
-                                    <i class="fa fa-cube me-1" title="Current product"/>
+                                    <i class="fa fa-cube me-1" t-att-title="record.kanban_label_current_product.raw_value"/>
                                     <field name="current_product_id"/>
                                 </div>
                                 <div class="small text-info mt-1">
@@ -61,12 +69,18 @@
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <span class="badge text-bg-success me-1">Sent <field name="sent_count"/></span>
-                                <span class="badge text-bg-danger me-1">Failed <field name="failed_count"/></span>
-                                <span class="badge text-bg-secondary">Skipped <field name="skipped_count"/></span>
+                                <span class="badge text-bg-success me-1">
+                                    <field name="kanban_label_sent" class="oe_inline"/> <field name="sent_count"/>
+                                </span>
+                                <span class="badge text-bg-danger me-1">
+                                    <field name="kanban_label_failed" class="oe_inline"/> <field name="failed_count"/>
+                                </span>
+                                <span class="badge text-bg-secondary">
+                                    <field name="kanban_label_skipped" class="oe_inline"/> <field name="skipped_count"/>
+                                </span>
                             </div>
                             <div class="small mt-1">
-                                Success: <field name="success_rate"/>%
+                                <field name="monitor_success_rate_text"/>
                             </div>
                         </div>
                     </t>
@@ -91,7 +105,7 @@
                     ('execution_finished_at', '&lt;', 'today +1d'),
                 ]"/>
                 <group>
-                    <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
                     <filter string="User" name="group_user" context="{'group_by': 'user_id'}"/>
                 </group>
             </search>

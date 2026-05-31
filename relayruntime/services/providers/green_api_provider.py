@@ -4,6 +4,8 @@ import logging
 
 import requests
 
+from odoo.tools.translate import _
+
 from odoo.addons.relayruntime.services.exceptions.provider_errors import (
     ProviderConnectionError,
     ProviderValidationError,
@@ -37,11 +39,11 @@ class GreenAPIProvider(BaseWhatsAppProvider):
 
     def validate_configuration(self):
         if not self.config.api_url:
-            raise ProviderValidationError('API URL is required for Green API.')
+            raise ProviderValidationError(_('API URL is required for Green API.'))
         if not self.config.instance_id:
-            raise ProviderValidationError('Instance ID is required for Green API.')
+            raise ProviderValidationError(_('Instance ID is required for Green API.'))
         if not self.config.access_token:
-            raise ProviderValidationError('Access Token is required for Green API.')
+            raise ProviderValidationError(_('Access Token is required for Green API.'))
 
     def _base_url(self):
         return (self.config.api_url or '').rstrip('/')

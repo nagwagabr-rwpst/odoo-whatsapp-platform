@@ -34,10 +34,6 @@
                             <group>
                                 <field name="multi_attachment_count" readonly="1"/>
                             </group>
-                            <p class="text-muted">
-                                Select multiple files. Each file is sent in order with a short delay.
-                                Product catalog images stay on the Products tab and are never mixed with these uploads.
-                            </p>
                             <field name="attachment_ids"
                                 widget="many2many_binary"
                                 nolabel="1"

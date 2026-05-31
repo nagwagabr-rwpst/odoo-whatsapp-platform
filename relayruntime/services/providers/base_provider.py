@@ -7,6 +7,8 @@ import uuid
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
+from odoo.tools.translate import _
+
 from odoo.addons.relayruntime.services.exceptions.provider_errors import (
     ProviderAuthenticationError,
     ProviderConnectionError,
@@ -77,7 +79,9 @@ class BaseWhatsAppProvider(ABC):
     def prepare_chat_id(self, recipient_number):
         chat_id = format_chat_id(recipient_number)
         if not chat_id:
-            raise ProviderValidationError('Recipient phone number is invalid or malformed.')
+            raise ProviderValidationError(
+                _('Recipient phone number is invalid or malformed.')
+            )
         return chat_id
 
     # -------------------------------------------------------------------------

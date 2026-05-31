@@ -44,7 +44,7 @@ class WhatsAppBulkCampaign(models.Model):
         'whatsapp_campaign_attachment_rel',
         'campaign_id',
         'attachment_id',
-        string='Free Attachments',
+        string='Attachments',
         readonly=True,
         bypass_search_access=True,
         help='User-uploaded files for this campaign (not product catalog images).',
@@ -76,9 +76,9 @@ class WhatsAppBulkCampaign(models.Model):
     total_count = fields.Integer(string='Total', readonly=True)
     total_recipients = fields.Integer(string='Total Recipients', related='total_count', store=True)
     sent_count = fields.Integer(string='Sent', readonly=True)
-    total_success = fields.Integer(string='Success', related='sent_count', store=True)
+    total_success = fields.Integer(string='Sent', related='sent_count', store=True)
     failed_count = fields.Integer(string='Failed', readonly=True)
-    total_failures = fields.Integer(string='Failures', related='failed_count', store=True)
+    total_failures = fields.Integer(string='Failed', related='failed_count', store=True)
     skipped_count = fields.Integer(string='Skipped', readonly=True)
     total_skipped = fields.Integer(string='Total Skipped', related='skipped_count', store=True)
     cooldown_count = fields.Integer(string='Cooldowns', readonly=True)
@@ -131,9 +131,43 @@ class WhatsAppBulkCampaign(models.Model):
     remaining_count = fields.Integer(string='Remaining', readonly=True)
     current_step = fields.Char(string='Current Step', readonly=True)
 
+    # Kanban / monitor display strings (Phase 2 — exported via Python _(), not hardcoded QWeb).
+    monitor_elapsed_suffix = fields.Char(
+        compute='_compute_kanban_display_labels',
+        string='Elapsed',
+    )
+    monitor_progress_summary = fields.Char(
+        compute='_compute_kanban_display_labels',
+        string='Progress Summary',
+    )
+    monitor_success_rate_text = fields.Char(
+        compute='_compute_kanban_display_labels',
+        string='Success Rate',
+    )
+    kanban_label_sent = fields.Char(
+        compute='_compute_kanban_display_labels',
+        string='Sent',
+    )
+    kanban_label_failed = fields.Char(
+        compute='_compute_kanban_display_labels',
+        string='Failed',
+    )
+    kanban_label_skipped = fields.Char(
+        compute='_compute_kanban_display_labels',
+        string='Skipped',
+    )
+    kanban_label_current_recipient = fields.Char(
+        compute='_compute_kanban_display_labels',
+        string='Current Recipient',
+    )
+    kanban_label_current_product = fields.Char(
+        compute='_compute_kanban_display_labels',
+        string='Current Product',
+    )
+
     state = fields.Selection(
         selection=CAMPAIGN_STATE_SELECTION,
-        string='State',
+        string='Status',
         default='draft',
         readonly=True,
         index=True,
@@ -145,7 +179,7 @@ class WhatsAppBulkCampaign(models.Model):
             ('done', 'Done'),
             ('cancelled', 'Cancelled'),
         ],
-        string='Processing State',
+        string='Status',
         compute='_compute_processing_state',
         store=True,
         readonly=True,
@@ -225,8 +259,41 @@ class WhatsAppBulkCampaign(models.Model):
 
     _whatsapp_retry_fingerprint_unique = models.Constraint(
         'unique(parent_campaign_id, retry_fingerprint)',
-        'A retry campaign for the same parent and recipient set already exists.',
+        _('A retry campaign for the same parent and recipient set already exists.'),
     )
+
+    @api.depends(
+        'processed_count',
+        'remaining_count',
+        'total_recipients',
+        'success_rate',
+    )
+    def _compute_kanban_display_labels(self):
+        # translator: suffix after running duration on campaign monitor kanban
+        elapsed_suffix = _('elapsed')
+        label_sent = _('Sent')
+        label_failed = _('Failed')
+        label_skipped = _('Skipped')
+        label_current_recipient = _('Current Recipient')
+        label_current_product = _('Current Product')
+        for campaign in self:
+            campaign.monitor_elapsed_suffix = elapsed_suffix
+            campaign.kanban_label_sent = label_sent
+            campaign.kanban_label_failed = label_failed
+            campaign.kanban_label_skipped = label_skipped
+            campaign.kanban_label_current_recipient = label_current_recipient
+            campaign.kanban_label_current_product = label_current_product
+            campaign.monitor_progress_summary = _(
+                '%(processed)s / %(total)s processed · %(remaining)s remaining'
+            ) % {
+                'processed': campaign.processed_count,
+                'total': campaign.total_recipients,
+                'remaining': campaign.remaining_count,
+            }
+            # translator: success rate line on campaign kanban cards; %% renders a literal %
+            campaign.monitor_success_rate_text = _('Success: %(rate)s%%') % {
+                'rate': campaign.success_rate,
+            }
 
     @api.depends('attachment_ids')
     def _compute_attachment_count(self):

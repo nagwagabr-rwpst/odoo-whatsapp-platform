@@ -17,6 +17,8 @@ import random
 import time
 import uuid
 
+from odoo.tools.translate import _
+
 from odoo.addons.relayruntime.services.exceptions.provider_errors import (
     ProviderAuthenticationError,
     ProviderConnectionError,
@@ -73,13 +75,17 @@ class MockProvider(BaseWhatsAppProvider):
         rates = self._get_rate_map()
         for name, value in rates.items():
             if value < 0 or value > 100:
+                field_label = name
+                if self.env and name in self.config._fields:
+                    field_label = self.config._fields[name].string or name
                 raise ProviderValidationError(
-                    'Mock simulation rate "%s" must be between 0 and 100.' % name
+                    _('Mock simulation rate "%(field)s" must be between 0 and 100.')
+                    % {'field': field_label}
                 )
         if self.config.simulated_latency_ms < 0:
-            raise ProviderValidationError('Simulated latency cannot be negative.')
+            raise ProviderValidationError(_('Simulated latency cannot be negative.'))
         if self.config.simulate_attachment_failure_rate < 0:
-            raise ProviderValidationError('Attachment failure rate cannot be negative.')
+            raise ProviderValidationError(_('Attachment failure rate cannot be negative.'))
 
     def test_connection(self) -> WhatsAppConnectionResult:
         self.validate_configuration()
@@ -87,9 +93,13 @@ class MockProvider(BaseWhatsAppProvider):
         def _call():
             self._simulate_latency()
             if self.config.mock_force_disconnect:
-                raise ProviderConnectionError('Simulated provider disconnect (config flag).')
+                raise ProviderConnectionError(
+                    _('Simulated provider disconnect (config flag).')
+                )
             if self.config.mock_force_auth_failure:
-                raise ProviderAuthenticationError('Simulated authentication failure (config flag).')
+                raise ProviderAuthenticationError(
+                    _('Simulated authentication failure (config flag).')
+                )
             latency = float(self.config.simulated_latency_ms or 0)
             raw = {
                 'state': 'authorized',

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from odoo.tools.translate import _
+
 from odoo.addons.relayruntime.services.exceptions.provider_errors import (
     ProviderNotImplementedError,
     ProviderValidationError,
@@ -20,8 +22,9 @@ class StubWhatsAppProvider(BaseWhatsAppProvider):
 
     def validate_configuration(self):
         raise ProviderValidationError(
-            'Provider "%s" is not implemented yet. Select Green API or add a custom adapter.'
-            % self.get_provider_name()
+            _('Provider "%(provider)s" is not implemented yet. '
+              'Select Green API or add a custom adapter.')
+            % {'provider': self.get_provider_name()}
         )
 
     def test_connection(self) -> WhatsAppConnectionResult:

@@ -39,6 +39,10 @@
                 <field name="skipped_count"/>
                 <field name="success_rate"/>
                 <field name="progress_percent"/>
+                <field name="monitor_success_rate_text"/>
+                <field name="kanban_label_sent"/>
+                <field name="kanban_label_failed"/>
+                <field name="kanban_label_skipped"/>
                 <templates>
                     <t t-name="card">
                         <div class="oe_kanban_global_click">
@@ -47,12 +51,18 @@
                                 <field name="user_id"/>
                             </div>
                             <div class="mt-2">
-                                <span class="badge text-bg-success me-1">Sent: <field name="sent_count"/></span>
-                                <span class="badge text-bg-danger me-1">Failed: <field name="failed_count"/></span>
-                                <span class="badge text-bg-secondary">Skipped: <field name="skipped_count"/></span>
+                                <span class="badge text-bg-success me-1">
+                                    <field name="kanban_label_sent" class="oe_inline"/>: <field name="sent_count"/>
+                                </span>
+                                <span class="badge text-bg-danger me-1">
+                                    <field name="kanban_label_failed" class="oe_inline"/>: <field name="failed_count"/>
+                                </span>
+                                <span class="badge text-bg-secondary">
+                                    <field name="kanban_label_skipped" class="oe_inline"/>: <field name="skipped_count"/>
+                                </span>
                             </div>
                             <div class="mt-1">
-                                Success: <field name="success_rate"/>%
+                                <field name="monitor_success_rate_text"/>
                             </div>
                             <field name="processing_state" widget="badge" invisible="processing_state != 'running'"/>
                         </div>

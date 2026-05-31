@@ -6,6 +6,8 @@ Kept free of Odoo model/service imports so models can load without
 pulling in the full provider stack at registry init time.
 """
 
+from odoo.tools.translate import _lt
+
 PROVIDER_SELECTION_LABELS = [
     ('green_api', 'Green API'),
     ('mock_provider', 'Mock Provider (Test Mode)'),
@@ -17,10 +19,11 @@ PROVIDER_SELECTION_LABELS = [
     ('custom', 'Custom Internal API'),
 ]
 
+# Provider brand names stay English; status labels are user-facing UX.
 PROVIDER_STATUS_SELECTION = [
-    ('healthy', 'Healthy'),
-    ('degraded', 'Degraded'),
-    ('disconnected', 'Disconnected'),
+    ('healthy', _lt('Healthy')),
+    ('degraded', _lt('Degraded')),
+    ('disconnected', _lt('Disconnected')),
 ]
 
 # Execution-attempt lease and heartbeat (minimal runtime coordination).

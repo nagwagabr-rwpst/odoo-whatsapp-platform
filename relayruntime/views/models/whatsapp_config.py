@@ -78,6 +78,14 @@ class WhatsAppConfig(models.Model):
         compute='_compute_is_test_mode',
         store=True,
     )
+    test_mode_alert_title = fields.Char(
+        compute='_compute_test_mode_display_labels',
+        string='Test Mode Alert Title',
+    )
+    test_mode_alert_body = fields.Char(
+        compute='_compute_test_mode_display_labels',
+        string='Test Mode Alert Body',
+    )
 
     # Mock provider simulation (provider_type == mock_provider)
     simulate_success_rate = fields.Float(
@@ -200,6 +208,20 @@ class WhatsAppConfig(models.Model):
         for record in self:
             record.is_test_mode = record.provider_type == 'mock_provider'
 
+    @api.depends('is_test_mode')
+    def _compute_test_mode_display_labels(self):
+        alert_title = _('Mock Provider active.')
+        alert_body = _(
+            'No real WhatsApp messages are sent. Use for QA, demos, and stress tests only.'
+        )
+        for record in self:
+            if record.is_test_mode:
+                record.test_mode_alert_title = alert_title
+                record.test_mode_alert_body = alert_body
+            else:
+                record.test_mode_alert_title = False
+                record.test_mode_alert_body = False
+
     @api.depends('provider_type')
     def _compute_provider_implemented(self):
         for record in self:
@@ -290,8 +312,9 @@ class WhatsAppConfig(models.Model):
             for field_name in rate_fields:
                 value = getattr(record, field_name)
                 if value < 0 or value > 100:
+                    field_label = record._fields[field_name].string or field_name
                     raise ValidationError(
-                        _('%(field)s must be between 0 and 100.') % {'field': field_name}
+                        _('%(field)s must be between 0 and 100.') % {'field': field_label}
                     )
             if record.simulated_latency_ms < 0:
                 raise ValidationError(_('Simulated latency cannot be negative.'))

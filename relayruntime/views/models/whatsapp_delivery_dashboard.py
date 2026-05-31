@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 
 class WhatsAppDeliveryDashboard(models.TransientModel):
     _name = 'whatsapp.delivery.dashboard'
-    _description = 'WhatsApp Delivery Dashboard'
+    _description = 'Delivery Dashboard'
 
     total_sent = fields.Integer(string='Total Sent', readonly=True)
     total_failed = fields.Integer(string='Total Failed', readonly=True)

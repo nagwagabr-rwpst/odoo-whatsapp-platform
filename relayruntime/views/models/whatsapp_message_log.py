@@ -6,7 +6,7 @@ import time
 
 from psycopg2 import IntegrityError
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -277,7 +277,7 @@ class WhatsAppMessageLog(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'WhatsApp Product Selection',
+            'name': _('WhatsApp Product Selection'),
             'res_model': 'whatsapp.product.selection.wizard',
             'view_mode': 'form',
             'target': 'new',
