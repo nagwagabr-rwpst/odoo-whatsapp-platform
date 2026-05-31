@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<data>
 
     <menuitem id="menu_whatsapp_root"
         name="WhatsApp"
@@ -33,5 +34,6 @@
         action="action_whatsapp_campaign_monitor"
         sequence="25"
         groups="relayruntime.group_whatsapp_user"/>
+        </data>
 
 </odoo>
