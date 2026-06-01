@@ -38,7 +38,7 @@ class WhatsAppBulkCampaign(models.Model):
 
     name = fields.Char(string='Reference', required=True, index=True)
     message = fields.Text(string='Message')
-    attachment_info = fields.Text(string='Attachments')
+    attachment_info = fields.Text()
     attachment_ids = fields.Many2many(
         'ir.attachment',
         'whatsapp_campaign_attachment_rel',
@@ -76,9 +76,9 @@ class WhatsAppBulkCampaign(models.Model):
     total_count = fields.Integer(string='Total', readonly=True)
     total_recipients = fields.Integer(string='Total Recipients', related='total_count', store=True)
     sent_count = fields.Integer(string='Sent', readonly=True)
-    total_success = fields.Integer(string='Sent', related='sent_count', store=True)
+    total_success = fields.Integer(related='sent_count', store=True)
     failed_count = fields.Integer(string='Failed', readonly=True)
-    total_failures = fields.Integer(string='Failed', related='failed_count', store=True)
+    total_failures = fields.Integer(related='failed_count', store=True)
     skipped_count = fields.Integer(string='Skipped', readonly=True)
     total_skipped = fields.Integer(string='Total Skipped', related='skipped_count', store=True)
     cooldown_count = fields.Integer(string='Cooldowns', readonly=True)
@@ -144,26 +144,11 @@ class WhatsAppBulkCampaign(models.Model):
         compute='_compute_kanban_display_labels',
         string='Success Rate',
     )
-    kanban_label_sent = fields.Char(
-        compute='_compute_kanban_display_labels',
-        string='Sent',
-    )
-    kanban_label_failed = fields.Char(
-        compute='_compute_kanban_display_labels',
-        string='Failed',
-    )
-    kanban_label_skipped = fields.Char(
-        compute='_compute_kanban_display_labels',
-        string='Skipped',
-    )
-    kanban_label_current_recipient = fields.Char(
-        compute='_compute_kanban_display_labels',
-        string='Current Recipient',
-    )
-    kanban_label_current_product = fields.Char(
-        compute='_compute_kanban_display_labels',
-        string='Current Product',
-    )
+    kanban_label_sent = fields.Char(compute='_compute_kanban_display_labels')
+    kanban_label_failed = fields.Char(compute='_compute_kanban_display_labels')
+    kanban_label_skipped = fields.Char(compute='_compute_kanban_display_labels')
+    kanban_label_current_recipient = fields.Char(compute='_compute_kanban_display_labels')
+    kanban_label_current_product = fields.Char(compute='_compute_kanban_display_labels')
 
     state = fields.Selection(
         selection=CAMPAIGN_STATE_SELECTION,
@@ -179,7 +164,6 @@ class WhatsAppBulkCampaign(models.Model):
             ('done', 'Done'),
             ('cancelled', 'Cancelled'),
         ],
-        string='Status',
         compute='_compute_processing_state',
         store=True,
         readonly=True,
