@@ -52,6 +52,18 @@ SIMULATION_OUTCOMES = (
     'rate_limit',
 )
 
+_DEFAULT_SUCCESS_RATE = 85.0
+_DEFAULT_FAILURE_RATE = 5.0
+_DEFAULT_TIMEOUT_RATE = 3.0
+_DEFAULT_RATE_LIMIT_RATE = 2.0
+
+
+def _coalesce_simulation_rate(value, default):
+    """Preserve configured 0.0; use default only when the field is unset (None/False)."""
+    if value is None or value is False:
+        return float(default)
+    return float(value)
+
 
 class MockProvider(BaseWhatsAppProvider):
     """Fully simulated provider for QA, demos, and stress tests — no real messages sent."""
@@ -161,10 +173,18 @@ class MockProvider(BaseWhatsAppProvider):
 
     def _get_rate_map(self):
         return {
-            'success': float(self.config.simulate_success_rate or 85.0),
-            'failure': float(self.config.simulate_failure_rate or 5.0),
-            'timeout': float(self.config.simulate_timeout_rate or 3.0),
-            'rate_limit': float(self.config.simulate_rate_limit_rate or 2.0),
+            'success': _coalesce_simulation_rate(
+                self.config.simulate_success_rate, _DEFAULT_SUCCESS_RATE,
+            ),
+            'failure': _coalesce_simulation_rate(
+                self.config.simulate_failure_rate, _DEFAULT_FAILURE_RATE,
+            ),
+            'timeout': _coalesce_simulation_rate(
+                self.config.simulate_timeout_rate, _DEFAULT_TIMEOUT_RATE,
+            ),
+            'rate_limit': _coalesce_simulation_rate(
+                self.config.simulate_rate_limit_rate, _DEFAULT_RATE_LIMIT_RATE,
+            ),
         }
 
     def _simulate_latency(self):
@@ -226,9 +246,18 @@ class MockProvider(BaseWhatsAppProvider):
     def _pick_random_outcome(self, operation, media=None):
         rates = self._get_rate_map()
         if operation == 'send_media':
-            att_rate = float(self.config.simulate_attachment_failure_rate or 0)
+            att_rate = _coalesce_simulation_rate(
+                self.config.simulate_attachment_failure_rate, 0.0,
+            )
             if att_rate > 0 and random.uniform(0, 100) < att_rate:
                 return 'attachment_failure'
+
+        if (
+            rates['failure'] == 0.0
+            and rates['timeout'] == 0.0
+            and rates['rate_limit'] == 0.0
+        ):
+            return 'success'
 
         total = sum(rates.values())
         if total <= 0:

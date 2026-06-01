@@ -25,6 +25,13 @@ def _whatsapp_service():
     return WhatsAppService
 
 
+def _default_if_unset_float(value, default):
+    """Apply a default only when a Float is unset (None/False), not when it is 0.0."""
+    if value is None or value is False:
+        return default
+    return value
+
+
 class WhatsAppConfig(models.Model):
     _name = 'whatsapp.config'
     _description = 'WhatsApp Configuration'
@@ -247,12 +254,24 @@ class WhatsAppConfig(models.Model):
         if self.provider_type == 'green_api' and not self.api_url:
             self.api_url = 'https://api.green-api.com'
         if self.provider_type == 'mock_provider':
-            self.simulate_success_rate = self.simulate_success_rate or 85.0
-            self.simulate_failure_rate = self.simulate_failure_rate or 5.0
-            self.simulate_timeout_rate = self.simulate_timeout_rate or 3.0
-            self.simulate_rate_limit_rate = self.simulate_rate_limit_rate or 2.0
-            self.simulate_attachment_failure_rate = self.simulate_attachment_failure_rate or 5.0
-            self.simulated_latency_ms = self.simulated_latency_ms or 50.0
+            self.simulate_success_rate = _default_if_unset_float(
+                self.simulate_success_rate, 85.0,
+            )
+            self.simulate_failure_rate = _default_if_unset_float(
+                self.simulate_failure_rate, 5.0,
+            )
+            self.simulate_timeout_rate = _default_if_unset_float(
+                self.simulate_timeout_rate, 3.0,
+            )
+            self.simulate_rate_limit_rate = _default_if_unset_float(
+                self.simulate_rate_limit_rate, 2.0,
+            )
+            self.simulate_attachment_failure_rate = _default_if_unset_float(
+                self.simulate_attachment_failure_rate, 5.0,
+            )
+            self.simulated_latency_ms = _default_if_unset_float(
+                self.simulated_latency_ms, 50.0,
+            )
 
     @api.constrains('provider_type')
     def _check_provider_type(self):
