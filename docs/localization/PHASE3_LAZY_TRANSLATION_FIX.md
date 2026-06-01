@@ -100,9 +100,30 @@ Odoo 19 requires **`str`** for:
 | `UserError`, `ValidationError`, notifications | `_()` | Inside methods with `env` / request context |
 | Action `name`, dynamic `current_step`, computed display labels | `_()` | Inside methods when recordset/env available |
 | Customer outbound catalog text | `_()` | At send time in service with caller context |
+| **Runtime execution labels** (attachment summaries, log metadata built without UI) | Plain `str` (English) | Bulk/cron/worker paths — see §5.1 |
 | Logger / traceback / provider raw errors | English literal | Never translate |
 
-**Rule of thumb:** If the string is evaluated when Python **defines the class** (field args, constraint args), use plain `str`. If evaluated when a **method runs** during a request or cron job, use `_()`.
+**Rule of thumb:** If the string is evaluated when Python **defines the class** (field args, constraint args), use plain `str`. If evaluated when a **method runs** during a request or cron job, use `_()` **only when** an active language context exists (interactive UI). Operational execution metadata stays English.
+
+### 5.1 Runtime execution labels policy
+
+**Operational runtime execution labels MUST remain deterministic English strings.**
+
+This applies to values persisted or compared during bulk send, registry bootstrap, and tests **without** a guaranteed `env.lang` — for example `WhatsAppBulkSender._attachment_label()` in `whatsapp_bulk_service.py`.
+
+| Label | Example | Why English only |
+|-------|---------|------------------|
+| Free attachments | `Files (%(count)s): %(names)s` | Written to `whatsapp.message.log.attachment_info`; must match across retries, idempotency, and log search |
+| Product images | `Product images: %s` | Same; built during campaign loop, often before UI language is set |
+| Product catalog | `Product Catalog: %s` | Same; distinguishes catalog vs image mode in execution audit trail |
+
+**Why attachment summaries intentionally remain English**
+
+1. **No language at call site** — `_attachment_label()` runs from bulk orchestration during test startup, `--stop-after-init`, and cron-style execution where Odoo logs `no translation language detected, skipping translation` if `_()` is used.
+2. **Stable audit semantics** — `attachment_info` is operational metadata (what was sent), not end-user copy; English keeps logs, exports, and support tooling consistent.
+3. **UI vs runtime split** — Wizard attachment summaries (`whatsapp_bulk_send_wizard.py`) may still use `_()` when the user is in an interactive form; the bulk **service** path is execution-boundary only.
+
+Do **not** wrap these service-layer summary strings in `_()` during localization normalization.
 
 ---
 
@@ -135,9 +156,10 @@ Expected: no matches.
 |------|--------|
 | `relayruntime/views/models/whatsapp_bulk_campaign.py` | Constraint message: `_()` → plain `str` |
 | `relayruntime/wizard/whatsapp_bulk_send_wizard.py` | Field `help`: `_()` → plain `str` |
+| `relayruntime/services/whatsapp_bulk_service.py` | `_attachment_label()`: `_()` → plain English literals (runtime execution labels) |
 | `docs/localization/PHASE3_LAZY_TRANSLATION_FIX.md` | This document |
 
-**Not modified:** services, runtime logic, field names, `i18n/*.po`, `i18n/*.pot`.
+**Not modified:** wizards (attachment summary `_()` kept for UI), menus, dashboard translations, `i18n/*.po`, `i18n/*.pot`.
 
 ---
 
@@ -145,7 +167,7 @@ Expected: no matches.
 
 1. **Never** use `_()` in field definitions, constraint definitions, or module-level selection tuples assigned to `fields.Selection(selection=[...])`.
 2. Prefer **plain English literals** for `string=`, `help=`, and `models.Constraint` messages; rely on `odoo-bin i18n export` + `ar.po`.
-3. Use `_()` only inside callables that run with an Odoo environment (model methods, wizards actions, services called from models).
+3. Use `_()` only inside callables that run with an Odoo environment **and** interactive language context (model methods, wizard actions). Exception: do **not** use `_()` for bulk-service execution metadata (`_attachment_label`, log fields built without UI).
 4. Do **not** use `_lt()` on field `help` or constraint messages until Odoo reflection accepts `LazyGettext` (currently Odoo 19.0 does not).
 5. For `constants.py` selection labels shown in UI: keep plain `str`; translate via selection entries in `.po`.
 6. After adding translatable strings, re-export `.pot` and merge into `ar.po` — do not wrap metadata in `_()` to “help” export.

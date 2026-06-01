@@ -655,14 +655,13 @@ class WhatsAppBulkSender:
         free_names = free_attachments.mapped('name')
         if free_names:
             parts.append(
-                _('Files (%(count)s): %(names)s')
+                'Files (%(count)s): %(names)s'
                 % {'count': len(free_names), 'names': ', '.join(free_names)}
             )
         if products:
             product_names = ', '.join(products.mapped('name'))
             if use_product_images:
-                parts.append(_('Product images: %s') % product_names)
+                parts.append('Product images: %s' % product_names)
             else:
-                # translator: catalog line in attachment summary (Product Catalog feature)
-                parts.append(_('Product Catalog: %s') % product_names)
+                parts.append('Product Catalog: %s' % product_names)
         return ' | '.join(parts)
