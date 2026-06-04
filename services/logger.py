@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Centralized logging for whatsapp_simple.
+Centralized logging for relayruntime.
 
 Provider-aware loggers propagate to Odoo root logging.
 Optional rotating file handlers do not replace default Odoo handlers.
@@ -10,11 +10,11 @@ import logging
 import os
 from logging.handlers import RotatingFileHandler
 
-CAMPAIGN_LOGGER_NAME = 'odoo.addons.whatsapp_simple.campaign'
-API_LOGGER_NAME = 'odoo.addons.whatsapp_simple.api'
-ATTACHMENT_LOGGER_NAME = 'odoo.addons.whatsapp_simple.attachment'
-PROVIDER_API_LOGGER_NAME = 'odoo.addons.whatsapp_simple.provider_api'
-FAILURES_LOGGER_NAME = 'odoo.addons.whatsapp_simple.failures'
+CAMPAIGN_LOGGER_NAME = 'odoo.addons.relayruntime.campaign'
+API_LOGGER_NAME = 'odoo.addons.relayruntime.api'
+ATTACHMENT_LOGGER_NAME = 'odoo.addons.relayruntime.attachment'
+PROVIDER_API_LOGGER_NAME = 'odoo.addons.relayruntime.provider_api'
+FAILURES_LOGGER_NAME = 'odoo.addons.relayruntime.failures'
 
 DEFAULT_LOG_PATH = os.path.join(
     os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')),

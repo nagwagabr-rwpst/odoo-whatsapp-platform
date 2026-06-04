@@ -119,7 +119,7 @@ Users can:
 
 ## Module Structure
 
-whatsapp_simple/
+relayruntime/
 
 * models/
 * wizard/

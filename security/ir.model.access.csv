@@ -10,3 +10,5 @@ access_whatsapp_bulk_send_wizard_user,whatsapp.bulk.send.wizard.user,model_whats
 access_whatsapp_product_selection_wizard_user,whatsapp.product.selection.wizard.user,model_whatsapp_product_selection_wizard,group_whatsapp_user,1,1,1,1
 access_whatsapp_product_selection_line_user,whatsapp.product.selection.line.user,model_whatsapp_product_selection_line,group_whatsapp_user,1,1,1,1
 access_whatsapp_delivery_dashboard_user,whatsapp.delivery.dashboard.user,model_whatsapp_delivery_dashboard,group_whatsapp_user,1,1,1,1
+access_whatsapp_app_dashboard_user,whatsapp.app.dashboard.user,model_whatsapp_app_dashboard,group_whatsapp_user,1,1,1,1
+access_whatsapp_dashboard_activity_line_user,whatsapp.dashboard.activity.line.user,model_whatsapp_dashboard_activity_line,group_whatsapp_user,1,1,1,1

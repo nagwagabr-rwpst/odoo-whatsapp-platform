@@ -22,13 +22,13 @@ def post_init_hook(env):
             'draft', 'running', 'completed', 'completed_with_errors', 'stopped', 'failed'
         )
     """)
-    _logger.info('whatsapp_simple: campaign state migration completed')
+    _logger.info('relayruntime: campaign state migration completed')
     cr.execute("""
         UPDATE whatsapp_config
         SET provider_type = 'green_api'
         WHERE provider_type IS NULL OR provider_type = ''
     """)
-    _logger.info('whatsapp_simple: provider_type migration completed')
+    _logger.info('relayruntime: provider_type migration completed')
     _migrate_legacy_single_attachments(cr)
     _rename_free_attachment_count_column(cr)
     _cleanup_wizard_stale_field_metadata(env)
@@ -47,7 +47,7 @@ def _cleanup_wizard_stale_field_metadata(env):
     if stale_fields:
         stale_fields.unlink()
         _logger.info(
-            'whatsapp_simple: removed stale wizard fields %s',
+            'relayruntime: removed stale wizard fields %s',
             list(stale_names),
         )
 
@@ -88,7 +88,7 @@ def _rename_free_attachment_count_column(cr):
             RENAME COLUMN free_attachment_count TO attachment_count
             """
         )
-    _logger.info('whatsapp_simple: renamed free_attachment_count to attachment_count on campaign')
+    _logger.info('relayruntime: renamed free_attachment_count to attachment_count on campaign')
 
 
 def _migrate_legacy_single_attachments(cr):
@@ -126,7 +126,7 @@ def _migrate_legacy_single_attachments(cr):
         )
         if not cr.fetchone():
             _logger.warning(
-                'whatsapp_simple: skip attachment migration for %s (relation %s missing)',
+                'relayruntime: skip attachment migration for %s (relation %s missing)',
                 table,
                 rel_table,
             )
@@ -144,7 +144,7 @@ def _migrate_legacy_single_attachments(cr):
             """
         )
         _logger.info(
-            'whatsapp_simple: migrated legacy attachment_id on %s (%s row(s))',
+            'relayruntime: migrated legacy attachment_id on %s (%s row(s))',
             table,
             cr.rowcount,
         )

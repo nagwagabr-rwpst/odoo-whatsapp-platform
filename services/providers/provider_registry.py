@@ -6,12 +6,12 @@ from typing import Dict, Optional, Type
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
 
-from odoo.addons.whatsapp_simple.constants import PROVIDER_SELECTION_LABELS
-from odoo.addons.whatsapp_simple.services.exceptions.provider_errors import ProviderValidationError
-from odoo.addons.whatsapp_simple.services.providers.base_provider import BaseWhatsAppProvider
-from odoo.addons.whatsapp_simple.services.providers.green_api_provider import GreenAPIProvider
-from odoo.addons.whatsapp_simple.services.providers.mock_provider import MockProvider
-from odoo.addons.whatsapp_simple.services.providers.stub_provider import (
+from ...constants import PROVIDER_SELECTION_LABELS
+from ..exceptions.provider_errors import ProviderValidationError
+from .base_provider import BaseWhatsAppProvider
+from .green_api_provider import GreenAPIProvider
+from .mock_provider import MockProvider
+from .stub_provider import (
     CustomAPIProvider,
     EvolutionProvider,
     GupshupProvider,

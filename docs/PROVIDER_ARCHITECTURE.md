@@ -1,6 +1,6 @@
 # Provider Architecture
 
-`whatsapp_simple` uses a **provider adapter** pattern so campaigns, bulk sending, logs, and monitoring stay provider-independent.
+`relayruntime` uses a **provider adapter** pattern so campaigns, bulk sending, logs, and monitoring stay provider-independent.
 
 ## Directory layout
 

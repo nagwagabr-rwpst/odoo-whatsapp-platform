@@ -6,8 +6,8 @@ from unittest.mock import patch
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
-from odoo.addons.whatsapp_simple.services.whatsapp_bulk_service import WhatsAppBulkSender
-from odoo.addons.whatsapp_simple.services.whatsapp_product_service import WhatsAppProductService
+from odoo.addons.relayruntime.services.whatsapp_bulk_service import WhatsAppBulkSender
+from odoo.addons.relayruntime.services.whatsapp_product_service import WhatsAppProductService
 
 # 1x1 transparent PNG
 _TINY_PNG = base64.b64decode(
@@ -15,7 +15,7 @@ _TINY_PNG = base64.b64decode(
 )
 
 
-@tagged('post_install', '-at_install', 'whatsapp_simple')
+@tagged('post_install', '-at_install', 'relayruntime')
 class TestWhatsAppBulkProduct(TransactionCase):
 
     @classmethod

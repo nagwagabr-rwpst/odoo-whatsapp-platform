@@ -6,9 +6,9 @@ import logging
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
 
-from odoo.addons.whatsapp_simple.services.logger import configure_whatsapp_logging
-from odoo.addons.whatsapp_simple.services.providers.provider_registry import ProviderRegistry
-from odoo.addons.whatsapp_simple.services.providers.response import WhatsAppMedia
+from .logger import configure_whatsapp_logging
+from .providers.provider_registry import ProviderRegistry
+from .providers.response import WhatsAppMedia
 
 _logger = logging.getLogger(__name__)
 
@@ -32,7 +32,7 @@ class WhatsAppService:
 
     @staticmethod
     def normalize_phone_number(number):
-        from odoo.addons.whatsapp_simple.services.whatsapp_phone_utils import normalize_phone_number
+        from .whatsapp_phone_utils import normalize_phone_number
         return normalize_phone_number(number)
 
     @staticmethod

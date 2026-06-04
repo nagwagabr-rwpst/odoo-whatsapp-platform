@@ -89,7 +89,7 @@ class WhatsAppBulkSendWizard(models.TransientModel):
 
     @api.depends('product_ids', 'include_product_description', 'use_product_images')
     def _compute_product_preview(self):
-        from odoo.addons.whatsapp_simple.services.whatsapp_product_service import WhatsAppProductService
+        from ..services.whatsapp_product_service import WhatsAppProductService
         product_service = WhatsAppProductService(self.env)
         for wizard in self:
             if wizard.product_ids:
@@ -111,7 +111,7 @@ class WhatsAppBulkSendWizard(models.TransientModel):
 
     @api.onchange('product_ids', 'include_product_description')
     def _onchange_products(self):
-        from odoo.addons.whatsapp_simple.services.whatsapp_product_service import WhatsAppProductService
+        from ..services.whatsapp_product_service import WhatsAppProductService
         if self.product_ids and not self.message:
             self.message = WhatsAppProductService(self.env).build_catalog_message(
                 self.product_ids,
@@ -119,8 +119,8 @@ class WhatsAppBulkSendWizard(models.TransientModel):
             )
 
     def _validate_before_send(self, config):
-        from odoo.addons.whatsapp_simple.services.whatsapp_product_service import WhatsAppProductService
-        from odoo.addons.whatsapp_simple.services.whatsapp_safety_utils import WhatsAppSafetyValidator
+        from ..services.whatsapp_product_service import WhatsAppProductService
+        from ..services.whatsapp_safety_utils import WhatsAppSafetyValidator
         safety = WhatsAppSafetyValidator(self.env, config)
         if not self.recipient_ids:
             raise UserError(_('Please select at least one contact.'))
@@ -142,9 +142,9 @@ class WhatsAppBulkSendWizard(models.TransientModel):
         safety.check_daily_limit(planned_sends=planned)
 
     def action_send(self):
-        from odoo.addons.whatsapp_simple.services.whatsapp_bulk_service import WhatsAppBulkSender
-        from odoo.addons.whatsapp_simple.services.whatsapp_product_service import WhatsAppProductService
-        from odoo.addons.whatsapp_simple.services.whatsapp_safety_utils import WhatsAppSafetyValidator
+        from ..services.whatsapp_bulk_service import WhatsAppBulkSender
+        from ..services.whatsapp_product_service import WhatsAppProductService
+        from ..services.whatsapp_safety_utils import WhatsAppSafetyValidator
         self.ensure_one()
         config = self.env['whatsapp.config'].get_active_config()
         self._validate_before_send(config)

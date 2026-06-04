@@ -2,7 +2,7 @@
 """Registry verification for whatsapp.bulk.send.wizard (run via odoo-bin shell)."""
 import inspect
 
-from odoo.addons.whatsapp_simple.wizard.whatsapp_bulk_send_wizard import WhatsAppBulkSendWizard
+from odoo.addons.relayruntime.wizard.whatsapp_bulk_send_wizard import WhatsAppBulkSendWizard
 
 
 def verify(env):

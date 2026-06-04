@@ -31,13 +31,13 @@
                         string="Test Connection"
                         class="btn-primary"
                         invisible="not provider_implemented"
-                        groups="whatsapp_simple.group_whatsapp_manager"/>
+                        groups="relayruntime.group_whatsapp_manager"/>
                     <button name="action_provider_self_test"
                         type="object"
                         string="Provider Self-Test"
                         class="btn-secondary"
                         invisible="not provider_implemented"
-                        groups="whatsapp_simple.group_whatsapp_manager"/>
+                        groups="relayruntime.group_whatsapp_manager"/>
                     <field name="provider_status" widget="statusbar"
                         statusbar_visible="healthy,degraded,disconnected"/>
                 </header>
@@ -141,14 +141,14 @@
                             </group>
                         </page>
                         <page string="Observability" name="observability"
-                            groups="whatsapp_simple.group_whatsapp_manager">
+                            groups="relayruntime.group_whatsapp_manager">
                             <group>
                                 <field name="file_log_enabled"/>
                                 <field name="file_log_path" invisible="not file_log_enabled"/>
                             </group>
                         </page>
                         <page string="Advanced" name="advanced"
-                            groups="whatsapp_simple.group_whatsapp_manager">
+                            groups="relayruntime.group_whatsapp_manager">
                             <group>
                                 <field name="fallback_config_id"/>
                                 <field name="provider_debug_info" nolabel="1" readonly="1" widget="text"/>

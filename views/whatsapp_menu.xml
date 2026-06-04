@@ -3,35 +3,58 @@
 
     <menuitem id="menu_whatsapp_root"
         name="WhatsApp"
+        action="action_whatsapp_app_dashboard"
         sequence="85"
-        groups="whatsapp_simple.group_whatsapp_user"/>
+        groups="relayruntime.group_whatsapp_user"/>
+
+    <menuitem id="menu_whatsapp_dashboard"
+        name="Dashboard"
+        parent="menu_whatsapp_root"
+        action="action_whatsapp_app_dashboard"
+        sequence="1"
+        groups="relayruntime.group_whatsapp_user"/>
+
+    <menuitem id="menu_whatsapp_bulk_campaigns"
+        name="Campaigns"
+        parent="menu_whatsapp_root"
+        action="action_whatsapp_bulk_campaign"
+        sequence="2"
+        groups="relayruntime.group_whatsapp_user"/>
+
+    <menuitem id="menu_whatsapp_message_logs"
+        name="Message Logs"
+        parent="menu_whatsapp_root"
+        action="action_whatsapp_message_log"
+        sequence="3"
+        groups="relayruntime.group_whatsapp_user"/>
+
+    <menuitem id="menu_whatsapp_campaign_monitor"
+        name="Monitor"
+        parent="menu_whatsapp_root"
+        action="action_whatsapp_campaign_monitor"
+        sequence="5"
+        groups="relayruntime.group_whatsapp_user"/>
 
     <menuitem id="menu_whatsapp_settings"
         name="Settings"
         parent="menu_whatsapp_root"
         action="action_whatsapp_config"
         sequence="10"
-        groups="whatsapp_simple.group_whatsapp_manager"/>
+        groups="relayruntime.group_whatsapp_manager"/>
 
-    <menuitem id="menu_whatsapp_message_logs"
-        name="Message Logs"
+    <!-- Preserved compose entry points (secondary to dashboard quick actions). -->
+    <menuitem id="menu_whatsapp_send_message"
+        name="Send Message"
         parent="menu_whatsapp_root"
-        action="action_whatsapp_message_log"
-        sequence="20"
-        groups="whatsapp_simple.group_whatsapp_user"/>
+        action="action_whatsapp_send_message"
+        sequence="90"
+        groups="relayruntime.group_whatsapp_user"/>
 
-    <menuitem id="menu_whatsapp_bulk_campaigns"
-        name="Bulk Campaigns"
+    <menuitem id="menu_whatsapp_new_bulk_send"
+        name="New Bulk Send"
         parent="menu_whatsapp_root"
-        action="action_whatsapp_bulk_campaign"
-        sequence="30"
-        groups="whatsapp_simple.group_whatsapp_user"/>
-
-    <menuitem id="menu_whatsapp_campaign_monitor"
-        name="Campaign Monitor"
-        parent="menu_whatsapp_root"
-        action="action_whatsapp_campaign_monitor"
-        sequence="25"
-        groups="whatsapp_simple.group_whatsapp_user"/>
+        action="action_whatsapp_new_bulk_send"
+        sequence="91"
+        groups="relayruntime.group_whatsapp_user"/>
 
 </odoo>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import inspect
 
-from odoo.addons.whatsapp_simple.wizard.whatsapp_bulk_send_wizard import WhatsAppBulkSendWizard
+from odoo.addons.relayruntime.wizard.whatsapp_bulk_send_wizard import WhatsAppBulkSendWizard
 
 model = env['whatsapp.bulk.send.wizard']
 print('model:', model)

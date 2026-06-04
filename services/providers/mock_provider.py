@@ -17,15 +17,15 @@ import random
 import time
 import uuid
 
-from odoo.addons.whatsapp_simple.services.exceptions.provider_errors import (
+from ..exceptions.provider_errors import (
     ProviderAuthenticationError,
     ProviderConnectionError,
     ProviderRateLimitError,
     ProviderValidationError,
 )
-from odoo.addons.whatsapp_simple.services.logger import provider_api_logger
-from odoo.addons.whatsapp_simple.services.providers.base_provider import BaseWhatsAppProvider
-from odoo.addons.whatsapp_simple.services.providers.response import (
+from ..logger import provider_api_logger
+from .base_provider import BaseWhatsAppProvider
+from .response import (
     WhatsAppConnectionResult,
     WhatsAppMedia,
     WhatsAppProviderCapabilities,

@@ -7,7 +7,7 @@ import uuid
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-from odoo.addons.whatsapp_simple.services.exceptions.provider_errors import (
+from ..exceptions.provider_errors import (
     ProviderAuthenticationError,
     ProviderConnectionError,
     ProviderError,
@@ -16,18 +16,18 @@ from odoo.addons.whatsapp_simple.services.exceptions.provider_errors import (
     ProviderTemporaryFailure,
     ProviderValidationError,
 )
-from odoo.addons.whatsapp_simple.services.logger import (
+from ..logger import (
     log_provider_failure,
     log_provider_request,
     provider_api_logger,
 )
-from odoo.addons.whatsapp_simple.services.providers.response import (
+from .response import (
     WhatsAppConnectionResult,
     WhatsAppMedia,
     WhatsAppProviderCapabilities,
     WhatsAppProviderResponse,
 )
-from odoo.addons.whatsapp_simple.services.whatsapp_phone_utils import (
+from ..whatsapp_phone_utils import (
     format_chat_id,
     normalize_phone_number,
 )

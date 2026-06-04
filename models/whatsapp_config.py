@@ -6,7 +6,7 @@ import logging
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
 
-from odoo.addons.whatsapp_simple.constants import (
+from ..constants import (
     PROVIDER_SELECTION_LABELS,
     PROVIDER_STATUS_SELECTION,
 )
@@ -16,12 +16,12 @@ _logger = logging.getLogger(__name__)
 
 def _provider_registry():
     """Lazy import to keep model registry init independent of provider adapters."""
-    from odoo.addons.whatsapp_simple.services.providers.provider_registry import ProviderRegistry
+    from ..services.providers.provider_registry import ProviderRegistry
     return ProviderRegistry
 
 
 def _whatsapp_service():
-    from odoo.addons.whatsapp_simple.services.whatsapp_service import WhatsAppService
+    from ..services.whatsapp_service import WhatsAppService
     return WhatsAppService
 
 
@@ -126,7 +126,7 @@ class WhatsAppConfig(models.Model):
     )
     access_token = fields.Char(
         string='Access Token',
-        groups='whatsapp_simple.group_whatsapp_manager',
+        groups='relayruntime.group_whatsapp_manager',
     )
 
     # Provider-specific optional fields
@@ -135,7 +135,7 @@ class WhatsAppConfig(models.Model):
     business_account_id = fields.Char(string='Business Account ID', help='Meta / business WABA id.')
     webhook_secret = fields.Char(
         string='Webhook Secret',
-        groups='whatsapp_simple.group_whatsapp_manager',
+        groups='relayruntime.group_whatsapp_manager',
         help='Secret for webhook signature verification.',
     )
     api_version = fields.Char(

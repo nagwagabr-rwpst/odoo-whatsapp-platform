@@ -3,7 +3,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
-from odoo.addons.whatsapp_simple.services.logger import campaign_logger
+from ..services.logger import campaign_logger
 
 CAMPAIGN_STATE_SELECTION = [
     ('draft', 'Draft'),
@@ -318,7 +318,7 @@ class WhatsAppBulkCampaign(models.Model):
             'state': 'draft',
         })
 
-        from odoo.addons.whatsapp_simple.services.whatsapp_bulk_service import WhatsAppBulkSender
+        from ..services.whatsapp_bulk_service import WhatsAppBulkSender
 
         campaign_logger.info(
             'Retry campaign %s created from parent %s (%s recipients)',
@@ -348,7 +348,7 @@ class WhatsAppBulkCampaign(models.Model):
 
     def action_open_monitor(self):
         self.ensure_one()
-        return self.env.ref('whatsapp_simple.action_whatsapp_campaign_monitor').read()[0]
+        return self.env.ref('relayruntime.action_whatsapp_campaign_monitor').read()[0]
 
     def _update_execution_progress(
         self,

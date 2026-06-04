@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Module-level constants for whatsapp_simple.
+Module-level constants for relayruntime.
 
 Kept free of Odoo model/service imports so models can load without
 pulling in the full provider stack at registry init time.

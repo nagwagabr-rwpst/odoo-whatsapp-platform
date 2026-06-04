@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_whatsapp_app_dashboard_form" model="ir.ui.view">
+        <field name="name">whatsapp.app.dashboard.form</field>
+        <field name="model">whatsapp.app.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="WhatsApp Dashboard" create="false" edit="false" delete="false" class="o_whatsapp_app_dashboard">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_campaigns"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-bullhorn"
+                            title="All campaigns">
+                            <field name="total_campaigns" widget="statinfo" string="Campaigns"/>
+                        </button>
+                        <button name="action_open_active_campaigns"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-play-circle"
+                            title="Draft and running campaigns">
+                            <field name="active_campaigns" widget="statinfo" string="Active"/>
+                        </button>
+                        <button name="action_open_sent_logs"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-paper-plane"
+                            title="Sent messages">
+                            <field name="total_sent" widget="statinfo" string="Sent"/>
+                        </button>
+                        <button name="action_open_failed_logs"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-exclamation-triangle"
+                            title="Failed messages">
+                            <field name="total_failed" widget="statinfo" string="Failed"/>
+                        </button>
+                        <button name="action_open_delivery_dashboard"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-line-chart"
+                            title="Delivery rate">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="delivery_rate" widget="float" digits="[16, 1]"/>%
+                                </span>
+                                <span class="o_stat_text">Delivery Rate</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="oe_title mb-3">
+                        <h1 class="d-flex align-items-center gap-2">
+                            <i class="fa fa-whatsapp text-success" title="WhatsApp"/>
+                            WhatsApp
+                        </h1>
+                        <p class="text-muted mb-0">
+                            Operational overview — configuration health, delivery performance, and recent activity.
+                        </p>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 col-lg-6">
+                            <div class="border rounded p-3 h-100 bg-view">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="mb-0">
+                                        <i class="fa fa-cog me-1" title="Configuration"/>
+                                        Configuration
+                                    </h5>
+                                    <field name="config_status" widget="badge"
+                                        decoration-success="config_status == 'configured'"
+                                        decoration-danger="config_status == 'missing'"/>
+                                </div>
+                                <field name="config_id" invisible="1"/>
+                                <field name="config_active" invisible="1"/>
+                                <field name="config_is_test_mode" invisible="1"/>
+                                <div class="mb-2">
+                                    <span class="text-muted">Provider</span>
+                                    <div class="fw-semibold">
+                                        <field name="config_provider_label" class="oe_inline" readonly="1"/>
+                                        <span class="badge text-bg-warning ms-2" invisible="not config_is_test_mode">Test Mode</span>
+                                    </div>
+                                </div>
+                                <div class="small text-muted" invisible="config_status != 'configured'">
+                                    Active configuration linked to this company.
+                                </div>
+                                <div class="small text-danger" invisible="config_status != 'missing'">
+                                    No active configuration. Open Settings to connect a provider.
+                                </div>
+                                <div class="mt-3">
+                                    <button name="action_open_configuration"
+                                        type="object"
+                                        string="Open Configuration"
+                                        class="btn btn-link ps-0"
+                                        icon="fa-external-link"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="border rounded p-3 h-100 bg-view">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="mb-0">
+                                        <i class="fa fa-heartbeat me-1" title="Provider health"/>
+                                        Provider Health
+                                    </h5>
+                                    <field name="provider_status" widget="badge"
+                                        decoration-success="provider_status == 'healthy'"
+                                        decoration-warning="provider_status == 'degraded'"
+                                        decoration-danger="provider_status == 'disconnected'"/>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="text-muted">Adapter</span>
+                                    <div class="fw-semibold">
+                                        <field name="provider_name" class="oe_inline" readonly="1"/>
+                                    </div>
+                                </div>
+                                <group col="2" class="mb-0">
+                                    <field name="provider_last_success" widget="relative"/>
+                                    <field name="provider_latency_ms"/>
+                                </group>
+                                <field name="provider_last_error" invisible="not provider_last_error" class="text-danger small"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="border rounded p-3 text-center bg-view h-100">
+                                <i class="fa fa-bullhorn fa-2x text-primary mb-2" title="Total campaigns"/>
+                                <div class="fs-4 fw-bold"><field name="total_campaigns" readonly="1" nolabel="1"/></div>
+                                <div class="text-muted small">Total Campaigns</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="border rounded p-3 text-center bg-view h-100">
+                                <i class="fa fa-play-circle fa-2x text-warning mb-2" title="Active campaigns"/>
+                                <div class="fs-4 fw-bold"><field name="active_campaigns" readonly="1" nolabel="1"/></div>
+                                <div class="text-muted small">Active Campaigns</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="border rounded p-3 text-center bg-view h-100">
+                                <i class="fa fa-paper-plane fa-2x text-success mb-2" title="Sent messages"/>
+                                <div class="fs-4 fw-bold"><field name="total_sent" readonly="1" nolabel="1"/></div>
+                                <div class="text-muted small">Sent Messages</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-xl-3">
+                            <div class="border rounded p-3 text-center bg-view h-100">
+                                <i class="fa fa-times-circle fa-2x text-danger mb-2" title="Failed messages"/>
+                                <div class="fs-4 fw-bold"><field name="total_failed" readonly="1" nolabel="1"/></div>
+                                <div class="text-muted small">Failed Messages</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 col-xl-3">
+                            <div class="border rounded p-3 bg-view h-100">
+                                <div class="fw-semibold mb-2">
+                                    <i class="fa fa-line-chart me-1" title="Delivery rate"/>
+                                    Delivery Rate
+                                </div>
+                                <field name="delivery_rate" widget="progressbar" options="{'max_value': 100}" nolabel="1"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <separator string="Quick Actions"/>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <button name="action_quick_new_campaign"
+                            type="object"
+                            string="New Campaign"
+                            class="btn btn-primary"
+                            icon="fa-plus"/>
+                        <button name="action_quick_send_message"
+                            type="object"
+                            string="Send Message"
+                            class="btn btn-secondary"
+                            icon="fa-comment"/>
+                        <button name="action_quick_message_logs"
+                            type="object"
+                            string="Message Logs"
+                            class="btn btn-secondary"
+                            icon="fa-list"/>
+                        <button name="action_quick_campaign_monitor"
+                            type="object"
+                            string="Campaign Monitor"
+                            class="btn btn-secondary"
+                            icon="fa-desktop"/>
+                        <button name="action_quick_delivery_dashboard"
+                            type="object"
+                            string="Delivery Dashboard"
+                            class="btn btn-secondary"
+                            icon="fa-bar-chart"/>
+                        <button name="action_quick_settings"
+                            type="object"
+                            string="Settings"
+                            class="btn btn-secondary"
+                            icon="fa-cog"
+                            groups="relayruntime.group_whatsapp_manager"/>
+                    </div>
+
+                    <separator string="Recent Activity"/>
+                    <field name="recent_activity_ids" nolabel="1">
+                        <list create="false" delete="false" edit="false" default_order="activity_at desc">
+                            <field name="activity_at" widget="relative"/>
+                            <field name="activity_type" widget="badge"
+                                decoration-info="activity_type == 'message'"
+                                decoration-primary="activity_type == 'campaign'"/>
+                            <field name="name"/>
+                            <field name="detail"/>
+                            <field name="status_code" column_invisible="1"/>
+                            <field name="status_label" string="Status" widget="badge"
+                                decoration-success="status_code in ('sent', 'delivered', 'completed')"
+                                decoration-warning="status_code in ('running', 'draft', 'queued', 'sending')"
+                                decoration-danger="status_code in ('failed', 'completed_with_errors')"
+                                decoration-muted="status_code == 'stopped'"/>
+                            <button name="action_open_record" type="object" icon="fa-external-link" title="Open record"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_whatsapp_app_dashboard" model="ir.actions.server">
+        <field name="name">Dashboard</field>
+        <field name="model_id" ref="model_whatsapp_app_dashboard"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_dashboard()</field>
+    </record>
+
+</odoo>

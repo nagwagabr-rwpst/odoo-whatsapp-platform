@@ -11,7 +11,7 @@
                     type="object"
                     string="Send WhatsApp"
                     icon="fa-whatsapp"
-                    groups="whatsapp_simple.group_whatsapp_user"/>
+                    groups="relayruntime.group_whatsapp_user"/>
             </xpath>
         </field>
     </record>

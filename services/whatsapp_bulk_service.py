@@ -7,16 +7,16 @@ import traceback
 from odoo import _, fields
 from odoo.exceptions import ValidationError
 
-from odoo.addons.whatsapp_simple.services.logger import (
+from .logger import (
     api_logger,
     attachment_logger,
     campaign_logger,
     configure_whatsapp_logging,
     summarize_api_payload,
 )
-from odoo.addons.whatsapp_simple.services.whatsapp_product_service import WhatsAppProductService
-from odoo.addons.whatsapp_simple.services.whatsapp_safety_utils import WhatsAppSafetyValidator
-from odoo.addons.whatsapp_simple.services.whatsapp_service import WhatsAppService
+from .whatsapp_product_service import WhatsAppProductService
+from .whatsapp_safety_utils import WhatsAppSafetyValidator
+from .whatsapp_service import WhatsAppService
 
 
 class WhatsAppBulkSender:

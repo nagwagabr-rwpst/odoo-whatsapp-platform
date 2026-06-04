@@ -12,7 +12,7 @@ _TINY_PNG = base64.b64decode(
 )
 
 
-@tagged('post_install', '-at_install', 'whatsapp_simple')
+@tagged('post_install', '-at_install', 'relayruntime')
 class TestWhatsAppBulkSendWizardAction(TransactionCase):
 
     @classmethod
@@ -62,7 +62,7 @@ class TestWhatsAppBulkSendWizardAction(TransactionCase):
         # Odoo 19 _preprocessAction requires views on act_window; bare view_mode crashes.
         self.assertNotIn('view_mode', next_action)
 
-    @patch('odoo.addons.whatsapp_simple.services.whatsapp_bulk_service.WhatsAppBulkSender.send_to_partners')
+    @patch('odoo.addons.relayruntime.services.whatsapp_bulk_service.WhatsAppBulkSender.send_to_partners')
     def test_action_send_returns_valid_action_with_multiple_attachments(self, mock_send):
         mock_send.return_value = {
             'total': 1,

@@ -43,7 +43,7 @@
         name="Delivery Dashboard"
         parent="menu_whatsapp_root"
         action="action_whatsapp_delivery_dashboard"
-        sequence="15"
-        groups="whatsapp_simple.group_whatsapp_user"/>
+        sequence="4"
+        groups="relayruntime.group_whatsapp_user"/>
 
 </odoo>

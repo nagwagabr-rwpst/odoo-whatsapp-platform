@@ -48,11 +48,11 @@ campaign monitor, and product workflows are provider-independent.
 
         'views/whatsapp_delivery_dashboard_views.xml',
 
+        'views/whatsapp_app_dashboard_views.xml',
+
         'views/whatsapp_bulk_campaign_views.xml',
 
         'views/whatsapp_campaign_monitor_views.xml',
-
-        'views/whatsapp_menu.xml',
 
         'views/res_partner_views.xml',
 
@@ -62,6 +62,8 @@ campaign monitor, and product workflows are provider-independent.
 
         'wizard/whatsapp_bulk_send_wizard_views.xml',
 
+        'views/whatsapp_menu.xml',
+
         'wizard/whatsapp_product_selection_wizard_views.xml',
 
     ],
@@ -70,7 +72,7 @@ campaign monitor, and product workflows are provider-independent.
 
         'web.assets_backend': [
 
-            'whatsapp_simple/static/src/js/campaign_monitor_kanban.js',
+            'relayruntime/static/src/js/campaign_monitor_kanban.js',
 
         ],
 

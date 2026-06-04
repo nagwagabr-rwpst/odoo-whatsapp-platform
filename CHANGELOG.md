@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the `whatsapp_simple` module are documented in this file.
+All notable changes to the `relayruntime` module are documented in this file.
 
 ## [19.0.5.0.0] - 2026-05-19
 

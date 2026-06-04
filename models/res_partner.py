@@ -5,7 +5,7 @@ import logging
 from odoo import api, models, _
 from odoo.exceptions import UserError, ValidationError
 
-from odoo.addons.whatsapp_simple.services.whatsapp_phone_utils import normalize_phone_number
+from ..services.whatsapp_phone_utils import normalize_phone_number
 
 _logger = logging.getLogger(__name__)
 

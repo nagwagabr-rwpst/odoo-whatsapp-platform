@@ -6,8 +6,8 @@ import logging
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
-from odoo.addons.whatsapp_simple.services.whatsapp_safety_utils import WhatsAppSafetyValidator
-from odoo.addons.whatsapp_simple.services.whatsapp_service import WhatsAppService
+from ..services.whatsapp_safety_utils import WhatsAppSafetyValidator
+from ..services.whatsapp_service import WhatsAppService
 
 _logger = logging.getLogger(__name__)
 

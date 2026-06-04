@@ -12,7 +12,7 @@
                     class="oe_stat_button"
                     icon="fa-whatsapp"
                     string="Send WhatsApp"
-                    groups="whatsapp_simple.group_whatsapp_user"/>
+                    groups="relayruntime.group_whatsapp_user"/>
             </xpath>
         </field>
     </record>
@@ -29,7 +29,7 @@
                         string="WhatsApp Bulk Send"
                         icon="fa-whatsapp"
                         display="always"
-                        groups="whatsapp_simple.group_whatsapp_user"/>
+                        groups="relayruntime.group_whatsapp_user"/>
                 </header>
             </xpath>
         </field>

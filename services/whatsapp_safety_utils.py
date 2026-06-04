@@ -272,7 +272,7 @@ class WhatsAppSafetyValidator:
                 duration,
                 campaign_id,
             )
-            from odoo.addons.whatsapp_simple.services.logger import campaign_logger
+            from .logger import campaign_logger
             campaign_logger.info(
                 'Campaign %s: COOLDOWN START %.1fs after %s messages',
                 campaign_id,
