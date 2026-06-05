@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920" />
+  <title>RWPST RelayRuntime — Dashboard Mockup</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --rwpst-blue: #1E3A8A;
+      --rwpst-blue-bright: #2563EB;
+      --rwpst-navy: #0F172A;
+      --rwpst-wa: #25D366;
+      --rwpst-orange: #F97316;
+      --rwpst-bg: #F1F5F9;
+      --rwpst-card: #FFFFFF;
+      --rwpst-border: #E2E8F0;
+      --rwpst-muted: #64748B;
+      --stage-draft: #94A3B8;
+      --stage-scheduled: #60A5FA;
+      --stage-sent: #34D399;
+      --stage-converted: #1E40AF;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 8px 24px rgba(30, 58, 138, 0.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1920px;
+      min-height: 1080px;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--rwpst-bg);
+      color: var(--rwpst-navy);
+      font-size: 14px;
+      line-height: 1.45;
+      overflow-x: hidden;
+    }
+
+    /* Odoo chrome — navbar */
+    .o_navbar {
+      height: 46px;
+      background: var(--rwpst-blue);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      color: #fff;
+      box-shadow: var(--shadow-md);
+    }
+    .o_navbar .apps { font-size: 18px; margin-right: 20px; opacity: 0.9; }
+    .o_navbar .menu-item {
+      padding: 0 14px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      opacity: 0.85;
+    }
+    .o_navbar .menu-item:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+    .o_navbar .menu-item.active {
+      opacity: 1;
+      border-bottom-color: var(--rwpst-orange);
+      background: rgba(255,255,255,0.1);
+    }
+    .o_navbar .menu-item.has-sub::after {
+      content: "▾";
+      font-size: 9px;
+      margin-left: 6px;
+      opacity: 0.7;
+    }
+    .o_navbar .spacer { flex: 1; }
+    .o_navbar .search {
+      background: rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 12px;
+      width: 220px;
+      color: rgba(255,255,255,0.7);
+    }
+    .o_navbar .badge-notif {
+      background: var(--rwpst-orange);
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      margin-left: 16px;
+    }
+    .o_navbar .avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      margin-left: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+    }
+
+    /* Breadcrumb / control strip */
+    .o_control {
+      background: var(--rwpst-card);
+      border-bottom: 1px solid var(--rwpst-border);
+      padding: 10px 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--rwpst-muted);
+    }
+    .o_control .current { color: var(--rwpst-navy); font-weight: 600; }
+    .o_control .facet {
+      margin-left: auto;
+      background: var(--rwpst-blue);
+      color: #fff;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .dashboard { padding: 24px 28px 32px; max-width: 1920px; }
+
+    /* App header */
+    .app-header {
+      background: var(--rwpst-card);
+      border-radius: 12px;
+      padding: 22px 28px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--rwpst-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    .app-header-left { display: flex; gap: 18px; align-items: flex-start; }
+    .app-logo {
+      width: 64px; height: 64px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--rwpst-navy) 0%, var(--rwpst-blue) 55%, var(--rwpst-blue-bright) 100%);
+      position: relative;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-md);
+    }
+    .app-logo::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 3px solid rgba(255,255,255,0.9);
+      border-radius: 50%;
+    }
+    .app-logo::after {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border: 3px solid var(--rwpst-orange);
+      border-radius: 50%;
+    }
+    .logo-cross-v, .logo-cross-h {
+      position: absolute;
+      background: #fff;
+      border-radius: 2px;
+    }
+    .logo-cross-v { width: 4px; height: 28px; left: 30px; top: 18px; background: #fff; }
+    .logo-cross-h { width: 28px; height: 4px; left: 18px; top: 30px; background: var(--rwpst-orange); }
+    .logo-wa-dot {
+      position: absolute;
+      width: 14px; height: 14px;
+      background: var(--rwpst-wa);
+      border-radius: 50%;
+      bottom: 4px; right: 4px;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--rwpst-wa);
+    }
+    .app-title { font-size: 26px; font-weight: 700; color: var(--rwpst-navy); letter-spacing: -0.02em; }
+    .app-subtitle { font-size: 14px; color: var(--rwpst-muted); margin-top: 4px; }
+    .status-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
+    .pill-wa {
+      background: rgba(37, 211, 102, 0.12);
+      color: #128C7E;
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .pill-wa i { margin-right: 5px; }
+    .pill-status {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .pill-not-config { background: #FEE2E2; color: #B91C1C; border: 1px solid #FECACA; }
+    .pill-disconnected { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
+    .header-actions { display: flex; gap: 10px; }
+    .btn {
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-secondary {
+      background: #fff;
+      color: var(--rwpst-navy);
+      border: 1px solid var(--rwpst-border);
+    }
+    .btn-primary {
+      background: var(--rwpst-blue);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.35);
+    }
+    .btn-accent {
+      background: var(--rwpst-orange);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(249, 115, 22, 0.35);
+    }
+
+    /* Alerts */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--rwpst-muted);
+      margin-bottom: 10px;
+    }
+    .alerts-strip {
+      background: linear-gradient(90deg, #FEF2F2 0%, #FFFBEB 100%);
+      border: 1px solid #FECACA;
+      border-left: 4px solid var(--rwpst-orange);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .alerts-strip h3 { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .alert-count {
+      background: #DC2626;
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .alert-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 0;
+      font-size: 13px;
+      color: var(--rwpst-navy);
+    }
+    .alert-item i { width: 18px; text-align: center; }
+    .alert-link { color: var(--rwpst-blue); font-weight: 600; margin-left: 4px; cursor: pointer; }
+
+    /* KPI row */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--rwpst-card);
+      border-radius: 12px;
+      padding: 18px 20px;
+      border: 1px solid var(--rwpst-border);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .kpi-card.kpi-provider::before { background: var(--rwpst-blue); }
+    .kpi-card.kpi-campaigns::before { background: var(--rwpst-orange); }
+    .kpi-card.kpi-delivery::before { background: var(--rwpst-wa); }
+    .kpi-card.kpi-queue::before { background: var(--stage-scheduled); }
+    .kpi-label { font-size: 12px; color: var(--rwpst-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .kpi-value { font-size: 28px; font-weight: 700; margin: 6px 0 4px; color: var(--rwpst-navy); }
+    .kpi-meta { font-size: 12px; color: var(--rwpst-muted); }
+    .kpi-icon {
+      position: absolute;
+      right: 16px; top: 16px;
+      font-size: 22px;
+      opacity: 0.15;
+    }
+
+    /* Lifecycle rail */
+    .lifecycle-section { margin-bottom: 24px; }
+    .lifecycle-rail {
+      display: flex;
+      align-items: stretch;
+      background: var(--rwpst-card);
+      border-radius: 12px;
+      border: 1px solid var(--rwpst-border);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .lifecycle-stage {
+      flex: 1;
+      text-align: center;
+      padding: 18px 12px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+      border-right: 1px solid var(--rwpst-border);
+    }
+    .lifecycle-stage:last-child { border-right: none; }
+    .lifecycle-stage:hover { transform: translateY(-2px); opacity: 0.92; }
+    .lifecycle-stage.active { background: rgba(30, 64, 175, 0.06); }
+    .lifecycle-dot {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: var(--shadow-sm);
+    }
+    .lifecycle-stage:nth-child(1) .lifecycle-dot { background: var(--stage-draft); }
+    .lifecycle-stage:nth-child(2) .lifecycle-dot { background: var(--stage-draft); }
+    .lifecycle-stage:nth-child(3) .lifecycle-dot { background: var(--stage-scheduled); }
+    .lifecycle-stage:nth-child(4) .lifecycle-dot { background: var(--stage-scheduled); }
+    .lifecycle-stage:nth-child(5) .lifecycle-dot { background: var(--stage-sent); }
+    .lifecycle-stage:nth-child(6) .lifecycle-dot { background: var(--stage-converted); }
+    .lifecycle-stage.active .lifecycle-dot { box-shadow: var(--shadow-lg); transform: scale(1.05); }
+    .lifecycle-name { font-size: 13px; font-weight: 700; color: var(--rwpst-navy); }
+    .lifecycle-desc { font-size: 11px; color: var(--rwpst-muted); margin-top: 4px; }
+    .lifecycle-connector {
+      position: absolute;
+      right: -8px; top: 50%;
+      width: 16px; height: 2px;
+      background: var(--rwpst-border);
+      z-index: 1;
+    }
+
+    /* Workspace tiles */
+    .tiles-section { margin-bottom: 24px; }
+    .tiles-group-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--rwpst-blue);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tiles-group-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--rwpst-border);
+    }
+    .tiles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .tiles-grid.config-row {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 75%;
+    }
+    .tile {
+      background: var(--rwpst-card);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--rwpst-border);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      min-height: 148px;
+      display: flex;
+      flex-direction: column;
+    }
+    .tile:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+    .tile.tile-blue:hover { border-color: rgba(30, 58, 138, 0.4); background: linear-gradient(180deg, #fff 0%, rgba(30, 58, 138, 0.04) 100%); }
+    .tile.tile-wa:hover { border-color: rgba(37, 211, 102, 0.4); background: linear-gradient(180deg, #fff 0%, rgba(37, 211, 102, 0.05) 100%); }
+    .tile.tile-orange:hover { border-color: rgba(249, 115, 22, 0.4); background: linear-gradient(180deg, #fff 0%, rgba(249, 115, 22, 0.05) 100%); }
+    .tile.tile-navy:hover { border-color: rgba(15, 23, 42, 0.25); background: linear-gradient(180deg, #fff 0%, rgba(15, 23, 42, 0.03) 100%); }
+    .tile-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .tile-icon.blue { background: rgba(30, 58, 138, 0.1); color: var(--rwpst-blue); }
+    .tile-icon.wa { background: rgba(37, 211, 102, 0.12); color: #128C7E; }
+    .tile-icon.orange { background: rgba(249, 115, 22, 0.12); color: var(--rwpst-orange); }
+    .tile-icon.navy { background: rgba(15, 23, 42, 0.08); color: var(--rwpst-navy); }
+    .tile-title { font-size: 15px; font-weight: 700; color: var(--rwpst-navy); margin-bottom: 6px; }
+    .tile-desc { font-size: 12px; color: var(--rwpst-muted); flex: 1; line-height: 1.4; }
+    .tile-kpi {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      align-self: flex-start;
+    }
+    .tile-kpi.blue { background: rgba(30, 58, 138, 0.1); color: var(--rwpst-blue); }
+    .tile-kpi.wa { background: rgba(37, 211, 102, 0.12); color: #059669; }
+    .tile-kpi.orange { background: rgba(249, 115, 22, 0.12); color: #C2410C; }
+    .tile-kpi.muted { background: #F1F5F9; color: var(--rwpst-muted); }
+
+    /* Bottom row: kanban + activity */
+    .bottom-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .panel {
+      background: var(--rwpst-card);
+      border-radius: 12px;
+      border: 1px solid var(--rwpst-border);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--rwpst-border);
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FAFBFC;
+    }
+    .panel-header .live-dot {
+      width: 8px; height: 8px;
+      background: var(--rwpst-wa);
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Mini kanban empty */
+    .kanban-empty {
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .kanban-illus {
+      width: 120px; height: 100px;
+      margin: 0 auto 16px;
+      position: relative;
+    }
+    .kanban-illus .card-ghost {
+      position: absolute;
+      width: 70px; height: 48px;
+      background: #E2E8F0;
+      border-radius: 8px;
+      border: 2px dashed #CBD5E1;
+    }
+    .kanban-illus .card-ghost:nth-child(1) { left: 10px; top: 20px; transform: rotate(-6deg); }
+    .kanban-illus .card-ghost:nth-child(2) { left: 38px; top: 8px; background: rgba(30, 58, 138, 0.08); border-color: var(--rwpst-blue); }
+    .kanban-illus .card-ghost:nth-child(3) { left: 52px; top: 36px; transform: rotate(4deg); }
+    .kanban-illus i {
+      position: absolute;
+      font-size: 28px;
+      color: var(--rwpst-blue);
+      opacity: 0.35;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -30%);
+    }
+    .kanban-empty h4 { font-size: 15px; color: var(--rwpst-navy); margin-bottom: 6px; }
+    .kanban-empty p { font-size: 13px; color: var(--rwpst-muted); max-width: 280px; margin: 0 auto; }
+
+    /* Activity feed */
+    .activity-list { padding: 8px 0; max-height: 320px; }
+    .activity-item {
+      display: flex;
+      gap: 14px;
+      padding: 12px 20px;
+      border-bottom: 1px solid #F1F5F9;
+      align-items: flex-start;
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .activity-icon.campaign { background: rgba(249, 115, 22, 0.12); color: var(--rwpst-orange); }
+    .activity-icon.message { background: rgba(37, 211, 102, 0.12); color: var(--rwpst-wa); }
+    .activity-icon.event { background: rgba(30, 58, 138, 0.1); color: var(--rwpst-blue); }
+    .activity-icon.alert { background: #FEE2E2; color: #DC2626; }
+    .activity-body { flex: 1; min-width: 0; }
+    .activity-title { font-size: 13px; font-weight: 600; color: var(--rwpst-navy); }
+    .activity-detail { font-size: 12px; color: var(--rwpst-muted); margin-top: 2px; }
+    .activity-time { font-size: 11px; color: #94A3B8; white-space: nowrap; }
+
+    .footer-note {
+      text-align: center;
+      padding: 16px;
+      font-size: 11px;
+      color: #94A3B8;
+      border-top: 1px dashed var(--rwpst-border);
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Odoo navbar (RWPST blue, no purple) -->
+  <nav class="o_navbar">
+    <span class="apps"><i class="fa fa-th"></i></span>
+    <span class="menu-item">Dashboard</span>
+    <span class="menu-item active has-sub">Operations</span>
+    <span class="menu-item has-sub">Analytics</span>
+    <span class="menu-item has-sub">Configuration</span>
+    <span class="menu-item">Send Message</span>
+    <span class="spacer"></span>
+    <span class="search"><i class="fa fa-search"></i> Search...</span>
+    <span class="badge-notif">3</span>
+    <span class="avatar"><i class="fa fa-user"></i></span>
+  </nav>
+
+  <div class="o_control">
+    <span>RelayRuntime</span>
+    <span>/</span>
+    <span class="current">Command Center</span>
+    <span class="facet">Dashboard</span>
+  </div>
+
+  <main class="dashboard">
+
+    <!-- App identity header -->
+    <header class="app-header">
+      <div class="app-header-left">
+        <div class="app-logo">
+          <span class="logo-cross-v"></span>
+          <span class="logo-cross-h"></span>
+          <span class="logo-wa-dot"></span>
+        </div>
+        <div>
+          <h1 class="app-title">RWPST RelayRuntime</h1>
+          <p class="app-subtitle">Operational Messaging Runtime for Odoo</p>
+          <div class="status-pills">
+            <span class="pill-wa"><i class="fa fa-whatsapp"></i> WhatsApp Channel</span>
+            <span class="pill-status pill-not-config">Not Configured</span>
+            <span class="pill-status pill-disconnected">Disconnected</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary"><i class="fa fa-refresh"></i> Refresh</button>
+        <button class="btn btn-secondary"><i class="fa fa-comment"></i> Send Message</button>
+        <button class="btn btn-accent"><i class="fa fa-plus"></i> New Bulk Send</button>
+      </div>
+    </header>
+
+    <!-- Alerts -->
+    <div class="section-label">Alerts</div>
+    <div class="alerts-strip">
+      <h3><i class="fa fa-bell" style="color:var(--rwpst-orange)"></i> Active alerts <span class="alert-count">3</span></h3>
+      <div class="alert-item"><i class="fa fa-exclamation-circle" style="color:#DC2626"></i> Runtime configuration is missing. <span class="alert-link">Configure runtime →</span></div>
+      <div class="alert-item"><i class="fa fa-heartbeat" style="color:#D97706"></i> Provider health requires attention: <strong>Green API</strong> (disconnected)</div>
+      <div class="alert-item"><i class="fa fa-clock" style="color:var(--rwpst-blue)"></i> <strong>24</strong> messages queued or sending. <span class="alert-link">View queue →</span></div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="section-label">Key metrics</div>
+    <div class="kpi-row">
+      <div class="kpi-card kpi-provider">
+        <i class="fa fa-plug kpi-icon"></i>
+        <div class="kpi-label">Provider</div>
+        <div class="kpi-value">—</div>
+        <div class="kpi-meta">Not configured · Click to set up</div>
+      </div>
+      <div class="kpi-card kpi-campaigns">
+        <i class="fa fa-bullhorn kpi-icon"></i>
+        <div class="kpi-label">Active Campaigns</div>
+        <div class="kpi-value">0</div>
+        <div class="kpi-meta">No campaigns running</div>
+      </div>
+      <div class="kpi-card kpi-delivery">
+        <i class="fa fa-paper-plane kpi-icon"></i>
+        <div class="kpi-label">Delivery Rate</div>
+        <div class="kpi-value">—</div>
+        <div class="kpi-meta">Awaiting first send</div>
+      </div>
+      <div class="kpi-card kpi-queue">
+        <i class="fa fa-list kpi-icon"></i>
+        <div class="kpi-label">Queue</div>
+        <div class="kpi-value">24</div>
+        <div class="kpi-meta">Pending · 2 failed today</div>
+      </div>
+    </div>
+
+    <!-- Lifecycle rail -->
+    <div class="lifecycle-section">
+      <div class="section-label">Messaging lifecycle</div>
+      <div class="lifecycle-rail">
+        <div class="lifecycle-stage">
+          <div class="lifecycle-dot"><i class="fa fa-address-book"></i></div>
+          <div class="lifecycle-name">Contacts</div>
+          <div class="lifecycle-desc">Audiences &amp; segments</div>
+        </div>
+        <div class="lifecycle-stage">
+          <div class="lifecycle-dot"><i class="fa fa-flag"></i></div>
+          <div class="lifecycle-name">Campaign</div>
+          <div class="lifecycle-desc">Draft &amp; schedule</div>
+        </div>
+        <div class="lifecycle-stage active">
+          <div class="lifecycle-dot"><i class="fa fa-paper-plane"></i></div>
+          <div class="lifecycle-name">Send</div>
+          <div class="lifecycle-desc">Bulk &amp; quick send</div>
+        </div>
+        <div class="lifecycle-stage">
+          <div class="lifecycle-dot"><i class="fa fa-truck"></i></div>
+          <div class="lifecycle-name">Delivery</div>
+          <div class="lifecycle-desc">Logs &amp; receipts</div>
+        </div>
+        <div class="lifecycle-stage">
+          <div class="lifecycle-dot"><i class="fa fa-desktop"></i></div>
+          <div class="lifecycle-name">Monitor</div>
+          <div class="lifecycle-desc">Live campaign view</div>
+        </div>
+        <div class="lifecycle-stage">
+          <div class="lifecycle-dot"><i class="fa fa-chart-line"></i></div>
+          <div class="lifecycle-name">Analytics</div>
+          <div class="lifecycle-desc">Performance insights</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workspace tiles — Operations -->
+    <div class="tiles-section">
+      <div class="tiles-group-label"><i class="fa fa-grid-2"></i> Operations workspaces</div>
+      <div class="tiles-grid">
+        <div class="tile tile-blue">
+          <div class="tile-icon blue"><i class="fa fa-compass"></i></div>
+          <div class="tile-title">Command Center</div>
+          <div class="tile-desc">Unified launcher for runtime status, alerts, and quick actions.</div>
+          <span class="tile-kpi blue">You are here</span>
+        </div>
+        <div class="tile tile-orange">
+          <div class="tile-icon orange"><i class="fa fa-bullhorn"></i></div>
+          <div class="tile-title">Campaigns</div>
+          <div class="tile-desc">Create, schedule, and manage WhatsApp outreach campaigns.</div>
+          <span class="tile-kpi orange">0 active</span>
+        </div>
+        <div class="tile tile-wa">
+          <div class="tile-icon wa"><i class="fa fa-comments"></i></div>
+          <div class="tile-title">Bulk Messaging</div>
+          <div class="tile-desc">High-volume sends with throttling, templates, and safety checks.</div>
+          <span class="tile-kpi wa">24 in queue</span>
+        </div>
+        <div class="tile tile-blue">
+          <div class="tile-icon blue"><i class="fa fa-users"></i></div>
+          <div class="tile-title">Contacts &amp; Audiences</div>
+          <div class="tile-desc">Partner lists, tags, and audience filters for targeting.</div>
+          <span class="tile-kpi blue">1.2k contacts</span>
+        </div>
+        <div class="tile tile-wa">
+          <div class="tile-icon wa"><i class="fa fa-clipboard-list"></i></div>
+          <div class="tile-title">Delivery &amp; Logs</div>
+          <div class="tile-desc">Message history, delivery receipts, and failed delivery review.</div>
+          <span class="tile-kpi muted">2 failed today</span>
+        </div>
+        <div class="tile tile-orange">
+          <div class="tile-icon orange"><i class="fa fa-tachometer-alt"></i></div>
+          <div class="tile-title">Live Monitor</div>
+          <div class="tile-desc">Real-time kanban of campaigns currently sending or paused.</div>
+          <span class="tile-kpi orange">0 running</span>
+        </div>
+      </div>
+
+      <div class="tiles-group-label"><i class="fa fa-cog"></i> Configuration</div>
+      <div class="tiles-grid config-row">
+        <div class="tile tile-navy">
+          <div class="tile-icon navy"><i class="fa fa-sliders-h"></i></div>
+          <div class="tile-title">Configuration</div>
+          <div class="tile-desc">Runtime settings, provider adapters, message templates, and webhooks.</div>
+          <span class="tile-kpi muted">Setup required</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Running now + Recent activity -->
+    <div class="bottom-row">
+      <div class="panel">
+        <div class="panel-header">
+          <span><span class="live-dot"></span> Running Now</span>
+          <span style="font-size:12px;font-weight:500;color:var(--rwpst-muted)">Mini-Kanban</span>
+        </div>
+        <div class="kanban-empty">
+          <div class="kanban-illus">
+            <div class="card-ghost"></div>
+            <div class="card-ghost"></div>
+            <div class="card-ghost"></div>
+            <i class="fa fa-play-circle"></i>
+          </div>
+          <h4>No campaigns running right now</h4>
+          <p>When a bulk send or scheduled campaign is active, cards will appear here with live progress.</p>
+          <button class="btn btn-primary" style="margin-top:16px"><i class="fa fa-plus"></i> Start a campaign</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span><i class="fa fa-history" style="color:var(--rwpst-blue);margin-right:8px"></i> Recent Activity</span>
+          <span style="font-size:12px;color:var(--rwpst-blue);font-weight:600;cursor:pointer">View all →</span>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-icon alert"><i class="fa fa-exclamation"></i></div>
+            <div class="activity-body">
+              <div class="activity-title">Runtime not configured</div>
+              <div class="activity-detail">WhatsApp provider credentials missing</div>
+            </div>
+            <span class="activity-time">2m ago</span>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon event"><i class="fa fa-plug"></i></div>
+            <div class="activity-body">
+              <div class="activity-title">Provider disconnected</div>
+              <div class="activity-detail">Green API — health check failed</div>
+            </div>
+            <span class="activity-time">18m ago</span>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon message"><i class="fa fa-whatsapp"></i></div>
+            <div class="activity-body">
+              <div class="activity-title">24 messages queued</div>
+              <div class="activity-detail">Awaiting provider connection</div>
+            </div>
+            <span class="activity-time">1h ago</span>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon campaign"><i class="fa fa-bullhorn"></i></div>
+            <div class="activity-body">
+              <div class="activity-title">Campaign draft saved</div>
+              <div class="activity-detail">Q2 Product Launch — not scheduled</div>
+            </div>
+            <span class="activity-time">Yesterday</span>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon message"><i class="fa fa-check"></i></div>
+            <div class="activity-body">
+              <div class="activity-title">Test message attempted</div>
+              <div class="activity-detail">Blocked — runtime in test mode</div>
+            </div>
+            <span class="activity-time">Yesterday</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-note">RWPST RelayRuntime · UI/UX Mockup · Odoo 19 Community · 1920×1080 · Review draft — 2026-06-04</p>
+  </main>
+</body>
+</html>

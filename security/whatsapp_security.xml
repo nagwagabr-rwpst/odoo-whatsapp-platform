@@ -29,6 +29,14 @@
         <field name="comment">Full access to WhatsApp settings and message logs.</field>
     </record>
 
+    <!-- Empty group: legacy menu XML IDs stay upgrade-safe but stay hidden from all users. -->
+    <record id="group_whatsapp_legacy_nav_hidden" model="res.groups">
+        <field name="name">Legacy Navigation (Hidden)</field>
+        <field name="sequence">99</field>
+        <field name="privilege_id" ref="res_groups_privilege_whatsapp"/>
+        <field name="comment">Do not assign. Keeps deprecated Dashboard / Send Message menuitems out of navigation.</field>
+    </record>
+
     <record id="rule_whatsapp_message_log_company" model="ir.rule">
         <field name="name">WhatsApp Message Log: multi-company</field>
         <field name="model_id" ref="model_whatsapp_message_log"/>

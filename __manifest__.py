@@ -1,28 +1,38 @@
 # -*- coding: utf-8 -*-
 
+
+
 {
 
-    'name': 'WhatsApp Simple',
+    'name': 'RWPST RelayRuntime',
 
-    'version': '19.0.5.4.2',
+    'version': '19.0.5.4.27',
 
     'category': 'Marketing',
 
-    'summary': 'Provider-agnostic WhatsApp sales workflow for Odoo 19 Community',
+    'summary': 'Operational Messaging Runtime for Odoo',
 
     'description': """
 
-WhatsApp integration with interchangeable provider adapters (Green API, Meta Cloud,
+RWPST RelayRuntime — operational messaging runtime for Odoo Community.
 
-Evolution, UltraMsg, Twilio, Gupshup, custom). Bulk sending, delivery tracking,
 
-campaign monitor, and product workflows are provider-independent.
+
+Provider-agnostic WhatsApp adapters (Green API, Meta Cloud, Evolution, UltraMsg, and more).
+
+
+
+Includes an Enterprise-style app launcher (Command Center), bulk campaigns, delivery tracking,
+
+live monitor, and product workflows.
 
     """,
 
     'author': 'Custom',
 
     'license': 'LGPL-3',
+
+    'icon': '/relayruntime/static/description/icon.png',
 
     'depends': [
 
@@ -70,10 +80,36 @@ campaign monitor, and product workflows are provider-independent.
 
     'assets': {
 
+        'web._assets_primary_variables': [
+            ('before', 'web/static/src/scss/primary_variables.scss', 'relayruntime/static/src/scss/_rwpst_brand_tokens.scss'),
+            ('before', 'web/static/src/scss/primary_variables.scss', 'relayruntime/static/src/scss/rwpst_brand_primary_variables.scss'),
+            ('after', 'web/static/src/scss/primary_variables.scss', 'relayruntime/static/src/scss/rwpst_brand_derived_variables.scss'),
+            ('after', 'web/static/src/webclient/burger_menu/burger_menu.variables.scss', 'relayruntime/static/src/scss/rwpst_brand_component_variables.scss'),
+        ],
+
         'web.assets_backend': [
+
+            'relayruntime/static/src/scss/_rwpst_brand_tokens.scss',
+
+            'relayruntime/static/src/scss/rwpst_variables.scss',
+
+            'relayruntime/static/src/scss/rwpst_mixins.scss',
+
+            'relayruntime/static/src/scss/rwpst_theme.scss',
+
+            'relayruntime/static/src/scss/rwpst_dashboard.scss',
+
+            'relayruntime/static/src/scss/rwpst_tiles.scss',
+
+            'relayruntime/static/src/scss/rwpst_global_brand.scss',
 
             'relayruntime/static/src/js/campaign_monitor_kanban.js',
 
+        ],
+
+        'web.assets_frontend': [
+            'relayruntime/static/src/scss/_rwpst_brand_tokens.scss',
+            'relayruntime/static/src/scss/rwpst_global_brand.scss',
         ],
 
     },
@@ -85,5 +121,4 @@ campaign monitor, and product workflows are provider-independent.
     'application': True,
 
 }
-
 

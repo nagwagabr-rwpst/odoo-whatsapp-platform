@@ -39,11 +39,4 @@
         <field name="code">action = model.action_open_dashboard()</field>
     </record>
 
-    <menuitem id="menu_whatsapp_delivery_dashboard"
-        name="Delivery Dashboard"
-        parent="menu_whatsapp_root"
-        action="action_whatsapp_delivery_dashboard"
-        sequence="4"
-        groups="relayruntime.group_whatsapp_user"/>
-
 </odoo>
