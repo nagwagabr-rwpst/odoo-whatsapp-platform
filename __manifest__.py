@@ -6,7 +6,7 @@
 
     'name': 'RWPST RelayRuntime',
 
-    'version': '19.0.5.4.277',
+    'version': '19.0.5.0.1',
 
     'category': 'Marketing',
 
