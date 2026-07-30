@@ -27,12 +27,19 @@ htmlcov/
 # Odoo runtime
 *.log
 logs/
+*.db
+*.sqlite
 *.sqlite3
 filestore/
 sessions/
 web/assets/*
 web/static/lib/
 .sass-cache/
+.cache/
+**/cache/
+
+# Playwright CLI local artifacts
+.playwright-cli/
 
 # Local Odoo configuration (may contain db passwords)
 odoo.conf
