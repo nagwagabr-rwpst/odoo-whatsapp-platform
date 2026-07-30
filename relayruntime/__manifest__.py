@@ -42,8 +42,10 @@ See MIGRATION.md at the repository root for upgrade guidance.
     """,
 
     'author': 'RelayRuntime Contributors',
-    'website': 'https://github.com/YOUR_ORG/relayruntime',
+    'website': 'https://github.com/nagwagabr-rwpst/odoo-whatsapp-platform',
     'license': 'LGPL-3',
+    'price': 49.0,
+    'currency': 'USD',
     'icon': '/relayruntime/static/description/icon.png',
 
     'depends': [
