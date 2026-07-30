@@ -1,13 +1,10 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-# 	* relayruntime
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20260518\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-31 22:07+0000\n"
-"PO-Revision-Date: 2026-05-31 22:07+0000\n"
+"POT-Creation-Date: 2026-07-30 14:39+0000\n"
+"PO-Revision-Date: 2026-07-30 14:39+0000\n"
 "Last-Translator: \n"
 "Language-Team: RelayRuntime Arabic\n"
 "Language: ar\n"
@@ -15,6 +12,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "% delivery"
+msgstr ""
 
 #. module: relayruntime
 #. odoo-python
@@ -30,6 +33,13 @@ msgstr "%(processed)s / %(total)s مُعالَج · %(remaining)s متبقٍ"
 
 #. module: relayruntime
 #. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+msgid "%s recipients · %s sent · %s failed"
+msgstr ""
+
+#. module: relayruntime
+#. odoo-python
 #: code:addons/relayruntime/wizard/whatsapp_send_wizard.py:0
 msgid "(attachment)"
 msgstr "(مرفق)"
@@ -41,8 +51,241 @@ msgid "(attachments only)"
 msgstr "(مرفقات فقط)"
 
 #. module: relayruntime
-#. odoo-python
-#: code:addons/relayruntime/views/models/whatsapp_bulk_campaign.py:0
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "<i class=\"fa fa-address-book\"/> Contacts"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "<i class=\"fa fa-bar-chart\"/> Analytics"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<i class=\"fa fa-bell o_rr_alert_bell me-1\" title=\"Alerts\"/>\n"
+"                            Active alerts"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "<i class=\"fa fa-bullhorn\"/> Campaign"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<i class=\"fa fa-check-circle text-success me-1\"/>\n"
+"                        All runtime checks passed — no active alerts."
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "<i class=\"fa fa-desktop\"/> Monitor"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<i class=\"fa fa-exclamation-circle text-danger\"/>\n"
+"                            <span>Runtime configuration is missing.</span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<i class=\"fa fa-heartbeat text-warning\"/>\n"
+"                            <span>Provider health requires attention:</span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<i class=\"fa fa-inbox me-1\"/>\n"
+"                            No campaigns are running right now. Start a bulk send or open Live Monitor."
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "<i class=\"fa fa-paper-plane\"/> Send"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<i class=\"fa fa-play-circle me-1\" title=\"Running now\"/>\n"
+"                                Running Now"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "<i class=\"fa fa-truck\"/> Delivery"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"badge rounded-pill o_rr_channel_badge o_rr_channel_whatsapp\">\n"
+"                                            <i class=\"fa fa-whatsapp me-1\" title=\"WhatsApp channel\"/>\n"
+"                                            WhatsApp\n"
+"                                        </span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"badge text-bg-warning\" invisible=\"not "
+"config_is_test_mode\">Test Mode</span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_cta\">Configure runtime <i class=\"fa fa-arrow-"
+"right\"/></span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_cta\">Open Command Center <i class=\"fa fa-arrow-"
+"right\"/></span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_cta\">Open logs <i class=\"fa fa-arrow-"
+"right\"/></span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_cta\">Open monitor <i class=\"fa fa-arrow-"
+"right\"/></span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_cta\">View campaigns <i class=\"fa fa-arrow-"
+"right\"/></span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_icon\">\n"
+"                                <i class=\"fa fa-bullhorn\" title=\"Campaigns\"/>\n"
+"                            </span>\n"
+"                            <span class=\"o_rr_tile_title\">Campaigns</span>\n"
+"                            <span class=\"o_rr_tile_desc\">Bulk campaign history, drafts, and execution states.</span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_icon\">\n"
+"                                <i class=\"fa fa-cogs\" title=\"Runtime and Settings\"/>\n"
+"                            </span>\n"
+"                            <span class=\"o_rr_tile_title\">Runtime &amp; Settings</span>\n"
+"                            <span class=\"o_rr_tile_desc\">Provider adapters, credentials, safety, and health.</span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_icon\">\n"
+"                                <i class=\"fa fa-desktop\" title=\"Live Monitor\"/>\n"
+"                            </span>\n"
+"                            <span class=\"o_rr_tile_title\">Live Monitor</span>\n"
+"                            <span class=\"o_rr_tile_desc\">Live kanban for campaigns executing right now.</span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_icon\">\n"
+"                                <i class=\"fa fa-list-alt\" title=\"Delivery and Logs\"/>\n"
+"                            </span>\n"
+"                            <span class=\"o_rr_tile_title\">Delivery &amp; Logs</span>\n"
+"                            <span class=\"o_rr_tile_desc\">Message logs, delivery outcomes, and success metrics.</span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_icon\">\n"
+"                                <i class=\"fa fa-send\" title=\"Bulk Messaging\"/>\n"
+"                            </span>\n"
+"                            <span class=\"o_rr_tile_title\">Bulk Messaging</span>\n"
+"                            <span class=\"o_rr_tile_desc\">Launch bulk send wizards and operational templates.</span>\n"
+"                            <span class=\"o_rr_tile_kpi o_rr_tile_kpi_accent\">New send</span>\n"
+"                            <span class=\"o_rr_tile_cta\">Start bulk send <i class=\"fa fa-arrow-right\"/></span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_icon\">\n"
+"                                <i class=\"fa fa-th-large\" title=\"Command Center\"/>\n"
+"                            </span>\n"
+"                            <span class=\"o_rr_tile_title\">Command Center</span>\n"
+"                            <span class=\"o_rr_tile_desc\">Operational hub: KPIs, alerts, lifecycle, and live activity.</span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid ""
+"<span class=\"o_rr_tile_icon\">\n"
+"                                <i class=\"fa fa-users\" title=\"Contacts and Audiences\"/>\n"
+"                            </span>\n"
+"                            <span class=\"o_rr_tile_title\">Contacts &amp; Audiences</span>\n"
+"                            <span class=\"o_rr_tile_desc\">Partners and lists with reachable phone numbers.</span>\n"
+"                            <span class=\"o_rr_tile_kpi\">Audiences</span>\n"
+"                            <span class=\"o_rr_tile_cta\">Browse contacts <i class=\"fa fa-arrow-right\"/></span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "<span>failed deliveries need review.</span>"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "<span>messages queued or sending.</span>"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.constraint,message:relayruntime.constraint_whatsapp_bulk_campaign_whatsapp_retry_fingerprint_unique
 msgid "A retry campaign for the same parent and recipient set already exists."
 msgstr "توجد بالفعل حملة إعادة محاولة لنفس الحملة الأصلية ومجموعة المستلمين."
@@ -91,9 +334,17 @@ msgid "Access Token is required for Green API."
 msgstr "Access Token مطلوب لـ Green API."
 
 #. module: relayruntime
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__config_active
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__active
 msgid "Active"
 msgstr "نشط"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__active_campaigns
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Active Campaigns"
+msgstr ""
 
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__active_execution_id
@@ -117,9 +368,22 @@ msgid "Advanced"
 msgstr "متقدم"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__alert_count
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Alerts"
+msgstr ""
+
+#. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_delivery_dashboard_form
 msgid "All Logs"
 msgstr "كل السجلات"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_analytics
+msgid "Analytics"
+msgstr ""
 
 #. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_config_form
@@ -163,6 +427,12 @@ msgid "Attachment Filename"
 msgstr "اسم ملف المرفق"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__attachment_info
+msgid "Attachment Info"
+msgstr ""
+
+#. module: relayruntime
 #. odoo-python
 #: code:addons/relayruntime/services/providers/mock_provider.py:0
 msgid "Attachment failure rate cannot be negative."
@@ -170,7 +440,6 @@ msgstr "لا يمكن أن تكون نسبة فشل المرفقات سالبة.
 
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__attachment_ids
-#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__attachment_info
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__attachment_ids
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__attachment_info
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_bulk_campaign_form
@@ -215,10 +484,15 @@ msgstr "حملة جماعية"
 
 #. module: relayruntime
 #: model:ir.actions.act_window,name:relayruntime.action_whatsapp_bulk_campaign
-#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_bulk_campaigns
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_bulk_campaign_list
 msgid "Bulk Campaigns"
 msgstr "الحملات الجماعية"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_new_bulk_send
+msgid "Bulk Messaging"
+msgstr ""
 
 #. module: relayruntime
 #. odoo-python
@@ -240,7 +514,11 @@ msgstr ""
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__campaign_id
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__campaign_id
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__campaign_id
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__name
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_product_selection_wizard__campaign_id
+#: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_dashboard_activity_line__activity_type__campaign
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_message_log_search
 msgid "Campaign"
 msgstr "حملة"
@@ -257,7 +535,6 @@ msgstr ""
 
 #. module: relayruntime
 #: model:ir.actions.act_window,name:relayruntime.action_whatsapp_campaign_monitor
-#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_campaign_monitor
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_campaign_monitor_search
 msgid "Campaign Monitor"
 msgstr "مراقبة الحملات"
@@ -276,6 +553,12 @@ msgstr "محور الحملة"
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_bulk_send_wizard_form
 msgid "Campaign Summary"
 msgstr "ملخص الحملة"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_bulk_campaigns
+msgid "Campaigns"
+msgstr ""
 
 #. module: relayruntime
 #: model:res.groups,comment:relayruntime.group_whatsapp_user
@@ -328,6 +611,16 @@ msgid "Close"
 msgstr "إغلاق"
 
 #. module: relayruntime
+#. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+#: model:ir.actions.server,name:relayruntime.action_whatsapp_app_dashboard
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_dashboard
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Command Center"
+msgstr ""
+
+#. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_config_form
 msgid "Common"
 msgstr "عام"
@@ -358,14 +651,39 @@ msgid "Completed with Errors"
 msgstr "اكتمل مع أخطاء"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__config_id
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_configuration
+msgid "Configuration"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__config_status
+msgid "Configuration Status"
+msgstr ""
+
+#. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_config_form
 msgid "Configuration name"
 msgstr "اسم الإعداد"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Configure runtime"
+msgstr ""
+
+#. module: relayruntime
 #: model_terms:ir.actions.act_window,help:relayruntime.action_whatsapp_config
 msgid "Configure your WhatsApp provider"
 msgstr "قم بإعداد مزود واتساب"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_app_dashboard__config_status__configured
+msgid "Configured"
+msgstr ""
 
 #. module: relayruntime
 #. odoo-python
@@ -401,6 +719,13 @@ msgstr "جهة اتصال"
 #: code:addons/relayruntime/services/whatsapp_product_service.py:0
 msgid "Contact us for ordering."
 msgstr "تواصلوا معنا للطلب."
+
+#. module: relayruntime
+#. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+msgid "Contacts & Lists"
+msgstr ""
 
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__cooldown_duration_seconds
@@ -450,10 +775,13 @@ msgid "Create Sale Order from Selection"
 msgstr "إنشاء أمر بيع من الاختيار"
 
 #. module: relayruntime
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__create_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__create_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__create_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__create_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__create_uid
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__create_uid
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__create_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_delivery_dashboard__create_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__create_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_product_selection_line__create_uid
@@ -463,10 +791,13 @@ msgid "Created by"
 msgstr "أُنشئ بواسطة"
 
 #. module: relayruntime
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__create_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__create_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__create_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__create_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__create_date
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__create_date
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__create_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_delivery_dashboard__create_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__create_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_product_selection_line__create_date
@@ -494,7 +825,6 @@ msgstr "الرقم الحالي"
 #. odoo-python
 #: code:addons/relayruntime/views/models/whatsapp_bulk_campaign.py:0
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__current_product_id
-#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__kanban_label_current_product
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__current_product_name
 msgid "Current Product"
 msgstr "المنتج الحالي"
@@ -503,13 +833,13 @@ msgstr "المنتج الحالي"
 #. odoo-python
 #: code:addons/relayruntime/views/models/whatsapp_bulk_campaign.py:0
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__current_recipient_id
-#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__kanban_label_current_recipient
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__current_recipient_name
 msgid "Current Recipient"
 msgstr "المستلم الحالي"
 
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__current_step
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__current_step
 msgid "Current Step"
 msgstr "الخطوة الحالية"
 
@@ -550,6 +880,13 @@ msgid "Daily send limit cannot be negative."
 msgstr "لا يمكن أن يكون حد الإرسال اليومي سالبًا."
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__dashboard_id
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__dashboard_id
+msgid "Dashboard"
+msgstr ""
+
+#. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_message_log_search
 msgid "Date"
 msgstr "التاريخ"
@@ -560,6 +897,7 @@ msgid "Dedicated WhatsApp Log File"
 msgstr "ملف سجل واتساب مخصص"
 
 #. module: relayruntime
+#: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_app_dashboard__provider_status__degraded
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_config__provider_status__degraded
 msgid "Degraded"
 msgstr "متدهور"
@@ -601,6 +939,18 @@ msgid "Delivery Pivot"
 msgstr "محور التسليم"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Delivery Rate"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__delivery_rate
+msgid "Delivery Rate %"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__delivery_state
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_message_log_search
 msgid "Delivery State"
@@ -612,11 +962,18 @@ msgid "Deprecated alias; use current_recipient_id."
 msgstr ""
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__detail
+msgid "Detail"
+msgstr ""
+
+#. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_config_form
 msgid "Deterministic test numbers"
 msgstr "أرقام اختبار حتمية"
 
 #. module: relayruntime
+#: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_app_dashboard__provider_status__disconnected
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_config__provider_status__disconnected
 msgid "Disconnected"
 msgstr "غير متصل"
@@ -624,10 +981,13 @@ msgstr "غير متصل"
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_res_partner__display_name
 #: model:ir.model.fields,field_description:relayruntime.field_sale_order__display_name
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__display_name
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__display_name
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__display_name
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__display_name
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__display_name
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__display_name
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__display_name
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_delivery_dashboard__display_name
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__display_name
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_product_selection_line__display_name
@@ -765,10 +1125,10 @@ msgstr ""
 #. odoo-python
 #: code:addons/relayruntime/views/models/whatsapp_bulk_campaign.py:0
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__failed_count
-#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__kanban_label_failed
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__total_failures
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__failed_count
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__failed_count
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__failed_count
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_bulk_campaign__state__failed
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_bulk_execution__state__failed
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_message_log__delivery_state__failed
@@ -786,6 +1146,14 @@ msgstr "وقت الفشل"
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_delivery_dashboard_form
 msgid "Failed Logs"
 msgstr "سجلات الفاشلة"
+
+#. module: relayruntime
+#. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__total_failed
+msgid "Failed Messages"
+msgstr ""
 
 #. module: relayruntime
 #. odoo-python
@@ -821,7 +1189,6 @@ msgstr "ملف \"%s\""
 
 #. module: relayruntime
 #. odoo-python
-#: code:addons/relayruntime/services/whatsapp_bulk_service.py:0
 #: code:addons/relayruntime/wizard/whatsapp_bulk_send_wizard.py:0
 msgid "Files (%(count)s): %(names)s"
 msgstr "ملفات (%(count)s): %(names)s"
@@ -874,6 +1241,7 @@ msgid "Health"
 msgstr "الصحة"
 
 #. module: relayruntime
+#: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_app_dashboard__provider_status__healthy
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_config__provider_status__healthy
 msgid "Healthy"
 msgstr "سليم"
@@ -881,10 +1249,13 @@ msgstr "سليم"
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_res_partner__id
 #: model:ir.model.fields,field_description:relayruntime.field_sale_order__id
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__id
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__id
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__id
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__id
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__id
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__id
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__id
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_delivery_dashboard__id
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__id
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_product_selection_line__id
@@ -949,11 +1320,42 @@ msgid "Invalid provider type: %(type)s"
 msgstr "نوع مزود غير صالح: %(type)s"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__kanban_label_current_product
+msgid "Kanban Label Current Product"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__kanban_label_current_recipient
+msgid "Kanban Label Current Recipient"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__kanban_label_failed
+msgid "Kanban Label Failed"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__kanban_label_sent
+msgid "Kanban Label Sent"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__kanban_label_skipped
+msgid "Kanban Label Skipped"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__last_activity_at
 msgid "Last Activity"
 msgstr "آخر نشاط"
 
 #. module: relayruntime
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__provider_last_error
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__last_error
 msgid "Last Error"
 msgstr "آخر خطأ"
@@ -979,15 +1381,24 @@ msgid "Last Recipient Index"
 msgstr ""
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__provider_last_success
+msgid "Last Success"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__last_successful_connection
 msgid "Last Successful Connection"
 msgstr "آخر اتصال ناجح"
 
 #. module: relayruntime
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__write_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__write_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__write_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__write_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__write_uid
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__write_uid
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__write_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_delivery_dashboard__write_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__write_uid
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_product_selection_line__write_uid
@@ -997,10 +1408,13 @@ msgid "Last Updated by"
 msgstr "آخر تحديث بواسطة"
 
 #. module: relayruntime
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__write_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__write_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__write_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__write_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__write_date
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__write_date
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__write_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_delivery_dashboard__write_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__write_date
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_product_selection_line__write_date
@@ -1010,6 +1424,12 @@ msgid "Last Updated on"
 msgstr "تاريخ آخر تحديث"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__provider_latency_ms
+msgid "Latency (ms)"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__lease_expires_at
 msgid "Lease Expires"
 msgstr ""
@@ -1017,6 +1437,18 @@ msgstr ""
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__lease_token
 msgid "Lease Token"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Lifecycle"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_campaign_monitor
+msgid "Live Monitor"
 msgstr ""
 
 #. module: relayruntime
@@ -1078,10 +1510,13 @@ msgid "Max delay must be greater than or equal to min delay."
 msgstr "يجب أن يكون أقصى تأخير أكبر من أو يساوي أدنى تأخير."
 
 #. module: relayruntime
+#. odoo-python
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__message
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__message
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__message
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_send_wizard__message
+#: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_dashboard_activity_line__activity_type__message
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_bulk_campaign_form
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_bulk_send_wizard_form
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_message_log_form
@@ -1164,9 +1599,22 @@ msgid "Mock simulation rate \"%(field)s\" must be between 0 and 100."
 msgstr ""
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Monitor"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__name
 msgid "Name"
 msgstr "الاسم"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.actions.act_window,name:relayruntime.action_whatsapp_new_bulk_send
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "New Bulk Send"
+msgstr ""
 
 #. module: relayruntime
 #. odoo-python
@@ -1210,6 +1658,13 @@ msgstr "لا توجد صور منتجات للإرسال. أضف صورًا أو
 
 #. module: relayruntime
 #. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+msgid "No provider"
+msgstr ""
+
+#. module: relayruntime
+#. odoo-python
 #: code:addons/relayruntime/views/models/whatsapp_config.py:0
 msgid ""
 "No real WhatsApp messages are sent. Use for QA, demos, and stress tests "
@@ -1238,6 +1693,19 @@ msgid "None of the selected contacts have a valid phone number."
 msgstr "لا تملك أي جهة اتصال محددة رقم هاتف صالح."
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_app_dashboard__config_status__missing
+msgid "Not Configured"
+msgstr ""
+
+#. module: relayruntime
+#. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+msgid "Not configured"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_product_selection_line__notes
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_product_selection_wizard__notes
 msgid "Notes"
@@ -1256,9 +1724,33 @@ msgid "Only one active WhatsApp configuration is allowed per company."
 msgstr "يُسمح بإعداد واتساب نشط واحد فقط لكل شركة."
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Open Live Monitor"
+msgstr ""
+
+#. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_bulk_campaign_form
 msgid "Open Monitor"
 msgstr "فتح المراقبة"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Open record"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Operational Messaging Runtime for Odoo"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_operations
+msgid "Operations"
+msgstr ""
 
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__outbound_intent_at
@@ -1291,6 +1783,14 @@ msgstr ""
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_message_log__status__pending
 msgid "Pending"
 msgstr "في الانتظار"
+
+#. module: relayruntime
+#. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__pending_messages
+msgid "Pending Messages"
+msgstr ""
 
 #. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_config_form
@@ -1361,6 +1861,7 @@ msgid "Processing Duration (s)"
 msgstr ""
 
 #. module: relayruntime
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__processing_state
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__processing_state
 msgid "Processing State"
 msgstr ""
@@ -1378,7 +1879,6 @@ msgstr "منتج \"%s\""
 
 #. module: relayruntime
 #. odoo-python
-#: code:addons/relayruntime/services/whatsapp_bulk_service.py:0
 #: code:addons/relayruntime/wizard/whatsapp_bulk_send_wizard.py:0
 msgid "Product Catalog: %s"
 msgstr "كتالوج المنتجات: %s"
@@ -1401,7 +1901,6 @@ msgstr ""
 
 #. module: relayruntime
 #. odoo-python
-#: code:addons/relayruntime/services/whatsapp_bulk_service.py:0
 #: code:addons/relayruntime/wizard/whatsapp_bulk_send_wizard.py:0
 msgid "Product images: %s"
 msgstr "صور المنتجات: %s"
@@ -1424,6 +1923,7 @@ msgstr "التقدم"
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__progress_percent
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__progress_percent
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__progress_percent
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__progress_percentage
 msgid "Progress %"
 msgstr "التقدم %"
 
@@ -1434,6 +1934,8 @@ msgstr "ملخص التقدم"
 
 #. module: relayruntime
 # hybrid UX: Arabic label; technical token stays Latin in help/value
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__config_provider_label
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_config_form
 msgid "Provider"
 msgstr "مزود"
@@ -1475,6 +1977,7 @@ msgid "Provider Implemented"
 msgstr ""
 
 #. module: relayruntime
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__provider_name
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__provider_name
 msgid "Provider Name"
 msgstr ""
@@ -1486,6 +1989,7 @@ msgstr "اختبار ذاتي للمزود"
 
 #. module: relayruntime
 # hybrid UX: Arabic label; technical token stays Latin in help/value
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__provider_status
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__provider_status
 msgid "Provider Status"
 msgstr "حالة المزود"
@@ -1511,6 +2015,12 @@ msgid "Quantity"
 msgstr "الكمية"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Queue"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_message_log__delivery_state__queued
 msgid "Queued"
 msgstr "في الانتظار"
@@ -1519,6 +2029,13 @@ msgstr "في الانتظار"
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_message_log_search
 msgid "Queued / Sending"
 msgstr "في الانتظار / جاري الإرسال"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_root
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "RWPST RelayRuntime"
+msgstr ""
 
 #. module: relayruntime
 #: model:ir.model.fields,help:relayruntime.field_whatsapp_config__simulate_failure_rate
@@ -1544,6 +2061,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__simulate_rate_limit_rate
 msgid "Rate Limit Rate %"
 msgstr "نسبة حد المعدّل %"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__recent_activity_ids
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Recent Activity"
+msgstr ""
 
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__recipient
@@ -1600,6 +2124,12 @@ msgid "Reference"
 msgstr "المرجع"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Refresh"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__related_model
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_send_wizard__res_model
 msgid "Related Model"
@@ -1620,6 +2150,18 @@ msgstr "متبقٍ"
 #. module: relayruntime
 #: model:ir.model.fields,help:relayruntime.field_whatsapp_config__fallback_config_id
 msgid "Reserved for future failover support. Not active yet."
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__res_id
+msgid "Resource ID"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__res_model
+msgid "Resource Model"
 msgstr ""
 
 #. module: relayruntime
@@ -1675,9 +2217,28 @@ msgid "Running"
 msgstr "قيد التشغيل"
 
 #. module: relayruntime
+#. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+msgid "Running (leased)"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__running_campaign_ids
+msgid "Running Campaigns"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__running_duration_seconds
 msgid "Running Duration (s)"
 msgstr "مدة التشغيل (ث)"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__running_campaign_count
+msgid "Running Now"
+msgstr ""
 
 #. module: relayruntime
 #: model_terms:ir.actions.act_window,help:relayruntime.action_whatsapp_campaign_monitor
@@ -1687,6 +2248,25 @@ msgid ""
 msgstr ""
 "تظهر هنا الإرسالات الجماعية الجارية مع التقدم المباشر. تُحدَّث هذه الشاشة كل"
 " بضع ثوانٍ."
+
+#. module: relayruntime
+#. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+msgid "Runtime & Settings"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_settings
+msgid "Runtime Configuration"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Runtime KPIs"
+msgstr ""
 
 #. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_config_form
@@ -1739,8 +2319,6 @@ msgid "Select at least one contact to send WhatsApp messages."
 msgstr "اختر جهة اتصال واحدة على الأقل لإرسال رسائل واتساب."
 
 #. module: relayruntime
-#. odoo-python
-#: code:addons/relayruntime/wizard/whatsapp_bulk_send_wizard.py:0
 #: model:ir.model.fields,help:relayruntime.field_whatsapp_bulk_send_wizard__attachment_ids
 msgid ""
 "Select multiple files. Each file is sent in order with a short delay. "
@@ -1769,6 +2347,14 @@ msgstr "المنتجات المحددة بلا صور. عطّل \"استخدام
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_send_wizard_form
 msgid "Send"
 msgstr "إرسال"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.actions.act_window,name:relayruntime.action_whatsapp_send_message
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_send_message
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Send Message"
+msgstr ""
 
 #. module: relayruntime
 #. odoo-python
@@ -1837,11 +2423,11 @@ msgstr "الإرسال إلى المستلم"
 #. module: relayruntime
 #. odoo-python
 #: code:addons/relayruntime/views/models/whatsapp_bulk_campaign.py:0
-#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__kanban_label_sent
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__sent_count
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__total_success
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__sent_count
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__sent_count
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__sent_count
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_message_log__delivery_state__sent
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_message_log__status__sent
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_message_log_search
@@ -1872,8 +2458,15 @@ msgid "Sent Logs"
 msgstr "سجلات المرسلة"
 
 #. module: relayruntime
+#. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__total_sent
+msgid "Sent Messages"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.actions.act_window,name:relayruntime.action_whatsapp_config
-#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_settings
 msgid "Settings"
 msgstr "الإعدادات"
 
@@ -1904,7 +2497,6 @@ msgstr ""
 #. module: relayruntime
 #. odoo-python
 #: code:addons/relayruntime/views/models/whatsapp_bulk_campaign.py:0
-#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__kanban_label_skipped
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__skipped_count
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__skipped_count
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__skipped_count
@@ -1933,7 +2525,14 @@ msgstr "بدء الحملة"
 
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_execution__state
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__state
 msgid "State"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__state_label
+msgid "State Label"
 msgstr ""
 
 #. module: relayruntime
@@ -1942,13 +2541,20 @@ msgid "Statistics"
 msgstr "الإحصائيات"
 
 #. module: relayruntime
-#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__processing_state
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__state
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__state
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__status_label
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_message_log__status
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_campaign_monitor_search
 msgid "Status"
 msgstr "الحالة"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__status_code
+msgid "Status Code"
+msgstr ""
 
 #. module: relayruntime
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_bulk_campaign__state__stopped
@@ -1986,11 +2592,19 @@ msgid "TEST MODE — no real WhatsApp messages will be sent. State: %(state)s"
 msgstr "وضع الاختبار — لن تُرسل رسائل واتساب حقيقية. الحالة: %(state)s"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.actions.client,name:relayruntime.action_whatsapp_templates_placeholder
+#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_templates
+msgid "Templates"
+msgstr ""
+
+#. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_config_form
 msgid "Test Connection"
 msgstr "اختبار الاتصال"
 
 #. module: relayruntime
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__config_is_test_mode
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__is_test_mode
 msgid "Test Mode"
 msgstr "وضع الاختبار"
@@ -2017,6 +2631,12 @@ msgid "Timeout Rate %"
 msgstr "نسبة انتهاء المهلة %"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__name
+msgid "Title"
+msgstr ""
+
+#. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_message_log_search
 msgid "Today"
 msgstr "اليوم"
@@ -2030,6 +2650,7 @@ msgstr "مرفقات مرفوعة كثيرة (%(count)s). الحد الأقصى:
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__total_count
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_send_wizard__total_count
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_running_line__total_recipients
 msgid "Total"
 msgstr "الإجمالي"
 
@@ -2037,6 +2658,12 @@ msgstr "الإجمالي"
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_bulk_campaign__total_attachments
 msgid "Total Attachments"
 msgstr "إجمالي المرفقات"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_app_dashboard__total_campaigns
+msgid "Total Campaigns"
+msgstr ""
 
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_delivery_dashboard__total_failed
@@ -2080,6 +2707,12 @@ msgstr ""
 #. module: relayruntime
 #: model:ir.model.fields.selection,name:relayruntime.selection__whatsapp_config__provider_type__twilio
 msgid "Twilio WhatsApp"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__activity_type
+msgid "Type"
 msgstr ""
 
 #. module: relayruntime
@@ -2145,6 +2778,18 @@ msgid "View Logs"
 msgstr "عرض السجلات"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "View failed"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "View queue"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_whatsapp_config__webhook_secret
 msgid "Webhook Secret"
 msgstr ""
@@ -2153,10 +2798,15 @@ msgstr ""
 #. odoo-python
 #: code:addons/relayruntime/wizard/whatsapp_bulk_send_wizard.py:0
 #: model:ir.module.category,name:relayruntime.module_category_whatsapp
-#: model:ir.ui.menu,name:relayruntime.menu_whatsapp_root
 #: model:res.groups.privilege,name:relayruntime.res_groups_privilege_whatsapp
 msgid "WhatsApp"
 msgstr "واتساب"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model,name:relayruntime.model_whatsapp_app_dashboard
+msgid "WhatsApp Application Dashboard"
+msgstr ""
 
 #. module: relayruntime
 #: model:ir.model,name:relayruntime.model_whatsapp_bulk_campaign
@@ -2191,6 +2841,18 @@ msgstr "حملة واتساب %s"
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_config_form
 msgid "WhatsApp Configuration"
 msgstr "إعداد واتساب"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model,name:relayruntime.model_whatsapp_dashboard_activity_line
+msgid "WhatsApp Dashboard Activity Line"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model,name:relayruntime.model_whatsapp_dashboard_running_line
+msgid "WhatsApp Dashboard Running Campaign Line"
+msgstr ""
 
 #. module: relayruntime
 #: model:ir.model.fields,field_description:relayruntime.field_sale_order__whatsapp_log_id
@@ -2250,6 +2912,12 @@ msgid ""
 msgstr "مزود واتساب \"%s\" غير مُنفّذ بعد. اختر Green API أو نفّذ المحول %s."
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model:ir.model.fields,field_description:relayruntime.field_whatsapp_dashboard_activity_line__activity_at
+msgid "When"
+msgstr ""
+
+#. module: relayruntime
 #: model:ir.model.fields,help:relayruntime.field_whatsapp_message_log__outbound_intent_at
 msgid "When delivery was committed in DB before calling the provider."
 msgstr ""
@@ -2275,10 +2943,23 @@ msgid "Wizard"
 msgstr "معالج"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "Workspaces"
+msgstr ""
+
+#. module: relayruntime
 #. odoo-python
 #: code:addons/relayruntime/views/models/whatsapp_bulk_campaign.py:0
 #: code:addons/relayruntime/wizard/whatsapp_bulk_send_wizard.py:0
 msgid "campaign_id"
+msgstr ""
+
+#. module: relayruntime
+#. odoo-python
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
+msgid "delivery_state"
 msgstr ""
 
 #. module: relayruntime
@@ -2293,13 +2974,26 @@ msgid "elapsed"
 msgstr "منقضٍ"
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "failed ·"
+msgstr ""
+
+#. module: relayruntime
 #: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_config_form
 msgid "https://api.green-api.com"
 msgstr ""
 
 #. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "live"
+msgstr ""
+
+#. module: relayruntime
 #. odoo-python
 #: code:addons/relayruntime/views/models/res_partner.py:0
+#: code:addons/relayruntime/views/models/whatsapp_app_dashboard.py:0
 msgid "mobile"
 msgstr "جوال"
 
@@ -2308,6 +3002,42 @@ msgstr "جوال"
 #: code:addons/relayruntime/views/models/res_partner.py:0
 msgid "phone"
 msgstr "هاتف"
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "queued or sending"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "running now"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "sent"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "sent total"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "sent ·"
+msgstr ""
+
+#. module: relayruntime
+# Phase 3: review — no Arabic mapping yet; falls back to English
+#: model_terms:ir.ui.view,arch_db:relayruntime.view_whatsapp_app_dashboard_form
+msgid "total"
+msgstr ""
 
 #. module: relayruntime
 #. odoo-python

@@ -1,6 +1,6 @@
 # RelayRuntime — Documentation
 
-Technical documentation for **RelayRuntime** — a replay-safe operational messaging execution runtime initially delivered as Odoo module `relayruntime` under `apps/odoo/relayruntime/` (version **19.0.6.0.0**).
+Technical documentation for **RelayRuntime** — a replay-safe operational messaging execution runtime initially delivered as Odoo module `relayruntime` under `apps/odoo/relayruntime/` (version **19.0.6.1.0**).
 
 This documentation describes **what is implemented today**, including known gaps. Planned designs are labeled explicitly and are not presented as completed features.
 
@@ -8,6 +8,7 @@ This documentation describes **what is implemented today**, including known gaps
 
 | Section | Purpose |
 |---------|---------|
+| [Reconstruction](reconstruction/IMPLEMENTATION_CONTRACT.md) | MERGE-003 contract, ownership, baselines |
 | [Architecture](architecture/runtime-boundaries.md) | Boundaries, lifecycle, vision, extraction, data model, transactions |
 | [Recovery](recovery/replay-recovery.md) | Replay philosophy, retry lineage, stale reconciliation |
 | [Runtime](runtime/EXECUTION_FLOW.md) | Step-by-step execution, leases, outbound intents |

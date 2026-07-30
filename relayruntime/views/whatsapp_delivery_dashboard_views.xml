@@ -39,11 +39,7 @@
         <field name="code">action = model.action_open_dashboard()</field>
     </record>
 
-    <menuitem id="menu_whatsapp_delivery_dashboard"
-        name="Delivery Dashboard"
-        parent="menu_whatsapp_root"
-        action="action_whatsapp_delivery_dashboard"
-        sequence="15"
-        groups="relayruntime.group_whatsapp_user"/>
+    <!-- menu_whatsapp_delivery_dashboard is defined once in views/whatsapp_menu.xml
+         (Analytics hierarchy). Do not redeclare here — breaks fresh install load order. -->
 
 </odoo>

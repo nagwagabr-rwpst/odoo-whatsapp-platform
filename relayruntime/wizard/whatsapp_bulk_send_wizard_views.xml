@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- A-IMPORT: first-class app menu entry (MERGE-003). B form arch preserved. -->
+    <record id="action_whatsapp_new_bulk_send" model="ir.actions.act_window">
+        <field name="name">New Bulk Send</field>
+        <field name="res_model">whatsapp.bulk.send.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
     <record id="view_whatsapp_bulk_send_wizard_form" model="ir.ui.view">
         <field name="name">whatsapp.bulk.send.wizard.form</field>
         <field name="model">whatsapp.bulk.send.wizard</field>

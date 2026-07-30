@@ -1,24 +1,26 @@
 # -*- coding: utf-8 -*-
 # RelayRuntime — Odoo application layer (ERP integration + orchestration entrypoint).
 # Runtime engine extraction target: repository /runtime/ (see docs/architecture/runtime-boundaries.md).
+# Reconstruction: Lineage B foundation + Lineage A enterprise UI (MERGE-003).
 
 {
 
-    'name': 'RelayRuntime',
+    'name': 'RWPST RelayRuntime',
 
-    'version': '19.0.6.0.0',
+    'version': '19.0.6.1.0',
 
-    'category': 'Productivity',
+    'category': 'Marketing',
 
-    'summary': 'Replay-safe campaign execution runtime for Odoo',
+    'summary': 'Operational messaging runtime with replay-safe campaign execution for Odoo',
 
     'description': """
-RelayRuntime
-============
+RWPST RelayRuntime
+==================
 
-RelayRuntime is a production-oriented WhatsApp campaign execution runtime for Odoo.
+Production-oriented WhatsApp campaign execution runtime for Odoo with an
+enterprise Command Center experience.
 
-Features include:
+Runtime features:
 
 * replay-safe recovery
 * resilient batch execution
@@ -28,7 +30,12 @@ Features include:
 * attachment orchestration
 * operational diagnostics
 
-Designed as a platform-oriented runtime architecture initially delivered as an Odoo application.
+Experience features:
+
+* Command Center (KPIs, alerts, workspaces)
+* Enterprise navigation (Operations / Analytics / Configuration)
+* Delivery Dashboard and Live Monitor
+* RWPST branding
 
 Technical note: this addon was previously distributed as ``whatsapp_simple``.
 See MIGRATION.md at the repository root for upgrade guidance.
@@ -37,6 +44,7 @@ See MIGRATION.md at the repository root for upgrade guidance.
     'author': 'RelayRuntime Contributors',
     'website': 'https://github.com/YOUR_ORG/relayruntime',
     'license': 'LGPL-3',
+    'icon': '/relayruntime/static/description/icon.png',
 
     'depends': [
         'base',
@@ -45,6 +53,8 @@ See MIGRATION.md at the repository root for upgrade guidance.
         'product',
     ],
 
+    # Menus last: whatsapp_menu.xml owns all menuitem XML IDs (incl. menu_whatsapp_root)
+    # and must load after every action/view file those menus reference.
     'data': [
         'security/whatsapp_security.xml',
         'security/ir.model.access.csv',
@@ -52,18 +62,36 @@ See MIGRATION.md at the repository root for upgrade guidance.
         'views/whatsapp_message_log_views.xml',
         'views/whatsapp_bulk_campaign_views.xml',
         'views/whatsapp_campaign_monitor_views.xml',
-        'views/whatsapp_menu.xml',
+        'views/whatsapp_app_dashboard_views.xml',
         'views/whatsapp_delivery_dashboard_views.xml',
         'views/res_partner_views.xml',
         'views/sale_order_views.xml',
         'wizard/whatsapp_send_wizard_views.xml',
         'wizard/whatsapp_bulk_send_wizard_views.xml',
         'wizard/whatsapp_product_selection_wizard_views.xml',
+        'views/whatsapp_menu.xml',
     ],
 
     'assets': {
+        'web._assets_primary_variables': [
+            ('before', 'web/static/src/scss/primary_variables.scss', 'relayruntime/static/src/scss/_rwpst_brand_tokens.scss'),
+            ('before', 'web/static/src/scss/primary_variables.scss', 'relayruntime/static/src/scss/rwpst_brand_primary_variables.scss'),
+            ('after', 'web/static/src/scss/primary_variables.scss', 'relayruntime/static/src/scss/rwpst_brand_derived_variables.scss'),
+            ('after', 'web/static/src/webclient/burger_menu/burger_menu.variables.scss', 'relayruntime/static/src/scss/rwpst_brand_component_variables.scss'),
+        ],
         'web.assets_backend': [
+            'relayruntime/static/src/scss/_rwpst_brand_tokens.scss',
+            'relayruntime/static/src/scss/rwpst_variables.scss',
+            'relayruntime/static/src/scss/rwpst_mixins.scss',
+            'relayruntime/static/src/scss/rwpst_theme.scss',
+            'relayruntime/static/src/scss/rwpst_dashboard.scss',
+            'relayruntime/static/src/scss/rwpst_tiles.scss',
+            'relayruntime/static/src/scss/rwpst_global_brand.scss',
             'relayruntime/static/src/js/campaign_monitor_kanban.js',
+        ],
+        'web.assets_frontend': [
+            'relayruntime/static/src/scss/_rwpst_brand_tokens.scss',
+            'relayruntime/static/src/scss/rwpst_global_brand.scss',
         ],
     },
 
