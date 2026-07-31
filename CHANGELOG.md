@@ -1,29 +1,42 @@
 # Changelog
 
-All notable changes to the `whatsapp_simple` module are documented in this file.
+All notable changes to the `relayruntime` module are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
-## [19.0.6.1.0] - 2026-07-30
+## 19.0.6.1.0 — First Public Stable Release
 
-### Added — Enterprise UI on runtime foundation (MERGE-003)
+**Release Date:** 2026-07-30
+
+### Highlights
+
+- Enterprise UI reconstruction completed.
+- Runtime architecture stabilized.
+- Green API integration validated.
+- Single Messaging validated.
+- Bulk Messaging validated.
+- Delivery Dashboard restored.
+- Odoo 19 Community compatible.
+- GitHub public release completed.
+- Initial Odoo Apps package prepared.
+
+### Known Limitations
+
+- Campaign Monitor enhancements scheduled for 19.0.6.2.0.
+- Executions workspace improvements scheduled for 19.0.6.2.0.
+
+### Technical notes (MERGE-003)
 
 - Command Center (`whatsapp.app.dashboard`) imported from Lineage A onto Lineage B
 - Enterprise navigation (Operations / Analytics / Configuration) with Delivery Dashboard menu wiring
 - RWPST brand assets and SCSS token/theme bundles
 - First-class wizard menu actions: Send Message, New Bulk Send
 - Reconstruction contract docs under `docs/reconstruction/`
-
-### Changed
-
 - Manifest display name `RWPST RelayRuntime`; version `19.0.6.1.0`
 - Command Center running/active KPI domains adapted to B `active_execution_id` lease projection
-
-### Unchanged (B-LOCK)
-
-- Execution lease/heartbeat, idempotency, outbound intent, bulk service, provider registry
+- Unchanged (B-LOCK): execution lease/heartbeat, idempotency, outbound intent, bulk service, provider registry
 
 ## [19.0.6.0.0] - 2026-05-27
 
