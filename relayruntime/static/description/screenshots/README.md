@@ -1,14 +1,14 @@
-# Screenshots
+# Store screenshots (Odoo Apps)
 
-Add PNG screenshots here for the Odoo App Store listing.
+**Recommended size:** 1280×720 or 1024×768 PNG. Captured from a **Mock Provider** demo on Odoo 19.
 
-**Naming suggestion:**
+| File | Status | Capture |
+|------|--------|---------|
+| `01_command_center.png` | Present | Command Center / app dashboard (KPIs, workspaces) |
+| `02_settings.png` | Present | WhatsApp → Settings (Mock Provider selected) |
+| `03_bulk_wizard.png` | Present | Bulk send wizard with recipients / attachments |
+| `04_campaign_monitor.png` | Optional / missing | Live Campaign Monitor (kanban) during or after a run |
+| `05_executions_tab.png` | Optional / missing | Campaign form **Executions** tab with attempt lineage |
+| `06_delivery_dashboard.png` | Present | Delivery Dashboard / message logs |
 
-- `01_settings.png`
-- `02_bulk_wizard.png`
-- `03_campaign_monitor.png`
-- `04_executions_tab.png`
-- `05_message_logs.png`
-- `06_retry_campaign.png`
-
-Reference them from `index.html` after files exist.
+Present files are referenced from `../index.html` and `__manifest__.py` `images`.

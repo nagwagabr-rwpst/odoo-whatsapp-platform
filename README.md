@@ -1,241 +1,233 @@
+<div align="center">
+
+<img src="relayruntime/static/description/HorizontalLogo.png" alt="RWPST RelayRuntime" width="280"/>
+
+<br/><br/>
+
+<img src="relayruntime/static/description/banner_1.png" alt="RelayRuntime — Enterprise Messaging Runtime for Odoo Community" width="920"/>
+
 # RelayRuntime
 
-**A replay-safe operational messaging execution runtime, initially delivered as an Odoo application.**
+### Enterprise Messaging Runtime for Odoo Community
 
-RelayRuntime coordinates outbound messaging campaigns with execution lineage, lease-aware concurrency, and recovery-oriented persistence. It exists to make operational messaging **correct under failure**, not merely to invoke a provider API from ERP forms.
+Built around a runtime — not just an integration.
+
+<br/>
+
+[![Odoo](https://img.shields.io/badge/Odoo-19-714B67?style=flat-square&logo=odoo&logoColor=white)](https://www.odoo.com)
+[![Edition](https://img.shields.io/badge/Edition-Community-0F172A?style=flat-square)](https://www.odoo.com)
+[![License](https://img.shields.io/badge/License-LGPL--3-1E3A8A?style=flat-square)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-2563EB?style=flat-square)](CHANGELOG.md)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
+[![Version](https://img.shields.io/badge/Version-19.0.6.1.0-475569?style=flat-square)](CHANGELOG.md)
+
+<br/>
+
+[Landing Page](landing-page/) · [Documentation](docs/README.md) · [Release Notes](CHANGELOG.md) · [Odoo Apps](https://apps.odoo.com/apps/modules/browse?search=RelayRuntime)
+
+</div>
+
+---
+
+## Overview
+
+RelayRuntime is an **Enterprise Messaging Runtime** for Odoo Community.
+
+It places a production-ready messaging layer between Odoo and messaging providers — with provider abstraction, queue-oriented execution, retry policies, delivery monitoring, and an Operational Command Center.
+
+Business workflows stay independent of any single provider. Reliability, recovery, and observability live in the runtime.
+
+Enterprise messaging starts here.
+
+---
+
+## Why RelayRuntime
+
+| Traditional Connector | RelayRuntime |
+|---|---|
+| Single provider dependency | Provider abstraction |
+| Fire-and-forget sends | Queue & retry engine |
+| Manual recovery | Replay-safe runtime |
+| Basic message logs | Operational Command Center |
+| Provider-specific workflows | Provider-independent business logic |
+| Demo-ready behavior | Production-ready execution |
+
+```text
+Enterprise Messaging Runtime
+            │
+            ▼
+ Operational Command Center
+            │
+            ▼
+    Provider Abstraction
+            │
+            ▼
+   Messaging Providers
+```
+
+---
+
+## Key Features
 
 | | |
 |---|---|
-| **Odoo module** | `relayruntime` (`apps/odoo/relayruntime/`) |
-| **Platform** | Odoo 19 Community |
-| **Delivery model today** | Embedded synchronous runtime (HTTP worker) |
-| **License** | LGPL-3.0 |
-
-[Documentation](docs/README.md) · [Migration](MIGRATION.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
-
----
-
-## Why RelayRuntime exists
-
-Operational messaging breaks in predictable ways when treated as a simple “send button”:
-
-| Failure class | Symptom |
-|---------------|---------|
-| **Duplicate execution** | Same recipient contacted twice after retries, rollbacks, or concurrent runs |
-| **Unsafe retries** | Child campaigns or replays without lineage or deduplication scope |
-| **Replay inconsistency** | Database state does not reflect what the provider already accepted |
-| **Attachment coordination** | Multi-segment sends fail mid-flight; partial success is hard to reason about |
-| **Weak operational visibility** | Stuck `running` campaigns, unclear execution ownership, no durable attempt identity |
-
-RelayRuntime introduces an **execution-attempt authority** (`whatsapp.bulk.execution`), campaign-scoped idempotency, retry fingerprinting, lease/heartbeat liveness, and documented recovery paths—within the limits of synchronous Odoo execution and external provider APIs.
+| **Operational Command Center** | Manage KPIs, campaigns, queues, logs, and runtime health from one dashboard. |
+| **Provider Abstraction** | Switch providers without rewriting business logic. |
+| **Queue & Retry** | Process outbound messaging with structured retry policies. |
+| **Campaign Engine** | Run durable campaigns with execution lineage and recovery paths. |
+| **Delivery Dashboard** | Inspect delivery outcomes and message-level operational detail. |
+| **Live Monitor** | Observe active campaign execution as it runs. |
+| **Runtime Settings** | Configure providers and runtime behavior in one place. |
+| **Analytics** | Track delivery performance and runtime KPIs. |
+| **Attachment Support** | Coordinate outbound messaging with attachments and catalogs. |
+| **Enterprise Architecture** | Separate ERP workflows, runtime control, and provider adapters. |
 
 ---
 
-## Core runtime principles
+## Screenshots
 
-| Principle | Meaning in this repository |
-|-----------|----------------------------|
-| **Replay-safe execution** | Reconcile stale attempts; persist outbound intent before provider I/O; bounded idempotency keys |
-| **Lease-aware coordination** | One live execution lease per campaign attempt; heartbeat extends ownership |
-| **Execution lineage** | Immutable `execution_uuid`; retry attempts link via `parent_execution_id` |
-| **Operational observability** | Execution tab, message logs, structured loggers, campaign monitor (partial—no metrics platform) |
-| **Runtime-safe recovery** | Stale reconciliation on entry; operator runbook; no silent “success” on partial failure |
+### Command Center
 
-These principles do **not** imply exactly-once delivery to end recipients. See [Security](SECURITY.md).
+![RelayRuntime Operational Command Center](relayruntime/static/description/screenshots/01_command_center.png)
+
+### Runtime Settings
+
+![RelayRuntime Runtime Settings](relayruntime/static/description/screenshots/02_settings.png)
+
+### Bulk Messaging
+
+![RelayRuntime Bulk Messaging wizard](relayruntime/static/description/screenshots/03_bulk_wizard.png)
+
+### Delivery Dashboard
+
+![RelayRuntime Delivery Dashboard](relayruntime/static/description/screenshots/06_delivery_dashboard.png)
 
 ---
 
-## Architecture overview
+## Architecture
 
-```mermaid
-flowchart TB
-    subgraph Embedded["Today: embedded in Odoo HTTP worker"]
-        ODOO[apps/odoo/relayruntime]
-        ODOO --> EXE[whatsapp.bulk.execution]
-        ODOO --> CAMP[whatsapp.bulk.campaign]
-        ODOO --> LOG[whatsapp.message.log]
-        EXE -. projection .-> CAMP
-    end
-    subgraph Future["Future: extracted runtime/ packages"]
-        RT[runtime/execution]
-        WK[runtime/workers]
-        OB[runtime/observability]
-    end
-    ODOO -. planned extraction .-> RT
-    RT -. planned .-> WK
+```text
+                 Business Logic
+                       │
+                       ▼
+                 RelayRuntime
+                       │
+                       ▼
+                Provider Adapter
+                       │
+       ┌───────┬───────┼───────┬───────┬───────┐
+       ▼       ▼       ▼       ▼       ▼       ▼
+     Meta    Green  Evolution UltraMsg Twilio Gupshup
+            Cloud API   API
 ```
 
-| Layer | Path | Responsibility |
-|-------|------|----------------|
-| **Odoo orchestration** | `apps/odoo/relayruntime/` | ERP models, UI, wizards, ACL, provider config, send entrypoints |
-| **Runtime logic (transitional)** | Same addon (`models/`, `services/`) | Execution lifecycle, lease, bulk orchestration—**moving to `runtime/`** |
-| **Extraction placeholders** | `runtime/*` | Package boundaries only; no standalone service yet |
+RelayRuntime isolates Odoo workflows from provider implementations.
 
-Detail: [docs/architecture/runtime-boundaries.md](docs/architecture/runtime-boundaries.md) · [docs/architecture/runtime-vision.md](docs/architecture/runtime-vision.md)
-
----
-
-## Execution lifecycle
-
-Conceptual lifecycle (terms used across docs):
-
-```mermaid
-flowchart LR
-    C[Campaign defined]
-    B[Batch prepared]
-    L[Lease acquired]
-    E[Execution run]
-    R[Retry optional]
-    P[Replay / reconcile]
-    REC[Recovery]
-    D[Terminal state]
-    C --> B --> L --> E
-    E --> D
-    E --> R
-    R --> E
-    E --> P --> REC
-    P --> E
-```
-
-| Stage | Status today |
-|-------|----------------|
-| Campaign creation | **Implemented** (`whatsapp.bulk.campaign`) |
-| Queue / async batching | **Not implemented** — sequential loop in HTTP request |
-| Lease acquisition | **Implemented** (`begin_campaign_execution`) |
-| Execution | **Implemented** (`WhatsAppBulkSender`) |
-| Retry | **Implemented** (child campaign + fingerprint) |
-| Replay / reconcile | **Partial** (stale heartbeat; no auto-resume) |
-| Recovery | **Operational** (runbook + manual retry) |
-| Completion | **Implemented** (`execution.finish`) |
-
-Detail: [docs/architecture/execution-lifecycle.md](docs/architecture/execution-lifecycle.md)
-
----
-
-## Failure recovery philosophy
-
-RelayRuntime optimizes for **operational correctness** over optimistic UX:
-
-- **Idempotent thinking** at campaign/recipient boundaries—not global exactly-once.
-- **Durable attempt identity** so operators can distinguish runs.
-- **Explicit terminal states** (`completed`, `stopped`, `failed`, `reconciled`) instead of forced 100% progress.
-- **Honest partial failure** when daily limits or provider errors stop a batch.
-
-Recovery is **operator-assisted** today: reconcile stale executions, inspect logs, retry failed recipients. Automated replay engines and queue workers are **future** work.
-
-Detail: [docs/recovery/replay-recovery.md](docs/recovery/replay-recovery.md)
-
----
-
-## Repository structure
-
-```
-relayruntime/                    # repository root
-├── apps/odoo/relayruntime/      # Odoo application (installable module)
-├── runtime/                     # extraction boundaries (placeholders)
-│   ├── execution/
-│   ├── retry/
-│   ├── replay/
-│   ├── observability/
-│   └── workers/
-├── docs/                        # engineering reference
-├── scripts/                     # CI validation
-├── tests/                       # pointer; Odoo tests in addon
-├── infrastructure/              # future IaC placeholder
-├── demos/                       # future scenarios
-├── .github/                     # issue templates, CI
-├── README.md
-├── MIGRATION.md
-├── CONTRIBUTING.md
-├── SECURITY.md
-└── SUPPORT.md
-```
-
----
-
-## Current runtime scope
-
-| Attribute | Today |
-|-----------|--------|
-| Deployment | **Embedded** in Odoo process |
-| Concurrency | Lease + row lock; **not** distributed HA |
-| Transaction | Single HTTP transaction per bulk run |
-| Workers / queue | **Not implemented** |
-| Provider scope | Green API + Mock send-capable; other adapters stub |
-| Exactly-once | **Not provided** |
-
-Detail: [docs/deployment/embedded-runtime.md](docs/deployment/embedded-runtime.md)
-
----
-
-## Roadmap
-
-| Phase | Description | Status |
-|-------|-------------|--------|
-| **Embedded runtime** | Odoo addon owns execution authority | **Current** |
-| **Isolated workers** | Background consumers for bulk segments | Future |
-| **Queue separation** | Decouple HTTP request from execution duration | Future |
-| **Runtime services** | Extracted libraries or sidecar processes | Future |
-| **Cloud runtime** | Managed execution plane (undefined product) | Future |
-
-Detail: [docs/architecture/runtime-vision.md](docs/architecture/runtime-vision.md) · [docs/deployment/deployment-evolution.md](docs/deployment/deployment-evolution.md)
+Replace providers. Never rewrite workflows.
 
 ---
 
 ## Installation
 
-### 1. Addons path
-
-Point Odoo at **`apps/odoo`** inside this repository—not the repository root.
-
-```ini
-addons_path = /path/to/odoo/addons,/path/to/relayruntime/apps/odoo
-```
-
-See [apps/odoo/README.md](apps/odoo/README.md).
-
-### 2. Install module
-
 ```bash
-odoo-bin -c odoo.conf -d YOUR_DB -i relayruntime
+git clone https://github.com/nagwagabr-rwpst/odoo-whatsapp-platform.git
 ```
 
-### 3. Upgrade
+1. Add the repository path to Odoo `addons_path`.
+2. Restart Odoo.
+3. Update the Apps list.
+4. Install **RWPST RelayRuntime**.
 
-```bash
-odoo-bin -c odoo.conf -d YOUR_DB -u relayruntime
-```
-
-### 4. Validate
-
-- Assign WhatsApp User / Manager groups.
-- Configure **WhatsApp → Settings**; use **Mock Provider** on non-production databases.
-- Run a small bulk campaign; confirm **Executions** tab on campaign form.
-
-Upgrading from `whatsapp_simple`? Read [MIGRATION.md](MIGRATION.md) before production.
+Installable module: `relayruntime/`
 
 ---
 
-## Odoo compatibility
+## Quick Start
 
-| Requirement | Version |
-|-------------|---------|
-| Odoo | 19.0 Community |
-| Module series | `19.0.x.y.z` (see `__manifest__.py`) |
-| Dependencies | `base`, `sale`, `mail`, `product` |
+1. Open **RelayRuntime** after installation.
+2. Configure a provider under **Runtime Settings**.
+3. Validate with Mock Provider or a live adapter.
+4. Launch a bulk campaign from the Command Center.
+5. Track results in the Delivery Dashboard and Live Monitor.
 
 ---
 
-## Contribution
+## Supported Providers
 
-Contributors are expected to understand **runtime boundaries** and **recovery semantics**. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/development/RUNTIME_SAFETY_RULES.md](docs/development/RUNTIME_SAFETY_RULES.md) before changing execution paths.
+| Provider | Status |
+|---|---|
+| Green API | Supported adapter |
+| Meta Cloud API | Supported target |
+| Evolution API | Supported target |
+| UltraMsg | Supported target |
+| Twilio | Supported target |
+| Gupshup | Supported target |
+| Custom Adapter | Extensible interface |
 
-```bash
-python scripts/ci_validate.py
+Provider independence by design.
+
+---
+
+## Project Structure
+
+```text
+odoo-whatsapp-platform/
+├── landing-page/     Public product website
+├── branding/         Official brand kit (SVG / PNG)
+├── docs/             Architecture, runtime, operations
+├── relayruntime/     Installable Odoo 19 module
+├── runtime/          Runtime foundation (extraction path)
+├── scripts/          Release and maintenance tooling
+├── tests/            Verification suites
+├── CHANGELOG.md
+├── LICENSE
+└── README.md
 ```
+
+---
+
+## Roadmap
+
+### Version 1 — Enterprise Runtime
+
+- Enterprise Messaging Runtime for Odoo Community
+- Provider abstraction layer
+- Operational Command Center
+- Queue & retry engine
+- Delivery Dashboard and campaign operations
+
+### Version 2 — Platform Expansion
+
+- Developer SDK
+- REST API surface
+- Expanded technical documentation
+- Deeper runtime-service extraction
+
+---
+
+## Documentation
+
+| Resource | Link |
+|---|---|
+| Landing Page | [landing-page/](landing-page/) |
+| Documentation | [docs/README.md](docs/README.md) |
+| Release Notes | [CHANGELOG.md](CHANGELOG.md) |
+| Migration Guide | [MIGRATION.md](MIGRATION.md) |
+| Support | [SUPPORT.md](SUPPORT.md) |
+| Security | [SECURITY.md](SECURITY.md) |
+| Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) |
+| Odoo Apps | [Browse RelayRuntime](https://apps.odoo.com/apps/modules/browse?search=RelayRuntime) |
 
 ---
 
 ## License
 
-LGPL-3.0 — see [LICENSE](LICENSE).
+RelayRuntime is released under the **LGPL-3.0** license.
+
+See [LICENSE](LICENSE).
+
+---
+
+**Enterprise Messaging Starts Here**
+
+RelayRuntime · RWPST · Odoo 19 Community
