@@ -47,6 +47,14 @@ See MIGRATION.md at the repository root for upgrade guidance.
     'price': 49.0,
     'currency': 'USD',
     'icon': '/relayruntime/static/description/icon.png',
+    'images': [
+        'static/description/banner_1.png',
+        'static/description/AppIcon.png',
+        'static/description/screenshots/01_command_center.png',
+        'static/description/screenshots/02_settings.png',
+        'static/description/screenshots/03_bulk_wizard.png',
+        'static/description/screenshots/06_delivery_dashboard.png',
+    ],
 
     'depends': [
         'base',

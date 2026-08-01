@@ -1,43 +1,39 @@
 # Odoo App Store Assets
 
-Place final marketing assets in this directory before Odoo Apps submission.
+Synced from repository `branding/` (official hexagonal RelayRuntime identity).
 
-## Required files
+| File | Status | Notes |
+|------|--------|-------|
+| `AppIcon.png` | Present | Manifest `icon` + store mark (canonical) |
+| `AppIcon.svg` | Present | Vector mark |
+| `icon.png` | Present (256×256) | Compatibility alias of `AppIcon.png` for tooling that probes `icon.png` |
+| `HorizontalLogo.png` / `.svg` | Present | Official horizontal lockup |
+| `VerticalLogo.png` / `.svg` | Present | Official vertical lockup |
+| `banner.png` | Present (1260×630) | Store cover |
+| `banner_1.png` / `.jpg` | Present | Hero / marketing banner |
+| `index.html` | Present | Store description (RWPST / 19.0.6.1.0) |
+| `screenshots/01_command_center.png` | Present | Command Center |
+| `screenshots/02_settings.png` | Present | Settings |
+| `screenshots/03_bulk_wizard.png` | Present | Bulk wizard |
+| `screenshots/06_delivery_dashboard.png` | Present | Delivery Dashboard |
+| `screenshots/04_*.png`, `05_*.png` | Optional / missing | See `screenshots/README.md` |
+| `demo.gif` | Optional / missing | Short Mock Provider demo |
 
-| File | Dimensions | Format | Notes |
-|------|------------|--------|-------|
-| `icon.png` | 256×256 (min 128×128) | PNG | Module icon in Apps list |
-| `banner.png` | 560×280 recommended | PNG | Store banner |
-| `index.html` | — | HTML | Store description (included) |
-| `screenshots/*.png` | 1280×720 or 1024×768 | PNG | 3–6 screenshots |
+## Removed / stale (do not restore)
 
-## Optional
+- `icon.svg`, `icon_128.png` — legacy circular marks  
+- `AppIcon.jpg`, `HorizontalLogo.jpg`, `VerticalLogo.jpg` — superseded by PNG/SVG  
 
-| File | Purpose |
-|------|---------|
-| `demo.gif` | Short screen recording of bulk send + monitor |
+## Manifest
 
-## Placeholder
-
-`icon.svg` is a **temporary vector placeholder**. Export to `icon.png` before submission.
-
-```bash
-# Example with Inkscape (if installed)
-inkscape icon.svg -w 256 -h 256 -o icon.png
+```python
+'icon': '/relayruntime/static/description/AppIcon.png',
+'images': [
+    'static/description/banner_1.png',
+    'static/description/AppIcon.png',
+    'static/description/screenshots/01_command_center.png',
+    'static/description/screenshots/02_settings.png',
+    'static/description/screenshots/03_bulk_wizard.png',
+    'static/description/screenshots/06_delivery_dashboard.png',
+],
 ```
-
-## Content guidelines
-
-- Use **Mock Provider** screenshots for public marketing when possible.
-- Include **limitations** slide or section (no exactly-once guarantee).
-- Do not claim: distributed HA, background queue, inbound webhooks (unless shipped).
-- Align version text with `__manifest__.py`.
-
-## Suggested screenshots
-
-1. WhatsApp Settings (provider + safety)
-2. Bulk send wizard
-3. Campaign monitor during run
-4. Campaign form with Executions tab
-5. Message logs / delivery dashboard
-6. Retry campaign lineage (parent → child)

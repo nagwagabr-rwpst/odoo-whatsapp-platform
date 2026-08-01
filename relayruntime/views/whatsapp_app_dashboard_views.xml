@@ -19,7 +19,7 @@
                         <div class="d-flex flex-wrap align-items-start justify-content-between gap-3">
                             <div class="d-flex gap-3 align-items-start">
                                 <img class="o_rr_app_logo"
-                                    src="/relayruntime/static/description/icon.png"
+                                    src="/relayruntime/static/description/AppIcon.png"
                                     alt="RWPST RelayRuntime"/>
                                 <div>
                                     <h1 class="o_rr_app_title">RWPST RelayRuntime</h1>
