@@ -13,6 +13,7 @@ This documentation describes **what is implemented today**, including known gaps
 | [Recovery](recovery/replay-recovery.md) | Replay philosophy, retry lineage, stale reconciliation |
 | [Runtime](runtime/EXECUTION_FLOW.md) | Step-by-step execution, leases, outbound intents |
 | [Deployment](deployment/embedded-runtime.md) | Embedded topology, evolution, install, production |
+| [Infrastructure](infrastructure/GITHUB_PAGES_PIPELINE.md) | GitHub Pages product website pipeline (RWPST standard) |
 | [Operations](operations/operational-guidelines.md) | Guidelines, observability, failures, runbook |
 | [Testing](testing/TESTING_STRATEGY.md) | Verification strategy and failure simulations |
 | [Releases](releases/VERSIONING.md) | Versioning and release process |
@@ -55,6 +56,10 @@ This documentation describes **what is implemented today**, including known gaps
 - [Odoo.sh deployment](deployment/ODOO_SH_DEPLOYMENT.md)
 - [Environment variables](deployment/ENVIRONMENT_VARIABLES.md)
 - [Production checklist](deployment/PRODUCTION_CHECKLIST.md)
+
+### Infrastructure
+
+- [GitHub Pages pipeline](infrastructure/GITHUB_PAGES_PIPELINE.md) — publish `landing-page/` / `site/` via Actions (custom domain, DNS, reuse)
 
 ### Operations
 
