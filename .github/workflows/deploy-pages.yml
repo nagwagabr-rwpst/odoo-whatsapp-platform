@@ -1,0 +1,98 @@
+# RWPST standard — GitHub Pages product website pipeline
+#
+# Publishes ONLY the product website folder (never the repository root).
+# Reusable across RelayRuntime, AI Agents, AI Academy, Motion, and future products.
+#
+# Repository prerequisite (one-time):
+#   Settings → Pages → Build and deployment → Source = GitHub Actions
+#
+# Product-specific knobs (edit only these when copying to another repo):
+#   - Trigger branch(es)
+#   - SITE_SOURCE (landing-page | site | …)
+#   - CUSTOM_DOMAIN (empty string = no CNAME / use *.github.io)
+
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - '19.0'
+  # Manual re-publish without a new commit (ops / DNS cutover / recovery)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  # --- Product knobs (change per repository) ---
+  SITE_SOURCE: landing-page
+  CUSTOM_DOMAIN: relayruntime.rwpst.com
+  # Exclude internal docs from the public site tree (index.html remains the root).
+  EXCLUDE_GLOBS: '*.md'
+
+jobs:
+  build:
+    name: Build site artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate site source
+        run: |
+          if [ ! -d "${SITE_SOURCE}" ]; then
+            echo "::error::SITE_SOURCE '${SITE_SOURCE}' does not exist in this repository."
+            exit 1
+          fi
+          if [ ! -f "${SITE_SOURCE}/index.html" ]; then
+            echo "::error::'${SITE_SOURCE}/index.html' is required (GitHub Pages entry point)."
+            exit 1
+          fi
+          echo "Publishing contents of: ${SITE_SOURCE}/"
+          echo "Custom domain: ${CUSTOM_DOMAIN:-"(none — github.io default)"}"
+
+      - name: Assemble publish tree
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+          # Copy website files only — repository root (README, Odoo module, docs) stay out.
+          RSYNC_EXCLUDES=()
+          for pattern in ${EXCLUDE_GLOBS}; do
+            RSYNC_EXCLUDES+=(--exclude="${pattern}")
+          done
+          rsync -a "${RSYNC_EXCLUDES[@]}" "${SITE_SOURCE}/" _site/
+
+          # Disable Jekyll so paths like assets/ are never ignored.
+          touch _site/.nojekyll
+
+          # Persist custom domain with every deploy (Settings → Pages domain stays in sync).
+          if [ -n "${CUSTOM_DOMAIN}" ]; then
+            printf '%s\n' "${CUSTOM_DOMAIN}" > _site/CNAME
+            echo "Wrote CNAME → ${CUSTOM_DOMAIN}"
+          fi
+
+          echo "Publish tree:"
+          find _site -type f | sort
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
