@@ -79,7 +79,12 @@ jobs:
 
           echo "Publish tree:"
           find _site -type f | sort
-
+            - name: Verify published files
+        run: |
+          ls -R _site
+          test -f _site/index.html
+          test -f _site/js/main.js
+          test -f _site/assets/banner_1.png
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
