@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RelayRuntime | Enterprise Messaging Runtime for Odoo Community</title>
+  <meta name="description" content="RelayRuntime transforms Odoo Community into a production-ready enterprise messaging platform with provider abstraction, queue management, retry engine, delivery monitoring, and operational analytics.">
+  <meta name="keywords" content="Odoo WhatsApp, Enterprise Messaging, WhatsApp Integration, Provider Abstraction, Queue Engine, Retry Engine, RelayRuntime">
+  <meta name="author" content="RWPST">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="canonical" href="https://nagwagabr-rwpst.github.io/odoo-whatsapp-platform/">
+  <link rel="icon" href="assets/AppIcon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="assets/AppIcon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/AppIcon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="RelayRuntime">
+  <meta property="og:title" content="RelayRuntime | Enterprise Messaging Runtime for Odoo Community">
+  <meta property="og:description" content="RelayRuntime transforms Odoo Community into a production-ready enterprise messaging platform with provider abstraction, queue management, retry engine, delivery monitoring, and operational analytics.">
+  <meta property="og:image" content="https://nagwagabr-rwpst.github.io/odoo-whatsapp-platform/assets/HorizontalLogo.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="RelayRuntime — official horizontal brand logo">
+  <meta property="og:url" content="https://nagwagabr-rwpst.github.io/odoo-whatsapp-platform/">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="RelayRuntime | Enterprise Messaging Runtime for Odoo Community">
+  <meta name="twitter:description" content="Enterprise Messaging Runtime for Odoo Community — provider abstraction, queue engine, retry engine, and operational command center.">
+  <meta name="twitter:image" content="https://nagwagabr-rwpst.github.io/odoo-whatsapp-platform/assets/HorizontalLogo.png">
+  <meta name="twitter:image:alt" content="RelayRuntime — official horizontal brand logo">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "RelayRuntime",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Odoo 19 Community",
+    "description": "Enterprise Messaging Runtime for Odoo Community with provider abstraction, queue processing, retry policies, operational monitoring, and delivery analytics.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "RWPST",
+      "logo": "https://nagwagabr-rwpst.github.io/odoo-whatsapp-platform/assets/HorizontalLogo.png"
+    },
+    "image": "https://nagwagabr-rwpst.github.io/odoo-whatsapp-platform/assets/HorizontalLogo.png",
+    "logo": "https://nagwagabr-rwpst.github.io/odoo-whatsapp-platform/assets/HorizontalLogo.png",
+    "url": "https://nagwagabr-rwpst.github.io/odoo-whatsapp-platform/"
+  }
+  </script>
+
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preload" as="image" href="assets/HorizontalLogo.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="assets/banner_1.png" fetchpriority="high">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top" data-header>
+    <nav class="nav" aria-label="Primary">
+      <a class="brand brand--desktop" href="#top" aria-label="RelayRuntime — home">
+        <img
+          class="brand__logo"
+          src="assets/HorizontalLogo.svg"
+          alt="RWPST RelayRuntime"
+          width="240"
+          height="56"
+          decoding="async"
+        >
+      </a>
+      <a class="brand brand--mobile" href="#top" aria-label="RelayRuntime — home">
+        <img
+          class="brand__appicon"
+          src="assets/AppIcon.svg"
+          alt=""
+          width="40"
+          height="40"
+          decoding="async"
+        >
+        <span class="brand__name">RelayRuntime</span>
+      </a>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open navigation menu">
+        <span class="nav__toggle-bars" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#command-center">Command Center</a></li>
+        <li><a href="#providers">Providers</a></li>
+        <li><a href="#experience">Product</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a class="btn btn--sm btn--primary" href="#cta">Get Started</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- 1. Hero -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="eyebrow">Enterprise Messaging Runtime for Odoo Community</p>
+          <h1 id="hero-title">Enterprise Messaging Starts Here</h1>
+          <p class="hero__sub">
+            Transform Odoo Community into a production-ready messaging platform with provider abstraction, enterprise runtime management, delivery monitoring, and operational reliability.
+          </p>
+          <ul class="hero__bullets" aria-label="Key capabilities">
+            <li>
+              <span class="check" aria-hidden="true">
+                <svg viewBox="0 0 20 20"><path d="M7.5 13.2 4.3 10l-1.1 1.1L7.5 15.4l9.3-9.3L15.7 5z"/></svg>
+              </span>
+              Multi Provider Messaging
+            </li>
+            <li>
+              <span class="check" aria-hidden="true">
+                <svg viewBox="0 0 20 20"><path d="M7.5 13.2 4.3 10l-1.1 1.1L7.5 15.4l9.3-9.3L15.7 5z"/></svg>
+              </span>
+              Queue &amp; Retry Engine
+            </li>
+            <li>
+              <span class="check" aria-hidden="true">
+                <svg viewBox="0 0 20 20"><path d="M7.5 13.2 4.3 10l-1.1 1.1L7.5 15.4l9.3-9.3L15.7 5z"/></svg>
+              </span>
+              Operational Command Center
+            </li>
+          </ul>
+          <div class="hero__actions">
+            <a class="btn btn--primary btn--lg" href="#experience">
+              Watch Live Demo
+            </a>
+            <a class="btn btn--ghost btn--lg" href="https://github.com/nagwagabr-rwpst/odoo-whatsapp-platform/tree/main/docs" target="_blank" rel="noopener noreferrer">
+              Documentation
+              <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          </div>
+          <p class="hero__positioning">Built Around a Runtime, Not Just an Integration.</p>
+        </div>
+
+        <div class="hero__visual">
+          <figure class="hero-media">
+            <button type="button" class="lightbox-trigger hero-media__trigger" data-lightbox="assets/banner_1.png" data-alt="RelayRuntime operational dashboard from the official hero banner" aria-label="Enlarge product visual from hero banner">
+              <img
+                class="hero-media__img"
+                src="assets/banner_1.png"
+                alt="RelayRuntime operational dashboard — multi-provider health, queue status, and delivery analytics"
+                width="1260"
+                height="630"
+                decoding="async"
+                fetchpriority="high"
+                sizes="(max-width: 768px) 100vw, 48vw"
+              >
+            </button>
+            <figcaption class="sr-only">Official RelayRuntime hero banner — product visual</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Problem -->
+    <section class="section section--muted" id="problem" aria-labelledby="problem-title">
+      <div class="container">
+        <header class="section__header reveal reveal--up">
+          <h2 id="problem-title">Enterprise Messaging Is More Than Sending Messages</h2>
+          <p class="section__lead">
+            Businesses quickly outgrow basic messaging integrations.
+            As messaging volume increases, organizations face delivery failures, provider limitations, missing observability, and operational complexity.
+            RelayRuntime solves these challenges by introducing an enterprise messaging runtime.
+          </p>
+        </header>
+        <div class="card-grid card-grid--3">
+          <article class="card card--problem reveal reveal--in" style="--delay: 0">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.5"/></svg>
+            </div>
+            <h3>Single Provider Dependency</h3>
+            <p>Tight coupling to one provider locks workflows and blocks change.</p>
+          </article>
+          <article class="card card--problem reveal reveal--in" style="--delay: 1">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 12h4l2-6 4 12 2-6h4"/></svg>
+            </div>
+            <h3>No Retry Engine</h3>
+            <p>Failed deliveries disappear without structured recovery policies.</p>
+          </article>
+          <article class="card card--problem reveal reveal--in" style="--delay: 2">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/></svg>
+            </div>
+            <h3>No Queue Processing</h3>
+            <p>Volume spikes overwhelm ad-hoc send buttons and block operations.</p>
+          </article>
+          <article class="card card--problem reveal reveal--in" style="--delay: 3">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/><circle cx="12" cy="12" r="2"/></svg>
+            </div>
+            <h3>No Monitoring</h3>
+            <p>Operators cannot observe queues, campaigns, or live delivery health.</p>
+          </article>
+          <article class="card card--problem reveal reveal--in" style="--delay: 4">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 15v-4"/><path d="M12 15V8"/><path d="M16 15v-6"/></svg>
+            </div>
+            <h3>No Delivery Analytics</h3>
+            <p>Without delivery analytics, teams cannot measure or improve reliability.</p>
+          </article>
+          <article class="card card--problem reveal reveal--in" style="--delay: 5">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+            </div>
+            <h3>Manual Operations</h3>
+            <p>Manual interventions do not scale when messaging becomes mission-critical.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Solution -->
+    <section class="section" id="solution" aria-labelledby="solution-title">
+      <div class="container">
+        <header class="section__header reveal reveal--up">
+          <p class="eyebrow">Production Ready. Not Demo Ready.</p>
+          <h2 id="solution-title">One Runtime. Multiple Providers.</h2>
+          <p class="section__lead">
+            RelayRuntime introduces a messaging runtime layer between Odoo and providers.
+          </p>
+        </header>
+        <div class="solution-panel reveal reveal--in">
+          <p class="solution-panel__intro">The runtime handles</p>
+          <ul class="solution-list">
+            <li>Routing</li>
+            <li>Queues</li>
+            <li>Retry</li>
+            <li>Monitoring</li>
+            <li>Analytics</li>
+            <li>Provider abstraction</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Key Features -->
+    <section class="section section--muted" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <header class="section__header reveal reveal--up">
+          <h2 id="features-title">Key Features</h2>
+          <p class="section__lead">
+            Built Around a Runtime, Not Just an Integration — queue engine, retry engine, delivery analytics, and provider independence.
+          </p>
+        </header>
+        <div class="card-grid card-grid--3">
+          <article class="card card--feature reveal reveal--in" style="--delay: 0">
+            <div class="card__icon card__icon--accent" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.3 11.2 15.5 7.2M8.3 12.8l7.2 4"/></svg>
+            </div>
+            <h3>Multi Provider</h3>
+            <p>Connect Meta, Green API, Evolution, Twilio, UltraMsg, Gupshup, or a custom provider through one runtime.</p>
+          </article>
+          <article class="card card--feature reveal reveal--in" style="--delay: 1">
+            <div class="card__icon card__icon--accent" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 7h12v4H4z"/><path d="M8 13h12v4H8z"/><path d="M4 17h2"/><path d="M18 7h2"/></svg>
+            </div>
+            <h3>Queue Engine</h3>
+            <p>Process outbound messaging through a durable queue engine designed for production volume.</p>
+          </article>
+          <article class="card card--feature reveal reveal--in" style="--delay: 2">
+            <div class="card__icon card__icon--accent" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20 12a8 8 0 1 1-2.2-5.5"/><path d="M20 4v4h-4"/></svg>
+            </div>
+            <h3>Retry Engine</h3>
+            <p>Recover failed deliveries with structured retry policies and execution lineage.</p>
+          </article>
+          <article class="card card--feature reveal reveal--in" style="--delay: 3">
+            <div class="card__icon card__icon--accent" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="18" r="3"/></svg>
+            </div>
+            <h3>Bulk Messaging</h3>
+            <p>Run enterprise bulk campaigns with operational control from the Command Center.</p>
+          </article>
+          <article class="card card--feature reveal reveal--in" style="--delay: 4">
+            <div class="card__icon card__icon--accent" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19V5h16"/><path d="M7 15l3-4 3 2 4-6"/></svg>
+            </div>
+            <h3>Delivery Analytics</h3>
+            <p>Track every delivery with dashboards, logs, and runtime KPIs built for operators.</p>
+          </article>
+          <article class="card card--feature reveal reveal--in" style="--delay: 5">
+            <div class="card__icon card__icon--accent" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M7 8h10M7 12h6"/><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+            </div>
+            <h3>Automation &amp; Webhooks</h3>
+            <p>Extend workflows with automation hooks while keeping provider details behind the runtime.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Operational Command Center -->
+    <section class="section" id="command-center" aria-labelledby="cc-title">
+      <div class="container">
+        <div class="split">
+          <div class="split__content reveal reveal--up">
+            <p class="eyebrow">Enterprise Operational Command Center</p>
+            <h2 id="cc-title">One Dashboard.<br>Complete Visibility.</h2>
+            <p class="section__lead section__lead--left">
+              Manage every aspect of enterprise messaging from one operational dashboard.
+            </p>
+            <p class="positioning-line">Observe every message. Monitor every queue. Track every delivery.</p>
+            <ul class="feature-checklist">
+              <li>Runtime KPIs</li>
+              <li>Campaigns</li>
+              <li>Bulk Messaging</li>
+              <li>Live Monitor</li>
+              <li>Logs</li>
+              <li>Runtime Settings</li>
+            </ul>
+          </div>
+          <div class="split__media reveal reveal--scale">
+            <figure class="browser-frame">
+              <div class="browser-frame__chrome" aria-hidden="true">
+                <span></span><span></span><span></span>
+                <span class="browser-frame__url">relayruntime · command center</span>
+              </div>
+              <button type="button" class="lightbox-trigger" data-lightbox="assets/screenshots/01_command_center.png" data-alt="RelayRuntime Operational Command Center dashboard" aria-label="Enlarge Command Center screenshot">
+                <img src="assets/screenshots/01_command_center.png" alt="RelayRuntime Operational Command Center showing runtime KPIs and workspaces" width="1280" height="720" loading="lazy" decoding="async" sizes="(max-width: 1024px) 100vw, 55vw">
+              </button>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Provider Abstraction -->
+    <section class="section section--dark" id="abstraction" aria-labelledby="abstraction-title">
+      <div class="container">
+        <header class="section__header reveal reveal--up">
+          <p class="eyebrow">Provider Independence</p>
+          <h2 id="abstraction-title">Switch Providers Without Changing Business Logic</h2>
+          <p class="section__lead">
+            Replace providers. Never rewrite workflows.
+          </p>
+        </header>
+        <div class="abstraction-diagram reveal reveal--in" role="img" aria-label="Business Logic flows into RelayRuntime, which routes to Meta, Green API, Evolution, Twilio, UltraMsg, and Gupshup">
+          <div class="abstraction-diagram__tier">
+            <div class="abstraction-node abstraction-node--top">Business Logic</div>
+          </div>
+          <div class="abstraction-diagram__connector" aria-hidden="true">
+            <span class="abstraction-diagram__line"></span>
+          </div>
+          <div class="abstraction-diagram__tier">
+            <div class="abstraction-node abstraction-node--runtime">
+              <img src="assets/AppIcon.svg" alt="" width="32" height="32" decoding="async" aria-hidden="true">
+              RelayRuntime
+            </div>
+          </div>
+          <div class="abstraction-diagram__connector" aria-hidden="true">
+            <span class="abstraction-diagram__line"></span>
+          </div>
+          <div class="abstraction-diagram__providers">
+            <div class="abstraction-node abstraction-node--provider">Meta</div>
+            <div class="abstraction-node abstraction-node--provider">Green API</div>
+            <div class="abstraction-node abstraction-node--provider">Evolution</div>
+            <div class="abstraction-node abstraction-node--provider">Twilio</div>
+            <div class="abstraction-node abstraction-node--provider">UltraMsg</div>
+            <div class="abstraction-node abstraction-node--provider">Gupshup</div>
+          </div>
+        </div>
+        <p class="section__footer-note reveal reveal--in">
+          RelayRuntime isolates business workflows from provider implementations.
+        </p>
+      </div>
+    </section>
+
+    <!-- 7. Product Experience -->
+    <section class="section" id="experience" aria-labelledby="experience-title">
+      <div class="container">
+        <header class="section__header reveal reveal--up">
+          <h2 id="experience-title">Built For Daily Operations</h2>
+          <p class="section__lead">
+            Real product screens from the Operational Command Center — production-ready messaging operations for Odoo Community.
+          </p>
+        </header>
+        <div class="experience-grid">
+          <article class="experience-card reveal reveal--scale" style="--delay: 0">
+            <figure class="browser-frame">
+              <div class="browser-frame__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+              <button type="button" class="lightbox-trigger" data-lightbox="assets/screenshots/01_command_center.png" data-alt="Command Center screenshot" aria-label="Enlarge Command Center screenshot">
+                <img src="assets/screenshots/01_command_center.png" alt="Command Center — runtime KPIs and operational workspaces" width="1280" height="720" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 45vw">
+              </button>
+            </figure>
+            <div class="experience-card__body">
+              <h3>Command Center</h3>
+              <p>Operate campaigns, queues, and runtime health from one enterprise dashboard.</p>
+            </div>
+          </article>
+          <article class="experience-card reveal reveal--scale" style="--delay: 1">
+            <figure class="browser-frame">
+              <div class="browser-frame__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+              <button type="button" class="lightbox-trigger" data-lightbox="assets/screenshots/02_settings.png" data-alt="Runtime Settings screenshot" aria-label="Enlarge Runtime Settings screenshot">
+                <img src="assets/screenshots/02_settings.png" alt="Runtime Settings — provider configuration and messaging preferences" width="1280" height="720" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 45vw">
+              </button>
+            </figure>
+            <div class="experience-card__body">
+              <h3>Runtime Settings</h3>
+              <p>Configure providers and runtime behavior without rewriting business logic.</p>
+            </div>
+          </article>
+          <article class="experience-card reveal reveal--scale" style="--delay: 2">
+            <figure class="browser-frame">
+              <div class="browser-frame__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+              <button type="button" class="lightbox-trigger" data-lightbox="assets/screenshots/03_bulk_wizard.png" data-alt="Bulk Messaging screenshot" aria-label="Enlarge Bulk Messaging screenshot">
+                <img src="assets/screenshots/03_bulk_wizard.png" alt="Bulk Messaging wizard with recipients and attachments" width="1280" height="720" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 45vw">
+              </button>
+            </figure>
+            <div class="experience-card__body">
+              <h3>Bulk Messaging</h3>
+              <p>Launch bulk messaging with controlled recipients, attachments, and execution tracking.</p>
+            </div>
+          </article>
+          <article class="experience-card reveal reveal--scale" style="--delay: 3">
+            <figure class="browser-frame">
+              <div class="browser-frame__chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+              <button type="button" class="lightbox-trigger" data-lightbox="assets/screenshots/06_delivery_dashboard.png" data-alt="Delivery Dashboard screenshot" aria-label="Enlarge Delivery Dashboard screenshot">
+                <img src="assets/screenshots/06_delivery_dashboard.png" alt="Delivery Dashboard with delivery analytics and message logs" width="1280" height="720" loading="lazy" decoding="async" sizes="(max-width: 768px) 100vw, 45vw">
+              </button>
+            </figure>
+            <div class="experience-card__body">
+              <h3>Delivery Dashboard</h3>
+              <p>Inspect delivery analytics and logs to track every message through the runtime.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Supported Providers -->
+    <section class="section section--muted" id="providers" aria-labelledby="providers-title">
+      <div class="container">
+        <header class="section__header reveal reveal--up">
+          <h2 id="providers-title">Supported Providers</h2>
+          <p class="section__lead">Provider independence by design.</p>
+        </header>
+        <ul class="provider-grid reveal reveal--in">
+          <li class="provider-card"><span class="provider-card__mark" aria-hidden="true">M</span><span class="provider-card__name">Meta Cloud API</span></li>
+          <li class="provider-card"><span class="provider-card__mark" aria-hidden="true">G</span><span class="provider-card__name">Green API</span></li>
+          <li class="provider-card"><span class="provider-card__mark" aria-hidden="true">E</span><span class="provider-card__name">Evolution API</span></li>
+          <li class="provider-card"><span class="provider-card__mark" aria-hidden="true">U</span><span class="provider-card__name">UltraMsg</span></li>
+          <li class="provider-card"><span class="provider-card__mark" aria-hidden="true">T</span><span class="provider-card__name">Twilio</span></li>
+          <li class="provider-card"><span class="provider-card__mark" aria-hidden="true">G</span><span class="provider-card__name">Gupshup</span></li>
+          <li class="provider-card provider-card--custom"><span class="provider-card__mark" aria-hidden="true">+</span><span class="provider-card__name">Custom Provider</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 9. Deployment -->
+    <section class="section" id="deployment" aria-labelledby="deployment-title">
+      <div class="container">
+        <header class="section__header reveal reveal--up">
+          <h2 id="deployment-title">Deploy In Minutes</h2>
+          <p class="section__lead">Production Ready enterprise messaging for Odoo Community environments.</p>
+        </header>
+        <div class="deploy-grid">
+          <article class="card card--deploy reveal reveal--in" style="--delay: 0">
+            <h3>Docker Ready</h3>
+            <p>Container-friendly deployment for modern infrastructure.</p>
+          </article>
+          <article class="card card--deploy reveal reveal--in" style="--delay: 1">
+            <h3>Odoo Community Ready</h3>
+            <p>Designed specifically for Odoo Community installations.</p>
+          </article>
+          <article class="card card--deploy reveal reveal--in" style="--delay: 2">
+            <h3>Odoo 19 Ready</h3>
+            <p>Built and validated for Odoo 19.</p>
+          </article>
+          <article class="card card--deploy reveal reveal--in" style="--delay: 3">
+            <h3>Production Ready</h3>
+            <p>Not Demo Ready — engineered for operational reliability.</p>
+          </article>
+          <article class="card card--deploy reveal reveal--in" style="--delay: 4">
+            <h3>VPS Ready</h3>
+            <p>Deploy on standard VPS hosts with minimal friction.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FAQ -->
+    <section class="section section--muted" id="faq" aria-labelledby="faq-title">
+      <div class="container container--narrow">
+        <header class="section__header reveal reveal--up">
+          <h2 id="faq-title">Frequently Asked Questions</h2>
+        </header>
+        <div class="faq">
+          <div class="faq__item reveal reveal--in">
+            <h3>
+              <button type="button" class="faq__trigger" aria-expanded="false" aria-controls="faq-1" id="faq-q1">
+                What is RelayRuntime?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-1" role="region" aria-labelledby="faq-q1" hidden>
+              <p>RelayRuntime is an Enterprise Messaging Runtime for Odoo Community. It introduces a production-ready messaging runtime between Odoo and messaging providers — with provider abstraction, queue processing, retry policies, operational monitoring, and delivery analytics.</p>
+            </div>
+          </div>
+          <div class="faq__item reveal reveal--in">
+            <h3>
+              <button type="button" class="faq__trigger" aria-expanded="false" aria-controls="faq-2" id="faq-q2">
+                Does it support Odoo Community?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-2" role="region" aria-labelledby="faq-q2" hidden>
+              <p>Yes. RelayRuntime is built for Odoo Community and is Odoo 19 ready.</p>
+            </div>
+          </div>
+          <div class="faq__item reveal reveal--in">
+            <h3>
+              <button type="button" class="faq__trigger" aria-expanded="false" aria-controls="faq-3" id="faq-q3">
+                Can I change providers later?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-3" role="region" aria-labelledby="faq-q3" hidden>
+              <p>Yes. Provider Abstraction lets you switch providers without changing business logic. Replace providers. Never rewrite workflows.</p>
+            </div>
+          </div>
+          <div class="faq__item reveal reveal--in">
+            <h3>
+              <button type="button" class="faq__trigger" aria-expanded="false" aria-controls="faq-4" id="faq-q4">
+                Does it support Meta Cloud API?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-4" role="region" aria-labelledby="faq-q4" hidden>
+              <p>Yes. Meta Cloud API is a supported provider alongside Green API, Evolution API, UltraMsg, Twilio, Gupshup, and Custom Provider options.</p>
+            </div>
+          </div>
+          <div class="faq__item reveal reveal--in">
+            <h3>
+              <button type="button" class="faq__trigger" aria-expanded="false" aria-controls="faq-5" id="faq-q5">
+                Can I use multiple providers?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-5" role="region" aria-labelledby="faq-q5" hidden>
+              <p>Yes. Multi Provider Messaging is a core capability of the runtime, so you are not locked into a single provider dependency.</p>
+            </div>
+          </div>
+          <div class="faq__item reveal reveal--in">
+            <h3>
+              <button type="button" class="faq__trigger" aria-expanded="false" aria-controls="faq-6" id="faq-q6">
+                How does Queue Engine work?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-6" role="region" aria-labelledby="faq-q6" hidden>
+              <p>The Queue Engine processes outbound messaging through the runtime layer between Odoo and providers, enabling controlled throughput, operational visibility, and reliable campaign execution.</p>
+            </div>
+          </div>
+          <div class="faq__item reveal reveal--in">
+            <h3>
+              <button type="button" class="faq__trigger" aria-expanded="false" aria-controls="faq-7" id="faq-q7">
+                How are failed messages retried?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-7" role="region" aria-labelledby="faq-q7" hidden>
+              <p>The Retry Engine applies structured retry policies so failed deliveries can be recovered with operational tracking — instead of disappearing into manual follow-up.</p>
+            </div>
+          </div>
+          <div class="faq__item reveal reveal--in">
+            <h3>
+              <button type="button" class="faq__trigger" aria-expanded="false" aria-controls="faq-8" id="faq-q8">
+                Is it production ready?
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-8" role="region" aria-labelledby="faq-q8" hidden>
+              <p>Yes. RelayRuntime is Production Ready — Not Demo Ready — with enterprise runtime management, Operational Command Center visibility, and delivery analytics.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Final CTA -->
+    <section class="cta" id="cta" aria-labelledby="cta-title">
+      <div class="container cta__inner reveal reveal--up">
+        <h2 id="cta-title">Ready To Modernize Your Messaging Infrastructure?</h2>
+        <p class="cta__sub">Enterprise Messaging Starts Here — with provider abstraction, a queue engine, retry engine, and an Operational Command Center.</p>
+        <div class="cta__actions">
+          <a class="btn btn--primary btn--lg btn--glow" href="#experience">
+            Watch Live Demo
+          </a>
+          <a class="btn btn--ghost-light btn--lg" href="https://github.com/nagwagabr-rwpst/odoo-whatsapp-platform/tree/main/docs" target="_blank" rel="noopener noreferrer">
+            Read Documentation
+            <span class="sr-only">(opens in a new tab)</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 12. Footer -->
+  <footer class="site-footer" id="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a class="brand brand--footer" href="#top" aria-label="RelayRuntime — home">
+          <img
+            class="brand__logo"
+            src="assets/HorizontalLogo.svg"
+            alt="RWPST RelayRuntime"
+            width="220"
+            height="52"
+            loading="lazy"
+            decoding="async"
+          >
+        </a>
+        <p>Enterprise Messaging Runtime for Odoo Community</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="https://github.com/nagwagabr-rwpst/odoo-whatsapp-platform/tree/main/docs" target="_blank" rel="noopener noreferrer">Documentation<span class="sr-only"> (opens in a new tab)</span></a>
+        <a href="https://github.com/nagwagabr-rwpst/odoo-whatsapp-platform" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in a new tab)</span></a>
+        <a href="https://apps.odoo.com/apps/modules/browse?search=RelayRuntime" target="_blank" rel="noopener noreferrer">Odoo Apps<span class="sr-only"> (opens in a new tab)</span></a>
+        <a href="https://github.com/nagwagabr-rwpst/odoo-whatsapp-platform/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Release Notes<span class="sr-only"> (opens in a new tab)</span></a>
+        <a href="https://github.com/nagwagabr-rwpst/odoo-whatsapp-platform/issues" target="_blank" rel="noopener noreferrer">Contact<span class="sr-only"> (opens in a new tab)</span></a>
+        <a href="https://github.com/nagwagabr-rwpst/odoo-whatsapp-platform/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">License<span class="sr-only"> (opens in a new tab)</span></a>
+      </nav>
+    </div>
+    <div class="container footer__bottom">
+      <p>&copy; <span id="year"></span> RWPST. RelayRuntime — Enterprise Messaging Runtime.</p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-hidden="true" aria-label="Image preview">
+    <button type="button" class="lightbox__close" aria-label="Close image preview">&times;</button>
+    <img class="lightbox__image" src="" alt="">
+  </div>
+  <div class="nav-backdrop" id="nav-backdrop" hidden></div>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
