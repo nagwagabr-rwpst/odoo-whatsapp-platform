@@ -13,16 +13,14 @@
         <div class="oe_span12">
             <h2>Overview</h2>
             <p>
-                <strong>RWPST RelayRuntime</strong> is a production-oriented WhatsApp campaign
-                execution runtime for Odoo with an enterprise Command Center experience.
-                It coordinates outbound campaigns with execution lineage, lease-aware
-                concurrency, and recovery-oriented persistence—so operational messaging stays
-                <strong>correct under failure</strong>, not merely a one-shot send button.
+                <strong>RWPST RelayRuntime</strong> is an Enterprise Messaging Runtime for Odoo
+                Community, providing a unified Command Center for reliable operational messaging,
+                campaign execution, provider management, and delivery monitoring.
             </p>
             <p>
-                Each bulk run creates a durable <code>whatsapp.bulk.execution</code> attempt with
-                heartbeat and lease metadata. Campaigns remain the business-facing aggregate;
-                executions are the runtime authority.
+                Built for production environments, RelayRuntime helps businesses execute messaging
+                operations with resilience, operational visibility, and enterprise-grade workflow
+                integration.
             </p>
         </div>
     </div>
@@ -40,14 +38,14 @@
             </ul>
         </div>
         <div class="oe_span6">
-            <h2>Runtime features</h2>
+            <h2>Enterprise capabilities</h2>
             <ul>
-                <li>Replay-safe recovery and stale execution reconciliation</li>
-                <li>Resilient batch execution with outbound intent persistence</li>
-                <li>Lease-safe worker orchestration and heartbeat liveness</li>
-                <li>Retry lineage tracking (parent → child campaigns)</li>
-                <li>Attachment and product-catalog orchestration</li>
-                <li>Operational diagnostics via message logs and executions</li>
+                <li>Safe recovery and automatic reconciliation of interrupted runs</li>
+                <li>Resilient batch execution with durable outbound tracking</li>
+                <li>Controlled worker coordination with live heartbeat monitoring</li>
+                <li>Retry tracking across parent and child campaigns</li>
+                <li>Attachment and product catalog support</li>
+                <li>Operational visibility through message logs and execution history</li>
             </ul>
         </div>
     </div>
@@ -59,14 +57,14 @@
             <h2>Features</h2>
             <ul>
                 <li>Bulk send from Contacts with attachments and product catalogs</li>
-                <li>Campaign monitor (kanban with periodic refresh)</li>
-                <li>Retry failed/skipped recipients as child campaigns</li>
-                <li>Delivery logs, dashboards, and sale order workflow hooks</li>
-                <li>Provider adapters: <strong>Green API</strong> and <strong>Mock Provider</strong> (send-capable)</li>
-                <li>Mock Provider for QA without sending real WhatsApp messages</li>
+                <li>Live campaign monitor with automatic refresh</li>
+                <li>Retry failed or skipped recipients as follow-up campaigns</li>
+                <li>Delivery logs, dashboards, and sales order workflow integration</li>
+                <li>Supported providers: <strong>Green API</strong> and <strong>Mock Provider</strong></li>
+                <li>Mock Provider for safe testing without sending real WhatsApp messages</li>
             </ul>
             <p class="text-muted">
-                External WhatsApp provider accounts (for example Green API) are required for live
+                An external WhatsApp provider account (for example Green API) is required for live
                 delivery. Mock Provider is included for safe testing.
             </p>
         </div>
@@ -76,13 +74,36 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
         <div class="oe_span12">
-            <h2>Product Demonstration</h2>
-            <p class="text-muted">
-                Official RelayRuntime product demo — Command Center, queue engine, and multi-provider messaging on Odoo Community.
+            <h2>Supported Providers</h2>
+            <p>
+                Production-ready <strong>Green API</strong> integration is included for live
+                WhatsApp delivery.
             </p>
+            <p>
+                <strong>Mock Provider</strong> is available for development, demonstrations, and
+                testing without sending real messages.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2>See RelayRuntime in Action</h2>
+            <p>
+                Watch the official RelayRuntime demonstration, including:
+            </p>
+            <ul>
+                <li>Provider configuration</li>
+                <li>Sales Order integration</li>
+                <li>Product sharing</li>
+                <li>Delivery monitoring</li>
+                <li>Enterprise Command Center</li>
+            </ul>
             <p class="text-center oe_mt32">
                 <a class="btn btn-primary btn-lg" href="https://relayruntime.rwpst.com/#demo" target="_blank" rel="noopener noreferrer">
-                    Watch Full Product Demo
+                    ▶ Watch Product Demo
                 </a>
             </p>
         </div>
@@ -92,18 +113,17 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
         <div class="oe_span12">
-            <h2>Limitations (read before production)</h2>
+            <h2>Limitations</h2>
             <p class="text-muted">
                 This module does <strong>not</strong> guarantee exactly-once delivery to WhatsApp.
-                Provider APIs are external to PostgreSQL; HTTP rollbacks and retry campaigns can
-                produce duplicate messages. Large bulks run in a single long transaction and may
-                hit server timeouts.
+                External provider services and retry campaigns can occasionally produce duplicate
+                messages. Very large bulk sends may take longer and can approach server time limits.
             </p>
             <ul>
-                <li>No built-in background queue or cron bulk worker</li>
-                <li>No inbound webhook HTTP controllers (skeleton only)</li>
-                <li>Most alternate providers are UI placeholders — Green API and Mock are send-capable</li>
-                <li>Multi-worker deployments should follow the production checklist in documentation</li>
+                <li>No built-in background queue for unattended bulk processing</li>
+                <li>Inbound message webhooks are not fully available in this release</li>
+                <li>Only Green API and Mock Provider support live or test sending</li>
+                <li>Multi-worker deployments require careful operational planning</li>
             </ul>
         </div>
     </div>
@@ -152,57 +172,15 @@
     <div class="oe_row oe_spaced">
         <div class="oe_span12">
             <h2>Installation</h2>
-            <ol>
-                <li>
-                    Add the parent of the <code>relayruntime</code> module folder to
-                    <code>addons_path</code> (installable package name:
-                    <code>relayruntime</code>).
-                </li>
-                <li>Update the Apps list and install <strong>RWPST RelayRuntime</strong>.</li>
-                <li>
-                    Or from the CLI:
-                    <code>odoo-bin -c odoo.conf -d YOUR_DB -i relayruntime</code>
-                </li>
-                <li>Assign WhatsApp User / Manager groups.</li>
-                <li>
-                    Configure <strong>WhatsApp → Settings</strong>. Use <strong>Mock Provider</strong>
-                    on non-production databases; use Green API for live sends.
-                </li>
-            </ol>
             <p>
-                Dependencies: <code>base</code>, <code>sale</code>, <code>mail</code>,
-                <code>product</code>. Odoo <strong>19.0</strong> Community.
-                Module version <strong>19.0.6.1.0</strong>.
+                Configure your preferred messaging provider from
+                <strong>WhatsApp → Settings</strong>.
             </p>
             <p>
-                Upgrading from the former <code>whatsapp_simple</code> technical name? Read
-                <code>MIGRATION.md</code> before production.
-            </p>
-        </div>
-    </div>
-</section>
-
-<section class="oe_container oe_dark">
-    <div class="oe_row oe_spaced">
-        <div class="oe_span12">
-            <h2>Support</h2>
-            <p>
-                Standard support covers documented runtime behavior on Odoo 19 Community:
-                defects in shipped code, install/upgrade guidance, and Mock Provider reproduction.
+                <strong>Green API</strong> is recommended for production deployments.
             </p>
             <p>
-                Out of scope: provider outages, exactly-once delivery SLAs, distributed HA runtime,
-                and custom forks that bypass lease or idempotency controls.
-            </p>
-            <p>
-                Report issues via the project repository issue templates (Bug, Runtime Corruption,
-                Duplicate Send, Deployment). Security reports follow <code>SECURITY.md</code> only.
-            </p>
-            <p>
-                Repository:
-                <a href="https://github.com/nagwagabr-rwpst/odoo-whatsapp-platform">
-                    github.com/nagwagabr-rwpst/odoo-whatsapp-platform
-                </a>
+                <strong>Mock Provider</strong> is intended for testing and development environments.
             </p>
         </div>
     </div>
@@ -213,7 +191,32 @@
         <div class="oe_span12">
             <h2>License</h2>
             <p>
-                <strong>LGPL-3</strong>. See the <code>LICENSE</code> file in the repository.
+                <strong>LGPL-3</strong>. License details are included with the module package.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12 text-center">
+            <h2>Ready to See RelayRuntime in Action?</h2>
+            <p>
+                Discover how RelayRuntime transforms Odoo Community into an
+                Enterprise Messaging Runtime with a unified Command Center,
+                provider management, delivery monitoring, and operational messaging.
+            </p>
+            <p>
+                Visit the official website to watch the full product demonstration,
+                explore the platform, and learn more.
+            </p>
+            <p class="oe_mt32">
+                <a class="btn btn-primary btn-lg"
+                   href="https://relayruntime.rwpst.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Visit Official Website
+                </a>
             </p>
         </div>
     </div>
