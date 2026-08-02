@@ -37,8 +37,7 @@ Experience features:
 * Delivery Dashboard and Live Monitor
 * RWPST branding
 
-Technical note: this addon was previously distributed as ``whatsapp_simple``.
-See MIGRATION.md at the repository root for upgrade guidance.
+Note: this addon was previously distributed as ``whatsapp_simple``.
     """,
 
     'author': 'RelayRuntime Contributors',
