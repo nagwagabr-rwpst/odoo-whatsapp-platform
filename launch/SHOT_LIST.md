@@ -25,7 +25,7 @@
 | Camera | Static |
 | Mouse | Move to search box |
 | Action | Search for RelayRuntime |
-| On-screen Text | Enterprise Messaging Runtime |
+| On-screen Text | Enterprise WhatsApp Messaging for Odoo Community |
 | Transition | Fade In |
 
 ### Recording Notes

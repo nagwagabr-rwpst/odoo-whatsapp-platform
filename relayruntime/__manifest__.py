@@ -5,32 +5,41 @@
 
 {
 
-    'name': 'RWPST RelayRuntime',
+    'name': 'RelayRuntime – Enterprise WhatsApp Messaging for Odoo Community',
 
     'version': '19.0.6.1.0',
 
     'category': 'Marketing',
 
-    'summary': 'Operational messaging runtime with replay-safe campaign execution for Odoo',
+    'summary': (
+        'Enterprise WhatsApp Messaging platform for Odoo Community with campaigns, '
+        'bulk messaging, delivery tracking and multi-provider support.'
+    ),
 
     'description': """
-RWPST RelayRuntime
-==================
+RelayRuntime – Enterprise WhatsApp Messaging for Odoo Community
+===============================================================
 
-Production-oriented WhatsApp campaign execution runtime for Odoo with an
-enterprise Command Center experience.
+RelayRuntime is an Enterprise WhatsApp Messaging platform for Odoo Community.
+Run WhatsApp Messaging operations with Bulk Messaging, Campaign Management,
+a Delivery Dashboard, Message Queue control, Retry for failed deliveries,
+message Templates, Notifications, and Multi Provider support including
+Meta Cloud API, Evolution API, and Green API.
 
-Runtime features:
+Key capabilities:
 
-* replay-safe recovery
-* resilient batch execution
-* lease-safe worker orchestration
-* runtime observability
-* retry lineage tracking
-* attachment orchestration
-* operational diagnostics
+* WhatsApp Bulk Messaging
+* WhatsApp Campaign Management
+* Scheduled Messages
+* Delivery Dashboard and Delivery Tracking
+* Retry Failed Messages
+* Queue Management
+* Multi WhatsApp Providers (Meta Cloud API, Evolution API, Green API)
+* Message Templates and Notifications
+* Campaign Analytics
+* Enterprise Messaging Runtime for Odoo Community
 
-Experience features:
+Experience:
 
 * Command Center (KPIs, alerts, workspaces)
 * Enterprise navigation (Operations / Analytics / Configuration)

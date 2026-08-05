@@ -135,7 +135,7 @@ Hidden or off-screen.
 | Time | Placement | Copy |
 |------|-----------|------|
 | 0:00–0:08 | Center / lower third | `RWPST RelayRuntime` |
-| 0:02–0:08 | Under title | `Enterprise Messaging Runtime for Odoo Community` |
+| 0:02–0:08 | Under title | `Enterprise WhatsApp Messaging for Odoo Community` |
 
 **Voice-over:**
 
@@ -365,7 +365,7 @@ Hidden.
 | Time | Placement | Copy |
 |------|-----------|------|
 | 1:38–end | Center stack | `RWPST RelayRuntime` |
-| | | `Enterprise Messaging Runtime` |
+| | | `Enterprise WhatsApp Messaging` |
 | | | `for Odoo Community` |
 | Optional | Footer | `Built around a runtime — not just an integration.` |
 
@@ -416,7 +416,7 @@ Calm, confident, mid-tempo. No hype adjectives (“amazing,” “revolutionary�
 
 | # | Timecode | Copy | Max lines |
 |---|----------|------|-----------|
-| T0 | 0:00 | RWPST RelayRuntime / Enterprise Messaging Runtime for Odoo Community | 2 |
+| T0 | 0:00 | RWPST RelayRuntime / Enterprise WhatsApp Messaging for Odoo Community | 2 |
 | T1 | 0:08 | Operational Command Center | 1 |
 | T2 | 0:16 | Observe every queue. Track every delivery. | 2 |
 | T3 | 0:28 | Provider adapters. Replace providers — not workflows. | 2 |
@@ -425,7 +425,7 @@ Calm, confident, mid-tempo. No hype adjectives (“amazing,” “revolutionary�
 | T6 | 1:02 | Live execution monitoring | 1 |
 | T7 | 1:18 | Delivery analytics & message truth | 1 |
 | T8 | 1:28 | Production-ready observability | 1 |
-| T9 | 1:38 | Enterprise Messaging Runtime for Odoo Community | 2 |
+| T9 | 1:38 | Enterprise WhatsApp Messaging for Odoo Community | 2 |
 
 Typography: modern sans, high contrast, safe margins 5% from edges. No emoji. No WhatsApp-green full-screen washes.
 
