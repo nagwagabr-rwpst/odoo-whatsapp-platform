@@ -9,7 +9,7 @@
 | `03_bulk_wizard.png` | Present | WhatsApp Bulk Messaging campaign wizard |
 | `04_campaign_monitor.png` | Optional / missing | Live Campaign Monitor (kanban) during or after a run |
 | `05_executions_tab.png` | Optional / missing | Campaign form **Executions** tab with attempt lineage |
-| `06_delivery_dashboard.png` | Present | Delivery Dashboard — Delivery Tracking, Message Queue, Retry outcomes |
+| `06_delivery_dashboard.png` | Present | Delivery Dashboard — sent, failed, and skipped totals |
 
 Present files are referenced from `../index.html` and `__manifest__.py` `images`.
 

@@ -17,7 +17,7 @@ Built around a runtime — not just an integration.
 [![Odoo](https://img.shields.io/badge/Odoo-19-714B67?style=flat-square&logo=odoo&logoColor=white)](https://www.odoo.com)
 [![Edition](https://img.shields.io/badge/Edition-Community-0F172A?style=flat-square)](https://www.odoo.com)
 [![License](https://img.shields.io/badge/License-LGPL--3-1E3A8A?style=flat-square)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-2563EB?style=flat-square)](CHANGELOG.md)
+[![Status](https://img.shields.io/badge/Status-Odoo%2019%20Community-2563EB?style=flat-square)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
 [![Version](https://img.shields.io/badge/Version-19.0.6.1.0-475569?style=flat-square)](CHANGELOG.md)
 
@@ -33,9 +33,9 @@ Built around a runtime — not just an integration.
 
 RelayRuntime is an **Enterprise Messaging Runtime** for Odoo Community.
 
-It places a production-ready messaging layer between Odoo and messaging providers — with provider abstraction, queue-oriented execution, retry policies, delivery monitoring, and an Operational Command Center.
+It places a messaging layer between Odoo and the active WhatsApp provider — with campaign execution, operator retry, a Delivery Dashboard, and an Operational Command Center.
 
-Business workflows stay independent of any single provider. Reliability, recovery, and observability live in the runtime.
+Live sending uses Green API. Mock Provider covers demos and tests. One active provider configuration is used per company.
 
 Enterprise messaging starts here.
 
@@ -45,12 +45,12 @@ Enterprise messaging starts here.
 
 | Traditional Connector | RelayRuntime |
 |---|---|
-| Single provider dependency | Provider abstraction |
-| Fire-and-forget sends | Queue & retry engine |
-| Manual recovery | Replay-safe runtime |
+| Single send button | Campaign history and a delivery log |
+| Fire-and-forget sends | Operator retry for failed and skipped recipients |
+| No outcome record | Delivery Dashboard (sent, failed, skipped) |
 | Basic message logs | Operational Command Center |
-| Provider-specific workflows | Provider-independent business logic |
-| Demo-ready behavior | Production-ready execution |
+| One-off connector setup | Green API live sending and Mock Provider for tests |
+| Ad-hoc sending | Attended campaign execution on Odoo 19 Community |
 
 ```text
 Enterprise Messaging Runtime
@@ -71,12 +71,12 @@ Enterprise Messaging Runtime
 
 | | |
 |---|---|
-| **Operational Command Center** | Manage KPIs, campaigns, queues, logs, and runtime health from one dashboard. |
-| **Provider Abstraction** | Switch providers without rewriting business logic. |
-| **Queue & Retry** | Process outbound messaging with structured retry policies. |
-| **Campaign Engine** | Run durable campaigns with execution lineage and recovery paths. |
-| **Delivery Dashboard** | Inspect delivery outcomes and message-level operational detail. |
-| **Live Monitor** | Observe active campaign execution as it runs. |
+| **Operational Command Center** | Manage KPIs, campaigns, logs, and runtime health from one dashboard. |
+| **Provider Setup** | One active provider per company. Green API sends live messages. Mock Provider simulates sends. |
+| **Campaign Execution** | Each campaign runs in the operator's request, recipient by recipient, with a delivery log for every contact. |
+| **Operator Retry** | From a finished campaign, retry failed and skipped contacts in a linked campaign that sends immediately. |
+| **Delivery Dashboard** | Totals for sent, failed, and skipped, based on the provider HTTP response. |
+| **Live Monitor** | Review campaign state and message logs from the campaign monitor. |
 | **Runtime Settings** | Configure providers and runtime behavior in one place. |
 | **Analytics** | Track delivery performance and runtime KPIs. |
 | **Attachment Support** | Coordinate outbound messaging with attachments and catalogs. |
@@ -113,17 +113,17 @@ Enterprise Messaging Runtime
                  RelayRuntime
                        │
                        ▼
-                Provider Adapter
+              Active provider
                        │
-       ┌───────┬───────┼───────┬───────┬───────┐
-       ▼       ▼       ▼       ▼       ▼       ▼
-     Meta    Green  Evolution UltraMsg Twilio Gupshup
-            Cloud API   API
+              ┌────────┴────────┐
+              ▼                 ▼
+          Green API       Mock Provider
+          Live sending    Simulated sends
 ```
 
-RelayRuntime isolates Odoo workflows from provider implementations.
+Registered adapters — Meta Cloud API, Evolution API, UltraMsg, Twilio, Gupshup, and Custom — are not available for live sending in this release.
 
-Replace providers. Never rewrite workflows.
+Campaigns, logs, and retry stay in RelayRuntime.
 
 ---
 
@@ -146,25 +146,26 @@ Installable module: `relayruntime/`
 
 1. Open **RelayRuntime** after installation.
 2. Configure a provider under **Runtime Settings**.
-3. Validate with Mock Provider or a live adapter.
+3. Validate with Mock Provider, then connect Green API for live delivery.
 4. Launch a bulk campaign from the Command Center.
 5. Track results in the Delivery Dashboard and Live Monitor.
 
 ---
 
-## Supported Providers
+## Providers
 
 | Provider | Status |
 |---|---|
-| Green API | Supported adapter |
-| Meta Cloud API | Supported target |
-| Evolution API | Supported target |
-| UltraMsg | Supported target |
-| Twilio | Supported target |
-| Gupshup | Supported target |
-| Custom Adapter | Extensible interface |
+| Green API | Live |
+| Mock Provider | Simulated |
+| Meta Cloud API | Registered, not sendable |
+| Evolution API | Registered, not sendable |
+| UltraMsg | Registered, not sendable |
+| Twilio | Registered, not sendable |
+| Gupshup | Registered, not sendable |
+| Custom | Registered, not sendable |
 
-Provider independence by design.
+One active provider configuration per company.
 
 ---
 
@@ -193,7 +194,7 @@ odoo-whatsapp-platform/
 - Enterprise Messaging Runtime for Odoo Community
 - Provider abstraction layer
 - Operational Command Center
-- Queue & retry engine
+- Campaign execution and operator retry
 - Delivery Dashboard and campaign operations
 
 ### Version 2 — Platform Expansion

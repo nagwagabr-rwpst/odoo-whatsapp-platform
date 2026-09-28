@@ -8,14 +8,14 @@
 ## Subject lines (choose one)
 
 1. Introducing RelayRuntime — Enterprise Messaging Runtime for Odoo Community  
-2. RelayRuntime is live: campaigns, delivery control, multi-provider WhatsApp  
+2. RelayRuntime is live: campaigns, a delivery dashboard, and Green API live sending  
 3. New: Enterprise WhatsApp Messaging Runtime for Odoo Community  
 
 ---
 
 ## Preview text
 
-Enterprise Messaging Runtime for Odoo Community — prove deliveries, recover failures, switch providers without rework.
+Enterprise Messaging Runtime for Odoo Community — review sent, failed, and skipped results, and retry from the campaign.
 
 ---
 
@@ -27,19 +27,19 @@ Hello,
 
 We are announcing RelayRuntime, an Enterprise Messaging Runtime for Odoo Community.
 
-If your team uses WhatsApp from Odoo, you already know the difference between sending a message and running messaging operations. As volume grows, delivery visibility, retries, and provider lock-in become real operational problems.
+If your team uses WhatsApp from Odoo, you already know the difference between sending a message and keeping a campaign record. Failed contacts, missing totals, and one-off sends become real operational problems.
 
 RelayRuntime is built for that reality.
 
 It helps teams:
 
-- run Bulk Messaging and Campaign Management  
-- monitor outcomes in a Delivery Dashboard  
-- recover failed or skipped recipients with Retry  
-- keep Multi-Provider WhatsApp control (Meta Cloud API, Evolution API, Green API)  
+- run bulk messaging and campaign history  
+- review sent, failed, and skipped totals on the Delivery Dashboard  
+- retry failed or skipped recipients from a finished campaign  
+- send live through Green API, and demo with Mock Provider  
 - retain Odoo as the system of record  
 
-RelayRuntime is not another WhatsApp connector. It is an Enterprise Messaging Runtime for operators, partners, and Community Edition projects that need production reliability.
+RelayRuntime is an Enterprise Messaging Runtime for operators and partners running attended Green API campaigns on Odoo 19 Community.
 
 ### Get started
 

@@ -8,7 +8,7 @@
             built for operators who outgrow simple connectors.
         </p>
         <p class="text-center oe_mt16">
-            <strong>Send with confidence. Monitor every delivery. Switch providers without rewriting workflows.</strong>
+            <strong>Send with confidence. Monitor every outcome. Retry failed recipients from the campaign.</strong>
         </p>
         <p class="oe_mt32 text-center">
             <a class="btn btn-primary btn-lg" href="https://relayruntime.rwpst.com/#demo" target="_blank" rel="noopener noreferrer">
@@ -38,18 +38,18 @@
     </div>
     <div class="oe_row oe_spaced">
         <div class="oe_span6">
-            <h3>Enterprise-ready architecture</h3>
-            <p>Designed for production volume, operator workflows, and durable outbound execution—not a one-off chat plugin.</p>
-            <h3>Multi-provider runtime</h3>
-            <p>Providers are adapters. Swap gateways while keeping Campaign Management and Delivery Tracking intact.</p>
-            <h3>Reliable message queue</h3>
-            <p>Outbound work flows through a Message Queue so operators can track progress instead of guessing.</p>
-            <h3>Retry engine</h3>
-            <p>Recover failed or skipped recipients with structured follow-up campaigns and clear lineage.</p>
+            <h3>Operator workflows</h3>
+            <p>Built for attended WhatsApp campaigns on Odoo 19 Community: bulk sending, campaign history, and a delivery log for every contact.</p>
+            <h3>Provider setup</h3>
+            <p>One active provider per company. Green API sends live messages. Mock Provider simulates sends for testing.</p>
+            <h3>Campaign execution</h3>
+            <p>Each campaign runs in the operator's request, recipient by recipient, with delays and a delivery log for every contact.</p>
+            <h3>Operator retry</h3>
+            <p>From a finished campaign, Retry Failed Recipients opens a linked retry campaign for failed and skipped contacts and sends it immediately.</p>
         </div>
         <div class="oe_span6">
             <h3>Delivery monitoring</h3>
-            <p>A Delivery Dashboard turns sent, failed, and skipped outcomes into actionable operational truth.</p>
+            <p>The Delivery Dashboard totals internal send results: sent, failed, and skipped, based on the provider's HTTP response.</p>
             <h3>Campaign operations</h3>
             <p>Run Bulk Messaging and Campaign Management from one Command Center with live visibility.</p>
             <h3>Odoo Community support</h3>
@@ -73,28 +73,28 @@
         <div class="oe_span4">
             <h3>Messaging</h3>
             <ul>
-                <li>WhatsApp Integration for Odoo Community</li>
-                <li>Bulk Messaging with attachments and catalogs</li>
-                <li>Message Templates and Notifications</li>
-                <li>Scheduled Messages</li>
+                <li>WhatsApp bulk sending</li>
+                <li>Attachments</li>
+                <li>Product catalogs</li>
             </ul>
         </div>
         <div class="oe_span4">
             <h3>Campaigns</h3>
             <ul>
-                <li>Campaign Management and history</li>
-                <li>Live Campaign Monitor</li>
-                <li>Retry failed or skipped recipients</li>
+                <li>Campaign history</li>
+                <li>Delivery outcome tracking</li>
+                <li>Operator retry for failed and skipped recipients</li>
                 <li>Sales order workflow integration</li>
             </ul>
         </div>
         <div class="oe_span4">
             <h3>Operations</h3>
             <ul>
-                <li>Command Center with KPIs and alerts</li>
-                <li>Message Queue visibility</li>
-                <li>Retry engine with campaign lineage</li>
-                <li>Safe Mock Provider for testing</li>
+                <li>Command Center</li>
+                <li>Campaign execution visibility</li>
+                <li>Message logs</li>
+                <li>Provider configuration</li>
+                <li>Mock Provider for testing</li>
             </ul>
         </div>
     </div>
@@ -102,19 +102,19 @@
         <div class="oe_span6">
             <h3>Analytics</h3>
             <ul>
-                <li>Delivery Dashboard and Delivery Tracking</li>
-                <li>Success rates and runtime KPIs</li>
+                <li>Delivery Dashboard totals for sent, failed, and skipped</li>
+                <li>Success rates from internal send results</li>
                 <li>Message logs and execution history</li>
-                <li>Campaign Analytics for operators</li>
+                <li>Command Center KPIs for operators</li>
             </ul>
         </div>
         <div class="oe_span6">
             <h3>Provider Management</h3>
             <ul>
-                <li>Multi Provider adapter model</li>
-                <li>Meta Cloud API, Evolution API, Green API</li>
-                <li>Provider health and configuration</li>
-                <li>Ready for future adapters</li>
+                <li>Live sending: Green API</li>
+                <li>Test mode: Mock Provider</li>
+                <li>Registered adapters are not available for live sending in this release</li>
+                <li>One active provider configuration per company</li>
             </ul>
         </div>
     </div>
@@ -125,27 +125,27 @@
         <div class="oe_span12">
             <h2 class="oe_slogan">Supported Providers</h2>
             <p class="text-center">
-                RelayRuntime <strong>abstracts providers</strong>. Your campaigns, queue, retries, and
-                Delivery Dashboard stay the same—only the adapter changes.
+                Live sending: Green API. Test mode: Mock Provider.
+                Additional provider adapters are registered but not available for live sending in this release.
             </p>
         </div>
     </div>
     <div class="oe_row oe_spaced">
         <div class="oe_span3 text-center">
-            <h3>Meta Cloud API</h3>
-            <p>Official Meta Cloud path for WhatsApp Business delivery.</p>
-        </div>
-        <div class="oe_span3 text-center">
-            <h3>Evolution API</h3>
-            <p>Flexible Evolution API adapter for operational messaging.</p>
-        </div>
-        <div class="oe_span3 text-center">
             <h3>Green API</h3>
-            <p>Production-ready Green API integration for live sending.</p>
+            <p>Live sending for attended WhatsApp campaigns.</p>
         </div>
         <div class="oe_span3 text-center">
-            <h3>Future adapters</h3>
-            <p>Architecture ready for additional providers without rewriting workflows.</p>
+            <h3>Mock Provider</h3>
+            <p>Simulated sends for demos and testing. No real WhatsApp messages.</p>
+        </div>
+        <div class="oe_span3 text-center">
+            <h3>Registered adapters</h3>
+            <p>Meta Cloud API, Evolution API, UltraMsg, Twilio, Gupshup, and Custom are registered and are not available for live sending in this release.</p>
+        </div>
+        <div class="oe_span3 text-center">
+            <h3>One active provider</h3>
+            <p>Each company uses one active provider configuration at a time.</p>
         </div>
     </div>
     <div class="oe_row oe_spaced">
@@ -180,10 +180,10 @@
         <div class="oe_span6">
             <h3 class="text-center">Provider Management</h3>
             <div class="oe_demo oe_screenshot">
-                <img src="screenshots/02_settings.png" alt="Provider Management — Multi Provider settings"/>
+                <img src="screenshots/02_settings.png" alt="Runtime Configuration — Green API or Mock Provider"/>
             </div>
             <p class="oe_mt16 text-center">
-                Configure Multi Provider adapters, credentials, and health checks.
+                Configure the active provider, credentials, and connection health.
             </p>
         </div>
     </div>
@@ -191,19 +191,19 @@
         <div class="oe_span6">
             <h3 class="text-center">Bulk Messaging</h3>
             <div class="oe_demo oe_screenshot">
-                <img src="screenshots/03_bulk_wizard.png" alt="Bulk Messaging — campaign wizard with recipients and templates"/>
+                <img src="screenshots/03_bulk_wizard.png" alt="Bulk Messaging — campaign wizard with recipients, attachments, and product catalogs"/>
             </div>
             <p class="oe_mt16 text-center">
-                Launch Bulk Messaging campaigns with recipients, products, and Message Templates.
+                Launch bulk campaigns with recipients, attachments, and product catalogs.
             </p>
         </div>
         <div class="oe_span6">
             <h3 class="text-center">Delivery Dashboard</h3>
             <div class="oe_demo oe_screenshot">
-                <img src="screenshots/06_delivery_dashboard.png" alt="Delivery Dashboard — delivery tracking and message queue outcomes"/>
+                <img src="screenshots/06_delivery_dashboard.png" alt="Delivery Dashboard — sent, failed, and skipped totals"/>
             </div>
             <p class="oe_mt16 text-center">
-                Delivery Tracking, Message Queue outcomes, and Retry visibility in one view.
+                Sent, failed, and skipped totals, with message logs and operator retry from the campaign.
             </p>
         </div>
     </div>
@@ -230,15 +230,15 @@
                 <tbody>
                     <tr>
                         <td>Single Provider</td>
-                        <td><strong>Multi Provider</strong></td>
+                        <td><strong>Green API live sending and Mock Provider</strong></td>
                     </tr>
                     <tr>
                         <td>Simple Sender</td>
                         <td><strong>Enterprise Messaging Runtime</strong></td>
                     </tr>
                     <tr>
-                        <td>No Queue</td>
-                        <td><strong>Reliable Message Queue</strong></td>
+                        <td>No campaign record</td>
+                        <td><strong>Sequential campaign execution with a delivery log.</strong></td>
                     </tr>
                     <tr>
                         <td>Basic Logs</td>
@@ -246,7 +246,7 @@
                     </tr>
                     <tr>
                         <td>Manual recovery</td>
-                        <td><strong>Retry Engine</strong></td>
+                        <td><strong>Operator retry</strong></td>
                     </tr>
                     <tr>
                         <td>Chat-centric tools</td>
@@ -278,17 +278,17 @@
         </div>
         <div class="oe_span4">
             <h3>Marketing Campaigns</h3>
-            <p>Run Bulk Messaging and Campaign Management with templates, scheduling, and outcome visibility.</p>
+            <p>Run bulk campaigns with attachments, product catalogs, and sent, failed, and skipped totals.</p>
         </div>
     </div>
     <div class="oe_row oe_spaced">
         <div class="oe_span6">
             <h3>ERP Notifications</h3>
-            <p>Notify partners from sales orders and ERP events through a controlled WhatsApp Messaging path.</p>
+            <p>Send from sales orders through the same WhatsApp path used for campaigns.</p>
         </div>
         <div class="oe_span6">
             <h3>Service Operations</h3>
-            <p>Coordinate operational messages with queue visibility, retries, and an operator Command Center.</p>
+            <p>Coordinate operational messages from the Command Center, with campaign history and operator retry.</p>
         </div>
     </div>
 </section>
@@ -298,8 +298,8 @@
         <div class="oe_span12 text-center">
             <h2 class="oe_slogan">Enterprise Messaging for Odoo Starts Here</h2>
             <p>
-                See RelayRuntime in action—Command Center, Bulk Messaging, Campaign Management,
-                Delivery Dashboard, and Multi Provider control on Odoo Community.
+                See RelayRuntime in action—Command Center, bulk messaging, campaign history,
+                Delivery Dashboard, and Green API live sending on Odoo Community.
             </p>
             <p class="oe_mt32">
                 <a class="btn btn-primary btn-lg" href="https://relayruntime.rwpst.com/#demo" target="_blank" rel="noopener noreferrer">
@@ -322,15 +322,16 @@
     </div>
     <div class="oe_row oe_spaced">
         <div class="oe_span6">
-            <h3>What providers are supported?</h3>
+            <h3>What providers can send?</h3>
             <p>
-                Meta Cloud API, Evolution API, and Green API, plus Mock Provider for safe testing.
-                The runtime is designed for future adapters as well.
+                Live sending: Green API. Test mode: Mock Provider.
+                Meta Cloud API, Evolution API, UltraMsg, Twilio, Gupshup, and Custom are registered
+                but not available for live sending in this release.
             </p>
             <h3>Can I switch providers?</h3>
             <p>
-                Yes. RelayRuntime abstracts providers, so you can change adapters without rebuilding
-                campaigns, templates, or operator workflows.
+                You keep one active provider configuration per company. You can switch that
+                configuration between Green API and Mock Provider. Campaigns and logs stay in RelayRuntime.
             </p>
             <h3>Does it support Odoo Community?</h3>
             <p>
@@ -340,18 +341,18 @@
         <div class="oe_span6">
             <h3>Does it support bulk messaging?</h3>
             <p>
-                Yes. Bulk Messaging and Campaign Management are first-class operator workflows,
-                including attachments, product catalogs, and Scheduled Messages.
+                Yes. Bulk messaging and campaign history are operator workflows,
+                including attachments and product catalogs.
             </p>
             <h3>Can I monitor delivery?</h3>
             <p>
-                Yes. The Delivery Dashboard provides Delivery Tracking for sent, failed, and skipped
-                outcomes, with Message Queue and Retry visibility.
+                Yes. The Delivery Dashboard totals sent, failed, and skipped results from the
+                provider HTTP response. It does not show WhatsApp delivered or read receipts.
             </p>
             <h3>Is this just a WhatsApp connector?</h3>
             <p>
-                No. RelayRuntime is an Enterprise Messaging Runtime—queue, retry, campaigns,
-                analytics, and Multi Provider control—not a simple sender.
+                No. RelayRuntime adds campaign history, a delivery dashboard, message logs,
+                and operator retry on top of WhatsApp sending for Odoo Community.
             </p>
         </div>
     </div>
@@ -370,11 +371,11 @@
         </div>
         <div class="oe_span4 text-center">
             <h3>Enterprise Architecture</h3>
-            <p>Runtime boundaries, provider adapters, and operational dashboards for production teams.</p>
+            <p>Runtime boundaries, provider adapters, and operational dashboards for operators.</p>
         </div>
         <div class="oe_span4 text-center">
-            <h3>Production Ready</h3>
-            <p>Campaign execution, delivery monitoring, and retry workflows built for real operations.</p>
+            <h3>Attended Campaigns</h3>
+            <p>Attended campaign execution, delivery totals, and operator retry for Green API.</p>
         </div>
     </div>
     <div class="oe_row oe_spaced">
@@ -416,8 +417,8 @@
         <div class="oe_span6">
             <h2>Installation</h2>
             <p>
-                Configure your preferred provider from <strong>WhatsApp → Settings</strong>.
-                Use Mock Provider for testing, then connect Meta Cloud API, Evolution API, or Green API for live delivery.
+                Open <strong>RWPST RelayRuntime → Configuration → Runtime Configuration</strong>.
+                Use Mock Provider for testing, then connect Green API for live delivery.
             </p>
         </div>
         <div class="oe_span6">

@@ -12,22 +12,22 @@ FOR IMMEDIATE RELEASE
 
 **[City / Date]** — RelayRuntime, developed by RWPST, is now available as an Enterprise Messaging Runtime for Odoo Community organizations that need reliable WhatsApp operations beyond a simple connector.
 
-RelayRuntime introduces an operational messaging layer between Odoo and messaging providers. The product focuses on campaign execution, delivery visibility, recovery after partial failure, and multi-provider control — so businesses can run WhatsApp as a measurable operational process rather than a fragile send action.
+RelayRuntime introduces an operational messaging layer between Odoo and the active WhatsApp provider. The product focuses on campaign execution, delivery totals, and operator retry — so businesses can run attended WhatsApp campaigns with a record of sent, failed, and skipped contacts.
 
 ### Addressing a growing operational gap
 
-Companies using Odoo Community increasingly rely on WhatsApp for sales follow-up, customer communication, ERP notifications, and campaigns. Traditional connector-style modules can transmit messages, but often leave teams without clear delivery outcomes, structured retries, or freedom to change providers without rewriting workflows.
+Companies using Odoo Community increasingly rely on WhatsApp for sales follow-up, customer communication, and campaigns. Traditional connector-style modules can transmit messages, but often leave teams without a campaign record or a way to retry failed contacts.
 
-RelayRuntime addresses that gap with a runtime-centered design: providers are adapters; campaigns, queues, retries, and delivery monitoring remain under operator control.
+RelayRuntime addresses that gap with campaign history, a Delivery Dashboard, and operator retry. Live sending uses Green API. Mock Provider covers demos.
 
 ### Key capabilities
 
-- Bulk Messaging and Campaign Management  
-- Delivery Dashboard and Delivery Tracking  
-- Message Queue and Retry engine  
-- Multi-Provider WhatsApp support, including Meta Cloud API, Evolution API, and Green API  
+- Bulk messaging and campaign history  
+- Delivery Dashboard totals for sent, failed, and skipped  
+- Operator retry for failed and skipped recipients  
+- Live sending through Green API, with Mock Provider for demos  
 - Operator Command Center for runtime health and campaign operations  
-- Designed for Odoo Community  
+- Designed for Odoo 19 Community  
 
 ### Availability
 
@@ -39,7 +39,7 @@ RelayRuntime is available through the project website and public repository, wit
 
 ### About RelayRuntime
 
-RelayRuntime is an Enterprise Messaging Runtime for Odoo Community. It enables reliable WhatsApp operations with multi-provider control, campaigns, and delivery visibility — while Odoo remains the system of business record.
+RelayRuntime is an Enterprise Messaging Runtime for Odoo Community. It runs attended WhatsApp campaigns with a delivery dashboard and operator retry, while Odoo remains the system of business record. Live sending uses Green API.
 
 ### Media contact
 

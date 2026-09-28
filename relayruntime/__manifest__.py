@@ -12,31 +12,28 @@
     'category': 'Marketing',
 
     'summary': (
-        'Enterprise WhatsApp Messaging platform for Odoo Community with campaigns, '
-        'bulk messaging, delivery tracking and multi-provider support.'
+        'WhatsApp campaigns and bulk sending for Odoo Community, '
+        'with a delivery dashboard, operator retry, and live sending through Green API.'
     ),
 
     'description': """
 RelayRuntime – Enterprise WhatsApp Messaging for Odoo Community
 ===============================================================
 
-RelayRuntime is an Enterprise WhatsApp Messaging platform for Odoo Community.
-Run WhatsApp Messaging operations with Bulk Messaging, Campaign Management,
-a Delivery Dashboard, Message Queue control, Retry for failed deliveries,
-message Templates, Notifications, and Multi Provider support including
-Meta Cloud API, Evolution API, and Green API.
+WhatsApp campaigns and bulk sending for Odoo Community, with a delivery dashboard,
+operator retry, and live sending through Green API.
 
 Key capabilities:
 
-* WhatsApp Bulk Messaging
-* WhatsApp Campaign Management
-* Scheduled Messages
-* Delivery Dashboard and Delivery Tracking
-* Retry Failed Messages
-* Queue Management
-* Multi WhatsApp Providers (Meta Cloud API, Evolution API, Green API)
-* Message Templates and Notifications
-* Campaign Analytics
+* WhatsApp bulk sending
+* Attachments and product catalogs
+* Campaign history
+* Delivery Dashboard (sent, failed, skipped)
+* Operator retry for failed and skipped recipients
+* Command Center, message logs, and campaign execution visibility
+* Live sending through Green API
+* Mock Provider for demos and testing
+* One active provider configuration per company
 * Enterprise Messaging Runtime for Odoo Community
 
 Experience:

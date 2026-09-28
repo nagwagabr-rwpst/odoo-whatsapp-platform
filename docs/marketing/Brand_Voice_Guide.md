@@ -62,8 +62,8 @@ Avoid: blast, spam, hack, supercharge, unlock unlimited.
 
 ### Name providers as adapters
 
-Say: “Multi-Provider adapters including Meta Cloud API, Evolution API, and Green API.”  
-Do not: center the product name around one vendor.
+Say: “Live sending uses Green API. Mock Provider simulates sends. Meta Cloud API, Evolution API, UltraMsg, Twilio, Gupshup, and Custom are registered and are not available for live sending in this release.”  
+Do not: call a registered adapter supported, live, or production-ready.
 
 ### Stay honest
 
@@ -98,7 +98,7 @@ Same message. Different length.
 - Prefer **RelayRuntime** (one word, capital R twice).  
 - Prefer **Odoo Community** over vague “Odoo.”  
 - Use en dash or hyphen consistently in titles; avoid decorative symbols.  
-- Use “Multi-Provider” or “Multi Provider” consistently within one asset.  
+- Say “one active provider per company.” Do not say live multi-provider sending.  
 - Prefer active voice.  
 - Numbers: use digits for metrics; spell out one–nine in prose when stylistic.
 
@@ -112,15 +112,15 @@ Same message. Different length.
 |----|-------|
 | Enterprise Messaging Runtime for Odoo Community | Simple WhatsApp module for Odoo |
 | More than a WhatsApp connector—a runtime | The best WhatsApp connector |
-| Provider abstraction with Multi-Provider control | Works with WhatsApp (only) |
+| Green API live sending, with Mock Provider for demos | Works with every WhatsApp API |
 
 ### Features vs value
 
 | Do | Don’t |
 |----|-------|
-| Prove what was delivered with the Delivery Dashboard | Amazing analytics dashboard!!! |
-| Recover failed recipients with the Retry engine | Never lose a message (absolute claim) |
-| Switch providers without rewriting workflows | Unlimited providers forever |
+| Review sent, failed, and skipped totals on the Delivery Dashboard | Amazing analytics dashboard!!! |
+| Retry failed recipients from a finished campaign | Never lose a message (absolute claim) |
+| Keep one active provider: Green API or Mock Provider | Unlimited providers forever |
 
 ### Audience
 

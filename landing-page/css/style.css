@@ -1042,6 +1042,21 @@ a:hover {
    Providers
    -------------------------------------------------------------------------- */
 
+.provider-groups {
+  display: grid;
+  gap: 2rem;
+}
+
+.provider-group__label {
+  margin: 0 0 0.85rem;
+  text-align: center;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
 .provider-grid {
   list-style: none;
   display: flex;
@@ -1087,6 +1102,17 @@ a:hover {
 
 .provider-card__name {
   line-height: 1.3;
+}
+
+.provider-card__status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-muted);
+}
+
+.provider-card--live {
+  border-color: var(--color-blue);
 }
 
 .provider-card:hover {

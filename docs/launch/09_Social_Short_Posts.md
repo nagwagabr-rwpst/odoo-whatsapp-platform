@@ -10,27 +10,27 @@ Links to append when space allows: https://relayruntime.rwpst.com/#demo
 
 1. RelayRuntime is an Enterprise Messaging Runtime for Odoo Community — built for WhatsApp operations, not one-off sends. (139)
 
-2. Bulk Messaging on Odoo Community with queue visibility and recoverable campaigns. That is RelayRuntime. (108)
+2. Bulk messaging on Odoo Community with campaign history and operator retry. That is RelayRuntime. (99)
 
 3. Campaign Management should show truth, not optimism. RelayRuntime tracks campaign execution end to end. (114)
 
 4. Delivery Dashboard: sent, failed, skipped — so operators can act, not guess. (85)
 
-5. Enterprise Messaging Runtime means execution control: queue, retry, delivery visibility. (95)
+5. Enterprise Messaging Runtime means campaign execution, operator retry, and a delivery dashboard. (96)
 
-6. Provider Management keeps Meta Cloud API, Evolution API, and Green API as adapters — not as your whole product. (121)
+6. Live sending uses Green API. Mock Provider covers demos. Other adapters are registered, not sendable yet. (104)
 
 7. Built for Odoo Community teams that need enterprise messaging reliability without Enterprise Edition lock-in. (117)
 
-8. Switch providers without rewriting workflows. That is provider abstraction in RelayRuntime. (97)
+8. One active provider per company: Green API for live sending, Mock Provider for demos. (86)
 
-9. Bulk Messaging with Message Templates and Scheduled Messages — under one operational runtime. (100)
+9. Bulk messaging with attachments and product catalogs — under one operational runtime. (88)
 
 10. Campaigns fail in the real world. RelayRuntime includes Retry for failed or skipped recipients. (104)
 
 11. A Delivery Dashboard turns messaging into an operational system, not a blind send button. (98)
 
-12. RelayRuntime: Enterprise Messaging Runtime for Odoo Community. Campaigns. Delivery control. Multi-provider WhatsApp. (124)
+12. RelayRuntime: Enterprise Messaging Runtime for Odoo Community. Campaigns. Delivery dashboard. Green API. (107)
 
 13. Provider Management is part of the product — health, configuration, and adapter choice in one place. (108)
 
@@ -40,7 +40,7 @@ Links to append when space allows: https://relayruntime.rwpst.com/#demo
 
 16. Campaign Management plus Live Monitor: see execution state while work is running. (90)
 
-17. Multi-Provider WhatsApp control without rebuilding every customer workflow. Built for partners and operators. (117)
+17. One active provider per company. Campaigns stay in RelayRuntime. Built for partners and operators. (96)
 
 18. Enterprise Runtime. Community foundation. Reliable messaging operations on Odoo. (88)
 

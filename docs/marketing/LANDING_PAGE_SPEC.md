@@ -30,9 +30,9 @@ Enterprise Messaging Runtime for Odoo Community
 
 ## Positioning Statement
 
-RelayRuntime introduces a production-ready messaging runtime between Odoo Community and messaging providers.
+RelayRuntime brings WhatsApp campaigns to Odoo Community: bulk sending, campaign history, a delivery dashboard, and operator retry.
 
-Instead of tightly coupling ERP workflows to a single provider, RelayRuntime delivers provider abstraction, queue processing, retry policies, operational monitoring, delivery analytics, and enterprise reliability.
+Live sending uses Green API. Mock Provider is included for demos. One active provider configuration is used per company.
 
 ---
 
@@ -48,11 +48,11 @@ Built Around a Runtime, Not Just an Integration.
 
 ## Message 02
 
-Provider Independence.
+Provider Setup.
 
-Replace providers.
+Green API sends live messages.
 
-Never rewrite workflows.
+Mock Provider simulates sends for testing.
 
 ---
 
@@ -60,19 +60,15 @@ Never rewrite workflows.
 
 Enterprise Operational Command Center.
 
-Observe every message.
+Review every campaign.
 
-Monitor every queue.
-
-Track every delivery.
+Track sent, failed, and skipped.
 
 ---
 
 ## Message 04
 
-Production Ready.
-
-Not Demo Ready.
+Ready for attended Green API campaigns on Odoo 19 Community.
 
 ---
 
@@ -202,7 +198,7 @@ Screenshots
 
 ↓
 
-Supported Providers
+Providers
 
 ↓
 
@@ -240,15 +236,15 @@ Enterprise Messaging Starts Here
 
 Subheadline
 
-Transform Odoo Community into a production-ready messaging platform with provider abstraction, enterprise runtime management, delivery monitoring, and operational reliability.
+RelayRuntime brings WhatsApp campaigns to Odoo Community: bulk sending, campaign history, a delivery dashboard, and operator retry. Live sending uses Green API. Mock Provider is included for demos.
 
 Bullet List
 
-✓ Multi Provider Messaging
+✓ Bulk Messaging & Campaigns
 
-✓ Queue & Retry Engine
+✓ Delivery Dashboard & Retry
 
-✓ Operational Command Center
+✓ Green API live sending
 
 CTA Primary
 
@@ -280,7 +276,7 @@ Cards
 
 • No Retry Engine
 
-• No Queue Processing
+• No Campaign Record
 
 • No Monitoring
 
@@ -294,19 +290,19 @@ Cards
 
 Headline
 
-One Runtime. Multiple Providers.
+One Runtime for WhatsApp Campaigns.
 
 Description
 
-RelayRuntime introduces a messaging runtime layer between Odoo and providers.
+RelayRuntime sits between Odoo and the active WhatsApp provider, so operators run campaigns with a delivery log and a path to retry.
 
 The runtime handles
 
-• Routing
+• Bulk sending
 
-• Queues
+• Campaign execution
 
-• Retry
+• Operator retry
 
 • Monitoring
 
@@ -326,17 +322,15 @@ Grid
 
 Cards
 
-Multi Provider
+Provider Setup
 
-Queue Engine
+Campaign Execution
 
-Retry Engine
+Operator Retry
 
 Bulk Messaging
 
-Delivery Analytics
-
-Automation & Webhooks
+Delivery Dashboard
 
 ---
 
@@ -377,7 +371,7 @@ Runtime Settings
 
 Headline
 
-Switch Providers Without Changing Business Logic
+Campaigns Stay in RelayRuntime
 
 Diagram
 
@@ -389,21 +383,13 @@ RelayRuntime
 
 ↓
 
-Meta
-
 Green API
 
-Evolution
-
-Twilio
-
-UltraMsg
-
-Gupshup
+Mock Provider
 
 Description
 
-RelayRuntime isolates business workflows from provider implementations.
+One active provider per company. Additional adapters are registered and are not available for live sending in this release.
 
 ---
 
@@ -431,13 +417,19 @@ One sentence description
 
 ---
 
-# 15. Supported Providers
+# 15. Providers
 
-Logo Grid
-
-Meta Cloud API
+Live sending
 
 Green API
+
+Test mode
+
+Mock Provider
+
+Registered adapters — not available for live sending
+
+Meta Cloud API
 
 Evolution API
 
@@ -447,11 +439,11 @@ Twilio
 
 Gupshup
 
-Custom Provider
+Custom
 
 Caption
 
-Provider independence by design.
+One active provider per company. Green API sends live messages. Mock Provider simulates sends for testing.
 
 ---
 
@@ -463,13 +455,13 @@ Deploy In Minutes
 
 Cards
 
-Docker Ready
+Odoo Addon — installs as an Odoo 19 Community addon on your existing Odoo host
 
 Odoo Community Ready
 
 Odoo 19 Ready
 
-Production Ready
+Attended Campaigns — attended campaign execution, delivery totals, and operator retry for Green API
 
 VPS Ready
 
@@ -489,11 +481,23 @@ Does it support Meta Cloud API?
 
 Can I use multiple providers?
 
-How does Queue Engine work?
+How does campaign execution work?
 
 How are failed messages retried?
 
-Is it production ready?
+What is it ready for?
+
+Required answers
+
+Meta Cloud API, Evolution API, UltraMsg, Twilio, Gupshup, and Custom are registered adapters and are not available for live sending.
+
+One active provider per company. Simultaneous live multi-provider sending is not available.
+
+Campaign execution runs in the operator's request. This release does not include a background queue.
+
+Retry Failed Recipients sends immediately from a finished campaign. Retry does not run in the background.
+
+Ready for attended Green API campaigns on Odoo 19 Community.
 
 ---
 
@@ -621,7 +625,7 @@ RelayRuntime | Enterprise Messaging Runtime for Odoo Community
 
 Meta Description
 
-RelayRuntime transforms Odoo Community into a production-ready enterprise messaging platform with provider abstraction, queue management, retry engine, delivery monitoring, and operational analytics.
+RelayRuntime brings WhatsApp campaigns to Odoo Community: bulk sending, campaign history, a delivery dashboard, and operator retry. Live sending uses Green API. Mock Provider is included for demos.
 
 Keywords
 
@@ -633,9 +637,9 @@ WhatsApp Integration
 
 Provider Abstraction
 
-Queue Engine
+Campaign Execution
 
-Retry Engine
+Operator Retry
 
 RelayRuntime
 
